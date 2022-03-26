@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Superest</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcomeMessage">Welcome \n to our store</string>
+    <string name="welcomeSecondMessage">Get your groceries in as fast as one hour</string>
+    <string name="get_started">Get started</string>
+
 </resources>

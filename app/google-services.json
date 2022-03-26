@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "56494895032",
+    "project_id": "superest-fa4b8",
+    "storage_bucket": "superest-fa4b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56494895032:android:575f1cbe041085bc0fe94d",
+        "android_client_info": {
+          "package_name": "com.mhmdawad.superest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56494895032-fkl9il0cea0mp7bj359l4pn9dptolkrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu7Ug-KxCfwQ7bD6H4vY9UIH-VV_8h6ZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56494895032-fkl9il0cea0mp7bj359l4pn9dptolkrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
