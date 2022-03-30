@@ -65,7 +65,6 @@ class PhoneNumberAuthFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.backButton.setOnClickListener { closeFragment() }
         observeListener()
-
     }
 
     private fun observeListener() {
@@ -115,14 +114,17 @@ class PhoneNumberAuthFragment : Fragment() {
             when (it) {
                 // When had an error with automatically login app will push an error message.
                 is UserAuthState.Error -> {
+                    loadingDialog.hide()
                     showToast(it.error)
                 }
                 /* Here we will login with credential and we observe when login to open MainFragment if user has already an account
                    or open createUserFragment to add user info in app .
                 */
                 is UserAuthState.Success -> {
+                    loadingDialog.hide()
                     navigateToMainFragment()
                 }
+                is UserAuthState.Loading-> loadingDialog.show()
             }
         })
 
@@ -146,8 +148,7 @@ class PhoneNumberAuthFragment : Fragment() {
             }
             else -> {
                 /* Check this is the first verification sent from this mobile and not a second one by check if firebase timeout
-                    has finished .
-                 */
+                   has finished . */
                 validPhoneNumber = "+$countryCode$phoneNumber"
                 if (verificationTimeOut == 0L || verificationTimeOut < System.currentTimeMillis()) {
                     sendFirstSMSVerification(validPhoneNumber)
@@ -182,9 +183,8 @@ class PhoneNumberAuthFragment : Fragment() {
         val verificationModel =
             PhoneVerificationModel(verificationId, verificationToken, validPhoneNumber)
         val action =
-            PhoneNumberAuthFragmentDirections.actionPhoneNumberAuthFragmentToCheckCodeAuthFragment(
-                verificationModel
-            )
+            PhoneNumberAuthFragmentDirections.
+            actionPhoneNumberAuthFragmentToCheckCodeAuthFragment(verificationModel)
         findNavController().navigate(action)
     }
 

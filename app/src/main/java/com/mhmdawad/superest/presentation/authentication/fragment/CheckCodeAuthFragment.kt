@@ -31,13 +31,9 @@ import javax.inject.Named
 class CheckCodeAuthFragment : Fragment() {
 
     private val args by navArgs<CheckCodeAuthFragmentArgs>()
-
     private val authViewModel by activityViewModels<AuthenticationViewModel>()
-
     private lateinit var binding: FragmentCheckPhoneNumberAuthBinding
-
     private var isResendTextViewEnabled = false
-
     private val verificationModel by lazy { args.verificationModel }
 
     @Inject
@@ -72,12 +68,11 @@ class CheckCodeAuthFragment : Fragment() {
     }
 
     private fun startMinuteCountDown() {
-        object : CountDownTimer(60000, 1000) {
+        object : CountDownTimer(COUNT_DOWN_DELAY, COUNT_DOWN_INTERVAL) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.resendTimerTextView.text =
                     getString(R.string.countDown, (millisUntilFinished / 1000))
             }
-
             override fun onFinish() {
                 changeResendTextViewsStyle(false)
             }
@@ -154,7 +149,12 @@ class CheckCodeAuthFragment : Fragment() {
         resendVerificationCode()
     }
 
-    // TODO refactor into dagger hilt
+    /*
+      TODO 2: refactor all pushed code
+      TODO 3: create google auth
+      TODO 4: create fb auth
+     */
+
     private fun resendVerificationCode() {
         val options = PhoneAuthOptions.newBuilder(firebaseAuth)
             .setPhoneNumber(verificationModel.phoneNumber)
