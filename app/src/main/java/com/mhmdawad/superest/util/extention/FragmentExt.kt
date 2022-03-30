@@ -84,23 +84,23 @@ fun Fragment.isServicesOK(): Boolean {
     return false
 }
 
-fun Fragment.isMapsEnabled(launcher: ActivityResultLauncher<Intent>): Boolean {
+fun Fragment.isMapsEnabled(): Boolean {
     val manager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
     if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-        buildAlertMessageNoGps(launcher)
+        buildAlertMessageNoGps()
         return false
     }
     return true
 }
 
-fun Fragment.buildAlertMessageNoGps(launcher: ActivityResultLauncher<Intent>) {
+fun Fragment.buildAlertMessageNoGps() {
     val builder = AlertDialog.Builder(requireContext())
     builder.setMessage(getString(R.string.enableGPS))
         .setIcon(R.drawable.location)
         .setCancelable(false)
         .setPositiveButton(getString(R.string.enable)) { _, _ ->
             val enableGpsIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-            launcher.launch(enableGpsIntent)
+            startActivity(enableGpsIntent)
         }
     val alert: AlertDialog = builder.create()
     alert.show()

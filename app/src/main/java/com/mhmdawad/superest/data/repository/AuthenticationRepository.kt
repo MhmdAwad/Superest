@@ -13,6 +13,7 @@ import com.mhmdawad.superest.R
 import com.mhmdawad.superest.model.UserInfoModel
 import com.mhmdawad.superest.model.toMap
 import com.mhmdawad.superest.util.*
+import com.mhmdawad.superest.util.helper.SharedPreferenceHelper
 import com.mhmdawad.superest.util.state.MainAuthState
 import com.mhmdawad.superest.util.state.UserAuthState
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -46,7 +47,6 @@ constructor(
             UserAuthState.Error(context.getString(R.string.errorMessage))
         }
     }
-
 
     fun phoneAuthCallBack(_phoneMainAuthLiveData: MutableLiveData<MainAuthState>): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
         return object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {

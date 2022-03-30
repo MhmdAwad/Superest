@@ -1,4 +1,4 @@
-package com.mhmdawad.superest.util
+package com.mhmdawad.superest.util.helper
 
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptor

@@ -1,6 +1,7 @@
-package com.mhmdawad.superest.util
+package com.mhmdawad.superest.util.helper
 
 import android.content.SharedPreferences
+import com.mhmdawad.superest.util.FIRST_LOGGED_IN_APP
 import javax.inject.Inject
 
 class SharedPreferenceHelper

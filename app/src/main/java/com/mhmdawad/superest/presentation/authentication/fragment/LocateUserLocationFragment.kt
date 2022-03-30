@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,12 +21,12 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentLocateUserLocationBinding
 import com.mhmdawad.superest.presentation.authentication.AuthenticationViewModel
 import com.mhmdawad.superest.util.*
 import com.mhmdawad.superest.util.extention.*
+import com.mhmdawad.superest.util.helper.GoogleMapMarkerHelper
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
@@ -43,16 +42,12 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
     private val authViewModel by activityViewModels<AuthenticationViewModel>()
     private var mGoogleMap: GoogleMap? = null
     private val googleMapHelper by lazy { GoogleMapMarkerHelper() }
+    private var locationLatLng = LatLng(BASE_LATITUDE, BASE_LONGITUDE)
     private val fusedLocationProviderClient by lazy {
         LocationServices.getFusedLocationProviderClient(
             requireContext()
         )
     }
-    private var locationLatLng = LatLng(
-        BASE_LATITUDE,
-        BASE_LONGITUDE
-    )
-
 
     @Inject
     @Named(PERMISSION_ANNOTATION)
@@ -99,7 +94,7 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
 
     private fun checkMapServices(): Boolean {
         if (isServicesOK()) {
-            if (isMapsEnabled(resultLauncher))
+            if (isMapsEnabled())
                 return true
         }
         return false
@@ -107,12 +102,7 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
 
     private fun getLocationPermission() {
         // Request location permission, so that we can get the location of the device.
-        if (ContextCompat.checkSelfPermission(
-                requireContext().applicationContext,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (checkLocationPermissions()) {
             mLocationPermissionGranted = true
             mapView.getMapAsync(this)
         } else {
@@ -120,6 +110,7 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
         }
     }
 
+    // handle user permission interaction
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
@@ -155,32 +146,27 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
             }
         }
 
-
-    private val resultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (!mLocationPermissionGranted) {
-                getLocationPermission()
-            }
-        }
+    private fun checkLocationPermissions(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
 
     override fun onMapReady(map: GoogleMap) {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            getLocationPermission()
+        if (checkLocationPermissions()) {
+            // Move to user location in mapView.
+            mGoogleMap = map
+            map.setOnCameraIdleListener(this)
+            map.setOnCameraMoveListener(this)
+            moveToDeviceLocation()
+            binding.getDeviceLocation.showWithAnimate(R.anim.slide_down)
             return
         }
-        // Move to user location in mapView.
-        mGoogleMap = map
-        map.setOnCameraIdleListener(this)
-        map.setOnCameraMoveListener(this)
-        moveToDeviceLocation()
-        binding.getDeviceLocation.showWithAnimate(R.anim.slide_down)
+        getLocationPermission()
     }
 
 
@@ -222,6 +208,21 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
         }
     }
 
+    override fun onCameraIdle() {
+        locationLatLng = mGoogleMap?.cameraPosition?.target!!
+        googleMapHelper.addNewLocationMarker(
+            bitmapDescriptorFromVector(R.drawable.ic_baseline_location_on_24),
+            mGoogleMap
+        )
+    }
+
+    override fun onCameraMove() {
+        googleMapHelper.addNewLocationMarker(
+            bitmapDescriptorFromVector(R.drawable.ic_baseline_point),
+            mGoogleMap
+        )
+    }
+
     override fun onPause() {
         super.onPause()
         mapView.onPause()
@@ -240,21 +241,6 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
-    }
-
-    override fun onCameraIdle() {
-        locationLatLng = mGoogleMap?.cameraPosition?.target!!
-        googleMapHelper.addNewLocationMarker(
-            bitmapDescriptorFromVector(R.drawable.ic_baseline_location_on_24),
-            mGoogleMap
-        )
-    }
-
-    override fun onCameraMove() {
-        googleMapHelper.addNewLocationMarker(
-            bitmapDescriptorFromVector(R.drawable.ic_baseline_point),
-            mGoogleMap
-        )
     }
 
 }

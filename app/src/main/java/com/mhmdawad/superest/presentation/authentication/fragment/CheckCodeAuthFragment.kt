@@ -150,7 +150,6 @@ class CheckCodeAuthFragment : Fragment() {
     }
 
     /*
-      TODO 2: refactor all pushed code
       TODO 3: create google auth
       TODO 4: create fb auth
      */
