@@ -7,6 +7,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:defaultNavHost="true"
-    android:background="@color/green"
     android:fitsSystemWindows="true"
     app:navGraph="@navigation/nav_graph"/>

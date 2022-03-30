@@ -2,8 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mhmdawad.superest">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
-        android:name=".MainApplication"
+        android:name=".util.MainApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Superest">
         <activity
-            android:name="com.mhmdawad.superest.ui.SplashActivity"
+            android:name="com.mhmdawad.superest.presentation.SplashActivity"
             android:theme="@style/SplashTheme"
             android:exported="true" >
             <intent-filter>
@@ -21,8 +27,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mhmdawad.superest.ui.MainActivity"
+            android:name="com.mhmdawad.superest.presentation.MainActivity"
             android:exported="true"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_api_key" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>

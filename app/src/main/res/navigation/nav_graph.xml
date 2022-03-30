@@ -7,12 +7,111 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.mhmdawad.superest.ui.fragment.MainFragment"
+        android:name="com.mhmdawad.superest.presentation.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_createUserInfoFragment"
+            app:destination="@id/createUserInfoFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom" />
+    </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.mhmdawad.superest.ui.fragment.WelcomeFragment"
+        android:name="com.mhmdawad.superest.presentation.WelcomeFragment"
         android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" />
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_welcomeFragment_to_authFragment"
+            app:destination="@id/authenticationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.fragment.AuthFragment"
+        android:label="AuthenticationFragment"
+        tools:layout="@layout/fragment_authentication">
+        <action
+            android:id="@+id/action_authFragment_to_phoneNumberAuthFragment"
+            app:destination="@id/phoneNumberAuthenticationFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom" />
+    </fragment>
+    <fragment
+        android:id="@+id/phoneNumberAuthenticationFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.fragment.PhoneNumberAuthFragment"
+        android:label="PhoneNumberAuthenticationFragment"
+        tools:layout="@layout/fragment_phone_number_authentication">
+        <action
+            android:id="@+id/action_phoneNumberAuthFragment_to_checkCodeAuthFragment"
+            app:destination="@id/checkPhoneNumberAuthFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_phoneNumberAuthenticationFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/checkPhoneNumberAuthFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.fragment.CheckCodeAuthFragment"
+        android:label="fragment_check_phone_number_auth"
+        tools:layout="@layout/fragment_check_phone_number_auth">
+
+        <argument
+            android:name="verificationModel"
+            app:argType="com.mhmdawad.superest.model.PhoneVerificationModel"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_checkPhoneNumberAuthFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/createUserInfoFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.fragment.CreateUserInfoFragment"
+        android:label="fragment_create_user_info"
+        tools:layout="@layout/fragment_create_user_info" >
+        <action
+            android:id="@+id/action_createUserInfoFragment_to_locateUserLocationFragment"
+            app:destination="@id/locateUserLocationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/locateUserLocationFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.fragment.LocateUserLocationFragment"
+        android:label="fragment_locate_user_location"
+        tools:layout="@layout/fragment_locate_user_location" />
 </navigation>

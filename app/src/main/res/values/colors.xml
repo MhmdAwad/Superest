@@ -6,7 +6,10 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#2B2B2B</color>
+    <color name="filledBlack">#000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="offWhite">#BACFCACA</color>
     <color name="green">#53B175</color>
+    <color name="googleColor">#5383EC</color>
+    <color name="facebookColor">#4A66AC</color>
 </resources>

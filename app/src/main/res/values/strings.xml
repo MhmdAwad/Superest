@@ -1,9 +1,43 @@
 <resources>
     <string name="app_name">Superest</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcomeMessage">Welcome \n to our store</string>
     <string name="welcomeSecondMessage">Get your groceries in as fast as one hour</string>
     <string name="get_started">Get started</string>
-
+    <string name="authPageMessage">Get your groceries \n with superest</string>
+    <string name="connect_with_social_media">Or connect with social media</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
+    <string name="enter_your_mobile_number">Enter your mobile number</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="please_add_your_phone_number_to_continue">Please add your phone number to continue</string>
+    <string name="please_add_a_valid_phone_number">Please add a valid phone number</string>
+    <string name="please_check_internet_connection">Please check internet connection</string>
+    <string name="errorMessage">An error occurred, Please try again later</string>
+    <string name="verification_code_was_invalid">The verification code entered was invalid</string>
+    <string name="enter_your_6_digit_code">Enter your 6-digit code</string>
+    <string name="code">Code</string>
+    <string name="code_hint">- - - - - -</string>
+    <string name="type_verification_code_first">Please type verification code first.</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="countDown">00:%1$02d</string>
+    <string name="add_your_name_here">Add your name here.</string>
+    <string name="select_your_location">Select your location</string>
+    <string name="submit">submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_location">confirm location</string>
+    <string name="google_maps_api_key">AIzaSyC6t-QwrVTSmQZeQuj05bvY_AWhIDQ3Mfw</string>
+    <string name="add_info_first">Please add your information first!</string>
+    <string name="location_permission_attention">Attention! Some features can\'t work normally without location permission</string>
+    <string name="go_to_settings">Go to settings</string>
+    <string name="noMapService">No Map Services!</string>
+    <string name="enableGPS">This application requires GPS to work properly, do you want to enable it?</string>
+    <string name="cannotMakeGPSRequest">You can\'t make map requests</string>
+    <string name="enable">Enable</string>
+    <string name="marker">Marker</string>
+    <string name="get_my_location">Locate Me</string>
+    <string name="addUserName">Please add your name first!</string>
+    <string name="addUserImage">Please add an  image to your account!</string>
+    <string name="addUserLocation">Please add your location first!</string>
+    <string name="errorCreateAccount">An error occurred when trying to create account, please check your internet connection and try again.</string>
 </resources>
