@@ -1,4 +1,4 @@
-package com.mhmdawad.superest.presentation.authentication.fragment
+package com.mhmdawad.superest.presentation.authentication.phone_auth
 
 import android.app.Dialog
 import android.os.Bundle
@@ -17,7 +17,6 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentCheckPhoneNumberAuthBinding
-import com.mhmdawad.superest.presentation.authentication.AuthenticationViewModel
 import com.mhmdawad.superest.util.*
 import com.mhmdawad.superest.util.extention.*
 import com.mhmdawad.superest.util.state.UserAuthState
@@ -31,7 +30,7 @@ import javax.inject.Named
 class CheckCodeAuthFragment : Fragment() {
 
     private val args by navArgs<CheckCodeAuthFragmentArgs>()
-    private val authViewModel by activityViewModels<AuthenticationViewModel>()
+    private val authViewModel by activityViewModels<PhoneAuthViewModel>()
     private lateinit var binding: FragmentCheckPhoneNumberAuthBinding
     private var isResendTextViewEnabled = false
     private val verificationModel by lazy { args.verificationModel }

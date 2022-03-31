@@ -5,12 +5,12 @@
     <data>
         <variable
             name="fragment"
-            type="com.mhmdawad.superest.presentation.authentication.fragment.LocateUserLocationFragment" />
+            type="com.mhmdawad.superest.presentation.authentication.phone_auth.LocateUserLocationFragment" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.authentication.fragment.LocateUserLocationFragment">
+    tools:context=".presentation.authentication.phone_auth.LocateUserLocationFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"

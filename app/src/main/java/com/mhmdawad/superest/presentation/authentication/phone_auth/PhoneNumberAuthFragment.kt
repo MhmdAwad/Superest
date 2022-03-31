@@ -1,4 +1,4 @@
-package com.mhmdawad.superest.presentation.authentication.fragment
+package com.mhmdawad.superest.presentation.authentication.phone_auth
 
 import android.app.Dialog
 import android.os.Bundle
@@ -16,7 +16,6 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentPhoneNumberAuthenticationBinding
 import com.mhmdawad.superest.model.PhoneVerificationModel
-import com.mhmdawad.superest.presentation.authentication.AuthenticationViewModel
 import com.mhmdawad.superest.util.*
 import com.mhmdawad.superest.util.extention.closeFragment
 import com.mhmdawad.superest.util.extention.handleKeyBoardApparition
@@ -41,7 +40,7 @@ class PhoneNumberAuthFragment : Fragment() {
     @Named(LOADING_ANNOTATION)
     lateinit var loadingDialog: Dialog
 
-    private val authViewModel by activityViewModels<AuthenticationViewModel>()
+    private val authViewModel by activityViewModels<PhoneAuthViewModel>()
 
     private var verificationId: String? = null
     private var verificationToken: PhoneAuthProvider.ForceResendingToken? = null

@@ -1,4 +1,4 @@
-package com.mhmdawad.superest.presentation.authentication.fragment
+package com.mhmdawad.superest.presentation.authentication
 
 import android.app.Dialog
 import android.content.Intent
@@ -15,7 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentCreateUserInfoBinding
-import com.mhmdawad.superest.presentation.authentication.AuthenticationViewModel
+import com.mhmdawad.superest.presentation.authentication.phone_auth.PhoneAuthViewModel
 import com.mhmdawad.superest.util.LOADING_ANNOTATION
 import com.mhmdawad.superest.util.extention.closeFragment
 import com.mhmdawad.superest.util.extention.showToast
@@ -30,7 +30,7 @@ class CreateUserInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateUserInfoBinding
 
-    private val authViewModel by activityViewModels<AuthenticationViewModel>()
+    private val authViewModel by activityViewModels<PhoneAuthViewModel>()
 
     private var mImageUri: Uri? = null
 
@@ -75,6 +75,7 @@ class CreateUserInfoFragment : Fragment() {
             when (info) {
                 is UserAuthState.Success -> {
                     loadingDialog.hide()
+                    showToast(getString(R.string.accountCreatedSuccessfully))
                     closeFragment()
                 }
                 is UserAuthState.Error -> {

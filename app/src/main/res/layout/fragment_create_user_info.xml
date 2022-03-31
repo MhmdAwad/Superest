@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="fragment"
-            type="com.mhmdawad.superest.presentation.authentication.fragment.CreateUserInfoFragment" />
+            type="com.mhmdawad.superest.presentation.authentication.CreateUserInfoFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.authentication.fragment.CreateUserInfoFragment">
+        tools:context=".presentation.authentication.CreateUserInfoFragment">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -42,10 +41,9 @@
             android:id="@+id/addNewUserProfileImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginBottom="@dimen/_8sdp"
-            android:background="@color/white"
-            android:src="@drawable/ic_baseline_add_circle_24"
+            android:src="@drawable/ic_add"
             app:layout_constraintBottom_toBottomOf="@+id/userProfileImage"
             app:layout_constraintEnd_toEndOf="@+id/userProfileImage" />
 

@@ -7,13 +7,13 @@
 
         <variable
             name="fragment"
-            type="com.mhmdawad.superest.presentation.authentication.fragment.CheckCodeAuthFragment" />
+            type="com.mhmdawad.superest.presentation.authentication.phone_auth.CheckCodeAuthFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.authentication.fragment.CheckCodeAuthFragment">
+        tools:context=".presentation.authentication.phone_auth.CheckCodeAuthFragment">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"

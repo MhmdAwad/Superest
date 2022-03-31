@@ -3,7 +3,9 @@ package com.mhmdawad.superest.data.repository
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.FirebaseException
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
@@ -18,6 +20,7 @@ import com.mhmdawad.superest.util.state.MainAuthState
 import com.mhmdawad.superest.util.state.UserAuthState
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -37,15 +40,6 @@ constructor(
     fun checkIfUserLoggedIn(): Boolean {
         val user = firebaseAuth.currentUser
         return user != null
-    }
-
-    suspend fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential): UserAuthState {
-        return try {
-            firebaseAuth.signInWithCredential(credential).await()
-            UserAuthState.Success
-        } catch (e: Exception) {
-            UserAuthState.Error(context.getString(R.string.errorMessage))
-        }
     }
 
     fun phoneAuthCallBack(_phoneMainAuthLiveData: MutableLiveData<MainAuthState>): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
@@ -92,6 +86,15 @@ constructor(
             firebaseStorage.reference.child("${USERS_COLLECTION}/${System.currentTimeMillis()}.jpg")
                 .putFile(imageUri).await()
         return uploadingResult.metadata?.reference?.downloadUrl?.await().toString()
+    }
+
+    suspend fun signInWithCredential(credential: AuthCredential): UserAuthState {
+        return try {
+            firebaseAuth.signInWithCredential(credential).await()
+            UserAuthState.Success
+        } catch (e: Exception) {
+            UserAuthState.Error(context.getString(R.string.errorMessage))
+        }
     }
 
 }

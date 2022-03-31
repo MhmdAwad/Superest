@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/authenticationFragment"
-        android:name="com.mhmdawad.superest.presentation.authentication.fragment.AuthFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.AuthFragment"
         android:label="AuthenticationFragment"
         tools:layout="@layout/fragment_authentication">
         <action
@@ -54,10 +54,24 @@
             app:exitAnim="@anim/slide_out_top"
             app:popEnterAnim="@anim/slide_in_top"
             app:popExitAnim="@anim/slide_out_bottom" />
+        <action
+            android:id="@+id/action_authenticationFragment_to_facebookAuthFragment"
+            app:destination="@id/facebookAuthFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom"/>
+        <action
+            android:id="@+id/action_authenticationFragment_to_googleAuthFragment"
+            app:destination="@id/googleAuthFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom"/>
     </fragment>
     <fragment
         android:id="@+id/phoneNumberAuthenticationFragment"
-        android:name="com.mhmdawad.superest.presentation.authentication.fragment.PhoneNumberAuthFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.phone_auth.PhoneNumberAuthFragment"
         android:label="PhoneNumberAuthenticationFragment"
         tools:layout="@layout/fragment_phone_number_authentication">
         <action
@@ -77,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/checkPhoneNumberAuthFragment"
-        android:name="com.mhmdawad.superest.presentation.authentication.fragment.CheckCodeAuthFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.phone_auth.CheckCodeAuthFragment"
         android:label="fragment_check_phone_number_auth"
         tools:layout="@layout/fragment_check_phone_number_auth">
 
@@ -98,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/createUserInfoFragment"
-        android:name="com.mhmdawad.superest.presentation.authentication.fragment.CreateUserInfoFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.CreateUserInfoFragment"
         android:label="fragment_create_user_info"
         tools:layout="@layout/fragment_create_user_info" >
         <action
@@ -111,7 +125,33 @@
     </fragment>
     <fragment
         android:id="@+id/locateUserLocationFragment"
-        android:name="com.mhmdawad.superest.presentation.authentication.fragment.LocateUserLocationFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.phone_auth.LocateUserLocationFragment"
         android:label="fragment_locate_user_location"
         tools:layout="@layout/fragment_locate_user_location" />
+    <fragment
+        android:id="@+id/googleAuthFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.google_auth.GoogleAuthFragment"
+        android:label="GoogleAuthFragment"
+        tools:layout="@layout/fragment_google_auth">
+        <action
+            android:id="@+id/action_googleAuthFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/facebookAuthFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.facebook_auth.FacebookAuthFragment"
+        android:label="FacebookAuthFragment"
+        tools:layout="@layout/fragment_facebook_auth">
+        <action
+            android:id="@+id/action_facebookAuthFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 </navigation>

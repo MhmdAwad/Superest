@@ -1,4 +1,4 @@
-package com.mhmdawad.superest.presentation.authentication.fragment
+package com.mhmdawad.superest.presentation.authentication.phone_auth
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -23,7 +23,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentLocateUserLocationBinding
-import com.mhmdawad.superest.presentation.authentication.AuthenticationViewModel
 import com.mhmdawad.superest.util.*
 import com.mhmdawad.superest.util.extention.*
 import com.mhmdawad.superest.util.helper.GoogleMapMarkerHelper
@@ -39,7 +38,7 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
     private lateinit var mapView: MapView
     private lateinit var binding: FragmentLocateUserLocationBinding
     private var mLocationPermissionGranted: Boolean = false
-    private val authViewModel by activityViewModels<AuthenticationViewModel>()
+    private val authViewModel by activityViewModels<PhoneAuthViewModel>()
     private var mGoogleMap: GoogleMap? = null
     private val googleMapHelper by lazy { GoogleMapMarkerHelper() }
     private var locationLatLng = LatLng(BASE_LATITUDE, BASE_LONGITUDE)

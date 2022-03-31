@@ -35,4 +35,6 @@
     <string name="addUserImage">Please add an  image to your account!</string>
     <string name="addUserLocation">Please add your location first!</string>
     <string name="errorCreateAccount">An error occurred when trying to create account, please check your internet connection and try again.</string>
+    <string name="accountCreatedSuccessfully">Account created successfully.</string>
+    <string name="webClientId">CLIENT ID</string>
 </resources>

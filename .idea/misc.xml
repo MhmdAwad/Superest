@@ -8,6 +8,7 @@
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/background.xml" value="0.22685185185185186" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/bg_gradient.xml" value="0.24537037037037038" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/button_style.xml" value="0.22685185185185186" />
+        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_add.xml" value="0.2462962962962963" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.24537037037037038" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.2638888888888889" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_arrow_back.xml" value="0.2671794871794872" />
@@ -28,7 +29,9 @@
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/explain_permission_dialog_layout.xml" value="0.223731884057971" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_authentication.xml" value="0.22916666666666666" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_check_phone_number_auth.xml" value="0.22916666666666666" />
-        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_create_user_info.xml" value="0.22" />
+        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_create_user_info.xml" value="0.25" />
+        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_facebook_auth.xml" value="0.20018115942028986" />
+        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_google_auth.xml" value="0.18" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_locate_user_location.xml" value="0.2" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_main.xml" value="0.128125" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_phone_number_authentication.xml" value="0.22916666666666666" />

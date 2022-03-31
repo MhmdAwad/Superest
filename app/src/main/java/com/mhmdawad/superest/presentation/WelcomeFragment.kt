@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentWelcomeBinding
-import com.mhmdawad.superest.presentation.authentication.AuthenticationViewModel
+import com.mhmdawad.superest.presentation.authentication.phone_auth.PhoneAuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -19,7 +19,7 @@ class WelcomeFragment : Fragment() {
 
     private lateinit var binding: FragmentWelcomeBinding
 
-    private val authViewModel: AuthenticationViewModel by activityViewModels()
+    private val authViewModel: PhoneAuthViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

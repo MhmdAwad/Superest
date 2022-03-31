@@ -1,4 +1,4 @@
-package com.mhmdawad.superest.presentation.authentication
+package com.mhmdawad.superest.presentation.authentication.phone_auth
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthenticationViewModel
+class PhoneAuthViewModel
 @Inject
 constructor(
     private val authenticationRepository: AuthenticationRepository
@@ -48,12 +48,11 @@ constructor(
         _signInStatusLiveData.value = UserAuthState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             _signInStatusLiveData.postValue(
-                authenticationRepository.signInWithPhoneAuthCredential(
+                authenticationRepository.signInWithCredential(
                     credential
                 )
             )
         }
-
     }
 
     fun phoneAuthCallBack() = authenticationRepository.phoneAuthCallBack(_phoneAuthLiveData)

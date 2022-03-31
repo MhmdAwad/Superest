@@ -7,13 +7,13 @@
 
         <variable
             name="fragment"
-            type="com.mhmdawad.superest.presentation.authentication.fragment.AuthFragment" />
+            type="com.mhmdawad.superest.presentation.authentication.AuthFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.authentication.fragment.AuthFragment">
+        tools:context=".presentation.authentication.AuthFragment">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_16sdp"
-            android:onClick="@{()-> fragment.openPhoneNumberAuthenticationFragment()}"
+            android:onClick="@{()-> fragment.navigateToPhoneAuthFragment()}"
             app:ccp_autoDetectCountry="true"
             app:ccp_showNameCode="false"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,11 +77,13 @@
             <include
                 android:id="@+id/authGoogleLayout"
                 layout="@layout/auth_google_button"
+                android:onClick="@{()-> fragment.navigateToGoogleAuthFragment()}"
                 android:foreground="?android:attr/selectableItemBackground" />
 
             <include
                 android:id="@+id/authFacebookLayout"
                 layout="@layout/auth_facebook_button"
+                android:onClick="@{()-> fragment.navigateToFacebookAuthFragment()}"
                 android:foreground="?android:attr/selectableItemBackground" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

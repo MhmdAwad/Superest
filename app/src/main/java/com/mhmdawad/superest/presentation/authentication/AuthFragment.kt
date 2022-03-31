@@ -1,4 +1,4 @@
-package com.mhmdawad.superest.presentation.authentication.fragment
+package com.mhmdawad.superest.presentation.authentication
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,8 +27,18 @@ class AuthFragment : Fragment() {
         return binding.root
     }
 
-    fun openPhoneNumberAuthenticationFragment(){
+    fun navigateToPhoneAuthFragment() {
         val action = AuthFragmentDirections.actionAuthFragmentToPhoneNumberAuthFragment()
+        findNavController().navigate(action)
+    }
+
+    fun navigateToGoogleAuthFragment() {
+        val action = AuthFragmentDirections.actionAuthenticationFragmentToGoogleAuthFragment()
+        findNavController().navigate(action)
+    }
+
+    fun navigateToFacebookAuthFragment() {
+        val action = AuthFragmentDirections.actionAuthenticationFragmentToFacebookAuthFragment()
         findNavController().navigate(action)
     }
 
