@@ -19,6 +19,14 @@
 
     </style>
 
+    <style name="textTheme">
+        <item name="android:textSize">@dimen/_14sdp</item>
+        <item name="android:textColor">@color/filledBlack</item>
+    </style>
+
+    <style name="bigTextTheme" parent="textTheme">
+        <item name="android:textSize">@dimen/_17sdp</item>
+    </style>
     <style name="buttonTheme">
         <item name="android:layout_marginStart">@dimen/_16sdp</item>
         <item name="android:layout_marginEnd">@dimen/_16sdp</item>

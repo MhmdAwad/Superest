@@ -71,19 +71,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/connect_with_social_media"
+                android:text="@string/orConnectWithGoogle"
                 android:textStyle="bold" />
 
             <include
                 android:id="@+id/authGoogleLayout"
                 layout="@layout/auth_google_button"
                 android:onClick="@{()-> fragment.navigateToGoogleAuthFragment()}"
-                android:foreground="?android:attr/selectableItemBackground" />
-
-            <include
-                android:id="@+id/authFacebookLayout"
-                layout="@layout/auth_facebook_button"
-                android:onClick="@{()-> fragment.navigateToFacebookAuthFragment()}"
                 android:foreground="?android:attr/selectableItemBackground" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

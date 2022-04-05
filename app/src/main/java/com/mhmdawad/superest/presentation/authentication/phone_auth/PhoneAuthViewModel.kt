@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.PhoneAuthCredential
 import com.mhmdawad.superest.data.repository.AuthenticationRepository
+import com.mhmdawad.superest.util.Resource
 import com.mhmdawad.superest.util.state.MainAuthState
-import com.mhmdawad.superest.util.state.UserAuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,11 +28,11 @@ constructor(
         _phoneAuthLiveData.value = mainAuthState
     }
 
-    private val _signInStatusLiveData = MutableLiveData<UserAuthState>()
-    val signInStatusLiveData: LiveData<UserAuthState> get() = _signInStatusLiveData
+    private val _signInStatusLiveData = MutableLiveData<Resource<Unit?>>()
+    val signInStatusLiveData: LiveData<Resource<Unit?>> get() = _signInStatusLiveData
 
-    private val _userInfoLiveData = MutableLiveData<UserAuthState>()
-    val userInfoLiveData: LiveData<UserAuthState> get() = _userInfoLiveData
+    private val _userInfoLiveData = MutableLiveData<Resource<Unit?>>()
+    val userInfoLiveData: LiveData<Resource<Unit?>> get() = _userInfoLiveData
 
     private val _userLocationLiveData = MutableLiveData<String?>(null)
     val userLocationLiveData: LiveData<String?> = _userLocationLiveData
@@ -45,7 +45,7 @@ constructor(
     fun checkIfUserLoggedIn(): Boolean = authenticationRepository.checkIfUserLoggedIn()
 
     fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        _signInStatusLiveData.value = UserAuthState.Loading
+        _signInStatusLiveData.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO) {
             _signInStatusLiveData.postValue(
                 authenticationRepository.signInWithCredential(
@@ -58,7 +58,7 @@ constructor(
     fun phoneAuthCallBack() = authenticationRepository.phoneAuthCallBack(_phoneAuthLiveData)
 
     fun uploadUserInformation(userName: String, imageUri: Uri, userLocation: String) {
-        _userInfoLiveData.value = UserAuthState.Loading
+        _userInfoLiveData.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO) {
             _userInfoLiveData.postValue(authenticationRepository.uploadUserInformation(userName, imageUri, userLocation))
         }

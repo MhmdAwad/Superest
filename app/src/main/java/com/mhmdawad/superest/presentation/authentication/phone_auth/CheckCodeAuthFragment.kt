@@ -19,7 +19,6 @@ import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentCheckPhoneNumberAuthBinding
 import com.mhmdawad.superest.util.*
 import com.mhmdawad.superest.util.extention.*
-import com.mhmdawad.superest.util.state.UserAuthState
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -104,18 +103,18 @@ class CheckCodeAuthFragment : Fragment() {
         authViewModel.signInStatusLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 // When had an error with automatically login app will push an error message.
-                is UserAuthState.Error -> {
+                is Resource.Error -> {
                     loadingDialog.hide()
-                    showToast(it.error)
+                    showToast(it.msg!!)
                 }
                 /* Here we will login with credential and we observe when login to open MainFragment if user has already an account
                    or open createUserFragment to add user info in app .
                 */
-                is UserAuthState.Success -> {
+                is Resource.Success -> {
                     loadingDialog.hide()
                     navigateToMainFragment()
                 }
-                is UserAuthState.Loading->{
+                is Resource.Loading->{
                     loadingDialog.show()
                 }
             }
@@ -148,10 +147,6 @@ class CheckCodeAuthFragment : Fragment() {
         resendVerificationCode()
     }
 
-    /*
-      TODO 3: create google auth
-      TODO 4: create fb auth
-     */
 
     private fun resendVerificationCode() {
         val options = PhoneAuthOptions.newBuilder(firebaseAuth)

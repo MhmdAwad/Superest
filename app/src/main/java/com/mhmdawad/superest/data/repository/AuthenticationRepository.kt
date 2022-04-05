@@ -3,7 +3,6 @@ package com.mhmdawad.superest.data.repository
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
@@ -17,10 +16,8 @@ import com.mhmdawad.superest.model.toMap
 import com.mhmdawad.superest.util.*
 import com.mhmdawad.superest.util.helper.SharedPreferenceHelper
 import com.mhmdawad.superest.util.state.MainAuthState
-import com.mhmdawad.superest.util.state.UserAuthState
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -67,7 +64,7 @@ constructor(
         userName: String,
         imageUri: Uri,
         userLocation: String
-    ): UserAuthState {
+    ): Resource<Unit?> {
         return try {
             val uploadedImagePath = uploadUserImage(imageUri)
             val firebaseUserCollection = firebaseFirestore.collection(USERS_COLLECTION)
@@ -75,9 +72,9 @@ constructor(
             val userInfoModel =
                 UserInfoModel(userDocumentId, userName, uploadedImagePath, userLocation)
             firebaseUserCollection.document(userDocumentId).set(userInfoModel.toMap()).await()
-            UserAuthState.Success
+            Resource.Success(null)
         } catch (e: Exception) {
-            UserAuthState.Error(context.getString(R.string.errorCreateAccount))
+            Resource.Error(context.getString(R.string.errorCreateAccount))
         }
     }
 
@@ -88,12 +85,12 @@ constructor(
         return uploadingResult.metadata?.reference?.downloadUrl?.await().toString()
     }
 
-    suspend fun signInWithCredential(credential: AuthCredential): UserAuthState {
+    suspend fun signInWithCredential(credential: AuthCredential): Resource<Unit?> {
         return try {
             firebaseAuth.signInWithCredential(credential).await()
-            UserAuthState.Success
+            Resource.Success(null)
         } catch (e: Exception) {
-            UserAuthState.Error(context.getString(R.string.errorMessage))
+            Resource.Error(context.getString(R.string.errorMessage))
         }
     }
 

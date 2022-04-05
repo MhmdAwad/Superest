@@ -17,9 +17,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentGoogleAuthBinding
 import com.mhmdawad.superest.util.LOADING_ANNOTATION
+import com.mhmdawad.superest.util.Resource
 import com.mhmdawad.superest.util.extention.closeFragment
 import com.mhmdawad.superest.util.extention.showToast
-import com.mhmdawad.superest.util.state.UserAuthState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
@@ -57,14 +57,14 @@ class GoogleAuthFragment : Fragment() {
     private fun observeListener() {
         googleAuthViewModel.googleAuthLiveData.observe(viewLifecycleOwner, {userState->
             when(userState){
-                is UserAuthState.Loading-> loadingDialog.show()
-                is UserAuthState.Success->{
+                is Resource.Loading-> loadingDialog.show()
+                is Resource.Success->{
                     navigateToMainFragment()
                     loadingDialog.hide()
                 }
-                is UserAuthState.Error->{
+                is Resource.Error->{
                     loadingDialog.hide()
-                    showToast(userState.error)
+                    showToast(userState.msg!!)
                     closeFragment()
                 }
             }

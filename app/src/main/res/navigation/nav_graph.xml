@@ -6,10 +6,10 @@
     app:startDestination="@id/welcomeFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.mhmdawad.superest.presentation.main.MainFragment"
+        android:id="@+id/shopFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.shop.ShopFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_shop" >
         <action
             android:id="@+id/action_mainFragment_to_createUserInfoFragment"
             app:destination="@id/createUserInfoFragment"
@@ -17,6 +17,16 @@
             app:exitAnim="@anim/slide_out_top"
             app:popEnterAnim="@anim/slide_in_top"
             app:popExitAnim="@anim/slide_out_bottom" />
+        <action
+            android:id="@+id/action_shopFragment_to_allProductsFragment"
+            app:destination="@id/allProductsFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom" />
+        <action
+            android:id="@+id/action_shopFragment_to_specificProductFragment"
+            app:destination="@id/specificProductFragment"/>
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
@@ -34,7 +44,7 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_welcomeFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
+            app:destination="@id/shopFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -54,13 +64,6 @@
             app:exitAnim="@anim/slide_out_top"
             app:popEnterAnim="@anim/slide_in_top"
             app:popExitAnim="@anim/slide_out_bottom" />
-        <action
-            android:id="@+id/action_authenticationFragment_to_facebookAuthFragment"
-            app:destination="@id/facebookAuthFragment"
-            app:enterAnim="@anim/slide_in_bottom"
-            app:exitAnim="@anim/slide_out_top"
-            app:popEnterAnim="@anim/slide_in_top"
-            app:popExitAnim="@anim/slide_out_bottom"/>
         <action
             android:id="@+id/action_authenticationFragment_to_googleAuthFragment"
             app:destination="@id/googleAuthFragment"
@@ -83,7 +86,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_phoneNumberAuthenticationFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
+            app:destination="@id/shopFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -104,7 +107,7 @@
             app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_checkPhoneNumberAuthFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
+            app:destination="@id/shopFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -135,23 +138,52 @@
         tools:layout="@layout/fragment_google_auth">
         <action
             android:id="@+id/action_googleAuthFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
+            app:destination="@id/shopFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
-        android:id="@+id/facebookAuthFragment"
-        android:name="com.mhmdawad.superest.presentation.authentication.facebook_auth.FacebookAuthFragment"
-        android:label="FacebookAuthFragment"
-        tools:layout="@layout/fragment_facebook_auth">
+        android:id="@+id/cartFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart"
+        />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.ExploreFragment"
+        android:label="fragment_explore"
+        tools:layout="@layout/fragment_explore" />
+    <fragment
+        android:id="@+id/allProductsFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.shop.AllProductsFragment"
+        android:label="AllProductsFragment"
+        tools:layout="@layout/fragment_all_products">
+        <argument
+            android:name="categoryItem"
+            app:argType="com.mhmdawad.superest.model.MainShopItem" />
         <action
-            android:id="@+id/action_facebookAuthFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            android:id="@+id/action_allProductsFragment_to_specificProductFragment"
+            app:destination="@id/specificProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/specificProductFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.shop.SpecificProductFragment"
+        android:label="fragment_specific_product"
+        tools:layout="@layout/fragment_specific_product" >
+        <argument
+            android:name="productModel"
+            app:argType="com.mhmdawad.superest.model.ProductModel" />
     </fragment>
 </navigation>

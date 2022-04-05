@@ -37,10 +37,6 @@ class AuthFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    fun navigateToFacebookAuthFragment() {
-        val action = AuthFragmentDirections.actionAuthenticationFragmentToFacebookAuthFragment()
-        findNavController().navigate(action)
-    }
 
 
 }

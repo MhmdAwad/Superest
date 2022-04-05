@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="shopItem"
+            type="com.mhmdawad.superest.model.MainShopItem" />
+
+        <variable
+            name="adapter"
+            type="com.mhmdawad.superest.presentation.main.adapter.ProductItemsAdapter" />
+
+        <variable
+            name="listener"
+            type="com.mhmdawad.superest.presentation.main.adapter.ShopProductAdapter.MainProductListener" />
+
+        <variable
+            name="productClickListener"
+            type="com.mhmdawad.superest.presentation.main.adapter.ProductItemsAdapter.ProductListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp">
+
+        <TextView
+            android:id="@+id/productTypeName_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            android:text="@{shopItem.name}"
+            android:theme="@style/bigTextTheme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Exclusive Offer" />
+
+        <TextView
+            android:id="@+id/seeAllProducts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:onClick="@{()-> listener.onSeeAllClicked(shopItem)}"
+            android:text="@string/see_all"
+            android:textColor="@color/green"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/productTypeName_TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/productTypeName_TextView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            productListener="@{productClickListener}"
+            products="@{shopItem.list}"
+            showInGridView="@{false}"
+            showInSimpleStyle="@{shopItem.showInSimpleStyle}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productTypeName_TextView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

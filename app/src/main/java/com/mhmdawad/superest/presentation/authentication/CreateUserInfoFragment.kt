@@ -15,11 +15,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentCreateUserInfoBinding
+import com.mhmdawad.superest.presentation.MainActivity
 import com.mhmdawad.superest.presentation.authentication.phone_auth.PhoneAuthViewModel
 import com.mhmdawad.superest.util.LOADING_ANNOTATION
+import com.mhmdawad.superest.util.Resource
 import com.mhmdawad.superest.util.extention.closeFragment
+import com.mhmdawad.superest.util.extention.hideBottomNav
 import com.mhmdawad.superest.util.extention.showToast
-import com.mhmdawad.superest.util.state.UserAuthState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
@@ -38,6 +40,10 @@ class CreateUserInfoFragment : Fragment() {
     @Named(LOADING_ANNOTATION)
     lateinit var loadingDialog: Dialog
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity as MainActivity).hideBottomNav()
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -73,16 +79,16 @@ class CreateUserInfoFragment : Fragment() {
         })
         authViewModel.userInfoLiveData.observe(viewLifecycleOwner, { info ->
             when (info) {
-                is UserAuthState.Success -> {
+                is Resource.Success -> {
                     loadingDialog.hide()
                     showToast(getString(R.string.accountCreatedSuccessfully))
                     closeFragment()
                 }
-                is UserAuthState.Error -> {
+                is Resource.Error -> {
                     loadingDialog.hide()
-                    showToast(info.error)
+                    showToast(info.msg!!)
                 }
-                is UserAuthState.Loading -> loadingDialog.show()
+                is Resource.Loading -> loadingDialog.show()
             }
         })
     }
@@ -132,4 +138,5 @@ class CreateUserInfoFragment : Fragment() {
         if (mImageUri != null)
             binding.userProfileImage.setImageURI(mImageUri)
     }
+
 }
