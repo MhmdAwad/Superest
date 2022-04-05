@@ -7,7 +7,6 @@
     <string name="authPageMessage">Get your groceries \nwith superest</string>
     <string name="orConnectWithGoogle">Or connect with Google</string>
     <string name="continue_with_google">Continue with Google</string>
-    <string name="continue_with_facebook">Continue with Facebook</string>
     <string name="enter_your_mobile_number">Enter your mobile number</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="please_add_your_phone_number_to_continue">Please add your phone number to continue</string>
@@ -47,7 +46,6 @@
     <string name="account">Account</string>
     <string name="productQuantity">%.0f%s, Price</string>
     <string name="price">%.2f$</string>
-    <string name="product_image_transition">productImageTransition</string>
     <string name="shareProduct">Hello bro,\n%1$s product is very awesome and have a very cheap price, it just cost %2$.2f$.\n You can buy it now with Superest
     supermarket app.</string>
     <string name="number_one">1</string>
