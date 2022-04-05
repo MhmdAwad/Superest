@@ -41,6 +41,7 @@ class AllProductsFragment : Fragment(R.layout.fragment_all_products), ProductIte
     }
 
     override fun onProductClick(productModel: ProductModel, transitionImageView: ImageView) {
+        // add transition to image view when open specific product fragment.
         val extras = FragmentNavigatorExtras(
             transitionImageView to productModel.image
         )

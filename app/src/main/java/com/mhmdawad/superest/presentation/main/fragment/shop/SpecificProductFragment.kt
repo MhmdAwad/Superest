@@ -52,6 +52,7 @@ class SpecificProductFragment : Fragment() {
     }
 
     private fun observeListener() {
+        // check if product saved in favorite database and change icon image as following.
         shopViewModel.favoriteLiveData(productModel.id).observe(viewLifecycleOwner, {product->
             if(product != null){
                 binding.favoriteProductImageView.loadGif(
@@ -66,6 +67,7 @@ class SpecificProductFragment : Fragment() {
 
     private fun initViews() {
         binding.apply {
+            // change total price by quantity value in edit text.
             productQuantityEditText.addTextChangedListener {
                 val quantity = productQuantityEditText.text.toString()
                 if (quantity.isNotEmpty()) {
@@ -90,6 +92,7 @@ class SpecificProductFragment : Fragment() {
     }
 
     fun changeProductQuantity(increasePrice: Boolean) {
+        // increase or decrease quantity value .
         var quantity = binding.productQuantityEditText.text.toString().trim().toInt()
         if (increasePrice) {
             quantity++
@@ -99,6 +102,7 @@ class SpecificProductFragment : Fragment() {
         binding.productQuantityEditText.setText(quantity.toString())
     }
 
+    // share product with messaging app.
     fun shareProduct() {
         val intent = Intent(Intent.ACTION_SEND)
         val shareBody =

@@ -73,8 +73,8 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
         observeListener()
     }
 
-
     private fun observeListener() {
+        // check if user have data into firebase firestore
         shopViewModel.userInfoLiveData.observe(viewLifecycleOwner, { userInfo ->
             when (userInfo) {
                 is Resource.Success -> {
@@ -90,7 +90,7 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
                 }
             }
         })
-
+        // get products data
         shopViewModel.shopListLiveData.observe(viewLifecycleOwner, { shopList ->
             when (shopList) {
                 is Resource.Success -> {
@@ -103,22 +103,23 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
                 }
             }
         })
-
+        // get offer in top of recyclerview as header
         shopViewModel.offersListLiveData.observe(viewLifecycleOwner, { offersList ->
             if (offersList is Resource.Success)
                 shopAdapter.addOffersListItems(offersList.data)
         })
-
-        shopViewModel.categoryLiveData.observe(viewLifecycleOwner, {category->
-            when(category){
-                is Resource.Success->{
+        // get products from offer id and navigate to all products fragment.
+        shopViewModel.categoryLiveData.observe(viewLifecycleOwner, { category ->
+            when (category) {
+                is Resource.Success -> {
                     loadingDialog.hide()
-                    shopViewModel.changeCategoryLiveData()
                     navigateToAllProductsFragment(category.data!!)
+                    //change live data value to can return to shop fragment.
+                    shopViewModel.changeCategoryLiveData()
                 }
-                is Resource.Loading-> loadingDialog.show()
+                is Resource.Loading -> loadingDialog.show()
 
-                is Resource.Error->{
+                is Resource.Error -> {
                     loadingDialog.hide()
                 }
             }
@@ -131,13 +132,15 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
             userNameTextView.text = data.userName
             userImageImageView.loadImage(data.userImage)
             shopRV.adapter = shopAdapter
+            shopContainer.show()
+            // submit search when click on search button on keyboard.
             shopSearchEditText.searchListener {
                 val searchText = shopSearchEditText.text.toString()
                 if (isTextNotEmpty(searchText)) {
                     showToast(searchText)
                 }
             }
-            shopContainer.show()
+            // add scale animation to bottom navigation bar when scroll with motion layout.
             shopContainer.transitionBottomNavigationBar({
                 bottomNavigationView.animate().scaleY(it)
             }, {
@@ -150,11 +153,6 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        showBottomNavigationView()
-    }
-
     private fun showBottomNavigationView() {
         bottomNavigationView.animate().scaleY(1f)
         bottomNavigationView.show()
@@ -165,22 +163,17 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
         findNavController().navigate(action)
     }
 
-    override fun onSeeAllClicked(mainShopItem: MainShopItem) {
-        navigateToAllProductsFragment(mainShopItem)
-    }
-
     private fun navigateToAllProductsFragment(mainShopItem: MainShopItem) {
         val action = ShopFragmentDirections.actionShopFragmentToAllProductsFragment(mainShopItem)
         findNavController().navigate(action)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (loadingDialog.isShowing)
-            loadingDialog.hide()
+    override fun onSeeAllClicked(mainShopItem: MainShopItem) {
+        navigateToAllProductsFragment(mainShopItem)
     }
 
     override fun onProductClick(productModel: ProductModel, transitionImageView: ImageView) {
+        // add transition to image view when open specific product fragment.
         val extras = FragmentNavigatorExtras(
             transitionImageView to productModel.image
         )
@@ -190,7 +183,19 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
 
     }
 
+    // get offer data when click on specific offer from recycler view header .
     override fun onOfferClicked(offersModel: OffersModel) {
         shopViewModel.getSpecificCategoryProducts(offersModel.offerId)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showBottomNavigationView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (loadingDialog.isShowing)
+            loadingDialog.hide()
     }
 }

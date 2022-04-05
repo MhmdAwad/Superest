@@ -25,6 +25,7 @@ constructor(
 ) {
 
 
+    // check if user has data into firebase firestore or not.
     suspend fun getUserInformation(userInfoLiveData: MutableLiveData<Resource<UserInfoModel>>) {
         try {
             val userId = firebaseAuth.uid!!
@@ -36,6 +37,7 @@ constructor(
         }
     }
 
+    // get all products main shop from firebase.
     suspend fun getMainShopList(): Resource<List<MainShopItem>> {
         return try {
             val resultList = fireStore.collection(SHOP_LIST).get().await()
@@ -52,6 +54,7 @@ constructor(
         }
     }
 
+    // get all categories from firebase.
     private suspend fun getCategoryList(): List<MainShopItem> {
         return try {
             val result = fireStore.collection(CATEGORY).get().await()
@@ -61,7 +64,7 @@ constructor(
             emptyList()
         }
     }
-
+    // get all products that contain to category item id.
     private suspend fun getProductsByCategory(categoryList: List<CategoryItem>): List<MainShopItem> {
         val list = mutableListOf<MainShopItem>()
         categoryList.forEach {
@@ -73,6 +76,7 @@ constructor(
         return list
     }
 
+    // get all products that contain to main shop item id.
     private suspend fun getProductsBySavedShopList(shop: MainShopItem): List<ProductModel> {
         val productsList = mutableListOf<ProductModel>()
         val result =
@@ -88,6 +92,7 @@ constructor(
         return productsList
     }
 
+    // get all offer data to show it into header of recyclerview.
     suspend fun getOffersData(): Resource<List<OffersModel>> {
         return try {
             val result = fireStore.collection(OFFERS).get().await()
@@ -97,6 +102,7 @@ constructor(
         }
     }
 
+    // change product in database (save or remove) by check if it saved before or not.
     suspend fun saveOrRemoveProductFromFavorite(productModel: ProductModel) {
         val isSavedBefore = getProductFromFavorite(productModel.id)
         return if (isSavedBefore) {
@@ -106,14 +112,20 @@ constructor(
         }
     }
 
+    // check if product is saved into favorite database or not .
     private suspend fun getProductFromFavorite(id: String): Boolean {
         val productModel = favoriteDao.getSpecificFavoriteProduct(id)
         return productModel != null
     }
 
+    // observe to specific product when save or not to change favorite icon .
     fun getProductFromFavoriteLiveData(id: String): LiveData<ProductModel?> =
         favoriteDao.getSpecificFavoriteProductLiveData(id)
 
+    /*
+          get products from specific category by get category value and get products from
+           getProductsByCategory function and get all products where it contain to category id.
+     */
     suspend fun getSpecificCategoryProducts(categoryId: String): Resource<MainShopItem> {
         return try {
             val result = fireStore.collection(CATEGORY).document(categoryId).get().await()
