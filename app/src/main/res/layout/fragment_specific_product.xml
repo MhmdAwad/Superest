@@ -120,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_4sdp"
-            android:text="@{@string/productQuantity(product.quantity, product.quantityType)}"
+            android:text="@{@string/productQuantity(product.quantityType)}"
             android:textColor="@color/lightBlack"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintStart_toStartOf="parent"
@@ -165,7 +165,7 @@
                 android:gravity="center"
                 android:inputType="numberSigned"
                 android:maxLines="1"
-                android:text="@string/number_one"
+                android:text="@{String.valueOf(product.quantity)}"
                 android:textStyle="bold" />
 
             <ImageView
