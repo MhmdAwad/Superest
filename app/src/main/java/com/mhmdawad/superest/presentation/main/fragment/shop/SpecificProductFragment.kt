@@ -80,9 +80,9 @@ class SpecificProductFragment : Fragment() {
         binding.apply {
             // change total price by quantity value in edit text.
             productQuantityEditText.addTextChangedListener {
-                val quantity = productQuantityEditText.text.toString()
+                val quantity = productQuantityEditText.text.toString().trim()
                 if (quantity.isNotEmpty()) {
-                    val quantityNumber = quantity.toInt()
+                    val quantityNumber = quantity.toDouble().toInt()
                     if (quantityNumber > 0)
                         productPriceTextView.text =
                             getString(R.string.price, (productModel.price * quantityNumber))

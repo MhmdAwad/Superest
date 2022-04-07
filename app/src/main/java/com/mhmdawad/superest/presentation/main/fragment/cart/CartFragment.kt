@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentCartBinding
 import com.mhmdawad.superest.model.ProductModel
@@ -87,11 +88,16 @@ class CartFragment : Fragment(), CartAdapter.ProductListener {
         cartAdapter.getPurchasedProducts().forEach {
             totalPrice += it.quantity * it.price
         }
-        showToast(totalPrice.toString())
+        openCheckOutDialog(totalPrice.toFloat())
     }
 
     override fun onProductDelete(productModel: ProductModel) {
         cartViewModel.deleteProductFromCart(productModel)
+    }
+
+    private fun openCheckOutDialog(totalPrice: Float){
+        val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment(totalPrice)
+        findNavController().navigate(action)
     }
 
 

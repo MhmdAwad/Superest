@@ -9,19 +9,23 @@
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/background.xml" value="0.22685185185185186" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/bg_gradient.xml" value="0.24537037037037038" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/bottom_navigation_shape.xml" value="0.2671794871794872" />
+        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/bottom_sheet_dialog_shape.xml" value="0.262037037037037" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/button_style.xml" value="0.22685185185185186" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/card_view_shape.xml" value="0.2671794871794872" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/card_view_shape_bottom_corners.xml" value="0.2671794871794872" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/circular_progress_bar_shape.xml" value="0.2671794871794872" />
+        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_about_icon.xml" value="0.262037037037037" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_account.xml" value="0.2671794871794872" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_add.xml" value="0.2462962962962963" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.24537037037037038" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.2638888888888889" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_arrow_back.xml" value="0.2671794871794872" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.2638888888888889" />
+        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.262037037037037" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2671794871794872" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.2671794871794872" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.2638888888888889" />
+        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.262037037037037" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_my_location_24.xml" value="0.2638888888888889" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_plus_24.xml" value="0.2671794871794872" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/drawable/ic_baseline_point.xml" value="0.25092592592592594" />
@@ -48,10 +52,12 @@
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/circular_progress_bar.xml" value="0.22" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/explain_permission_dialog_layout.xml" value="0.223731884057971" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/favorite_item_rv_layout.xml" value="0.22644927536231885" />
+        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_account.xml" value="0.2210144927536232" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_all_products.xml" value="0.23731884057971014" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_authentication.xml" value="0.22916666666666666" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_cart.xml" value="0.24114583333333334" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_check_phone_number_auth.xml" value="0.22916666666666666" />
+        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_checkout.xml" value="0.22" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_create_user_info.xml" value="0.40925925925925927" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_explore.xml" value="0.1" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_facebook_auth.xml" value="0.20018115942028986" />

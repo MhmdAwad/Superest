@@ -149,7 +149,12 @@
         android:name="com.mhmdawad.superest.presentation.main.fragment.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart"
-        />
+        >
+        <action
+            android:id="@+id/action_cartFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment"
+            />
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.mhmdawad.superest.presentation.main.fragment.favorite.FavoriteFragment"
@@ -206,4 +211,13 @@
             android:name="productModel"
             app:argType="com.mhmdawad.superest.model.ProductModel" />
     </fragment>
+    <dialog
+        android:id="@+id/checkoutFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.cart.CheckoutFragment"
+        android:label="CheckoutFragment"
+        tools:layout="@layout/fragment_checkout">
+        <argument
+            android:name="totalCost"
+            app:argType="float" />
+    </dialog>
 </navigation>

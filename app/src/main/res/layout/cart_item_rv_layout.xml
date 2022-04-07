@@ -54,7 +54,7 @@
                 android:id="@+id/favProductQuantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{@string/productQuantity(productItem.quantity, productItem.quantityType)}"
+                android:text="@{@string/productQuantity(productItem.quantityType)}"
                 android:textColor="@color/lightBlack"
                 android:textSize="@dimen/_12sdp" />
 
@@ -89,7 +89,7 @@
                 android:gravity="center"
                 android:inputType="numberSigned"
                 android:maxLines="1"
-                android:text="@string/number_one"
+                android:text="@{String.valueOf(productItem.quantity)}"
                 android:textStyle="bold" />
 
             <ImageView

@@ -23,7 +23,7 @@ data class ProductModel(
     val detail: String,
     val protein: Double,
     val price: Double,
-    var quantity: Double,
+    var quantity: Int,
     val quantityType: String,
     val category: String,
 ): Parcelable
@@ -40,7 +40,7 @@ fun convertMapToProductModel(map: Map<String, Any>): ProductModel {
         map["detail"].toString(),
         map["protein"].toString().toDouble(),
         map["price"].toString().toDouble(),
-        map["quantity"].toString().toDouble(),
+        map["quantity"].toString().toDouble().toInt(),
         map["quantityType"].toString(),
         map["category"].toString(),
     )
@@ -59,7 +59,7 @@ fun convertDocumentToProductList(document: List<DocumentSnapshot>): MutableList<
          map["detail"].toString(),
          map["protein"].toString().toDouble(),
          map["price"].toString().toDouble(),
-         map["quantity"].toString().toDouble(),
+         map["quantity"].toString().toDouble().toInt(),
          map["quantityType"].toString(),
          map["category"].toString(),
      ))

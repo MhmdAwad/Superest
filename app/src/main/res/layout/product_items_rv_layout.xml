@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_6sdp"
                     android:layout_marginEnd="@dimen/_6sdp"
-                    android:text="@{@string/productQuantity(product.quantity, product.quantityType)}"
+                    android:text="@{@string/productQuantity(product.quantityType)}"
                     android:textColor="@color/lightBlack"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="parent"
