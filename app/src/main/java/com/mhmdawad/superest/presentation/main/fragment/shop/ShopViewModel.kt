@@ -9,6 +9,7 @@ import com.mhmdawad.superest.model.*
 import com.mhmdawad.superest.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,8 +18,8 @@ class ShopViewModel
 @Inject
 constructor(
     private val shopRepository: ShopRepository
-) :
-    ViewModel() {
+) : ViewModel() {
+
     private val _userInfoLiveData = MutableLiveData<Resource<UserInfoModel>>(Resource.Loading())
     val userInfoLiveData: LiveData<Resource<UserInfoModel>> get() = _userInfoLiveData
 
@@ -31,14 +32,13 @@ constructor(
     val offersListLiveData: LiveData<Resource<List<OffersModel>>> get() = _offersLiveData
 
     private val _categoryLiveData =
-        MutableLiveData<Resource<MainShopItem>>(Resource.Loading())
-    val categoryLiveData: LiveData<Resource<MainShopItem>> get() = _categoryLiveData
-    fun changeCategoryLiveData() {
-        _categoryLiveData.value = Resource.Error("")
-    }
+        MutableLiveData<Resource<MainShopItem>?>(Resource.Idle())
+    val categoryLiveData: LiveData<Resource<MainShopItem>?> get() = _categoryLiveData
+
+    private val _searchedProductsLiveData = MutableLiveData<Resource<List<ProductModel>>>()
+    val searchedProductsLiveData: LiveData<Resource<List<ProductModel>>> = _searchedProductsLiveData
 
     private var firstLoad = true
-
 
     fun favoriteLiveData(id: String) = shopRepository.getProductFromFavoriteLiveData(id)
 
@@ -69,6 +69,17 @@ constructor(
             _categoryLiveData.postValue(
                 shopRepository.getSpecificCategoryProducts(categoryId)
             )
+            delay(500)
+            _categoryLiveData.value = Resource.Idle()
+        }
+    }
+
+    fun getProductsHasContainName(searchName: String) {
+        _searchedProductsLiveData.value = Resource.Loading()
+        viewModelScope.launch(Dispatchers.IO) {
+            _searchedProductsLiveData.postValue(shopRepository.getProductsContainName(searchName))
+            delay(500)
+            _searchedProductsLiveData.postValue(Resource.Idle())
         }
     }
 }

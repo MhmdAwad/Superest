@@ -36,7 +36,7 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
     ImageSliderAdapter.OfferListener {
 
     private val shopViewModel by activityViewModels<ShopViewModel>()
-
+    private var searchedText = ""
     private val shopAdapter by lazy { ShopProductAdapter(this, this, this) }
 
     private val bottomNavigationView by lazy {
@@ -85,9 +85,7 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
                     loadingDialog.hide()
                     navigateToCreateUserInfoFragment()
                 }
-                is Resource.Loading -> {
-                    loadingDialog.show()
-                }
+                is Resource.Loading -> loadingDialog.show()
             }
         })
         // get products data
@@ -101,12 +99,17 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
                     showToast(shopList.msg!!)
                     loadingDialog.hide()
                 }
+                is Resource.Loading -> loadingDialog.show()
             }
         })
         // get offer in top of recyclerview as header
         shopViewModel.offersListLiveData.observe(viewLifecycleOwner, { offersList ->
-            if (offersList is Resource.Success)
-                shopAdapter.addOffersListItems(offersList.data)
+            when (offersList) {
+                is Resource.Success ->
+                    shopAdapter.addOffersListItems(offersList.data)
+                is Resource.Loading -> loadingDialog.show()
+            }
+
         })
         // get products from offer id and navigate to all products fragment.
         shopViewModel.categoryLiveData.observe(viewLifecycleOwner, { category ->
@@ -114,12 +117,28 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
                 is Resource.Success -> {
                     loadingDialog.hide()
                     navigateToAllProductsFragment(category.data!!)
-                    //change live data value to can return to shop fragment.
-                    shopViewModel.changeCategoryLiveData()
                 }
                 is Resource.Loading -> loadingDialog.show()
-
                 is Resource.Error -> {
+                    loadingDialog.hide()
+                }
+            }
+        })
+
+        // navigate to all products fragment after get products that contain same searched value.
+        shopViewModel.searchedProductsLiveData.observe(viewLifecycleOwner, { products ->
+            when (products) {
+                is Resource.Success -> {
+                    val shopItem = MainShopItem(
+                        "", searchedText, 0, false,
+                        products.data as MutableList<ProductModel>
+                    )
+                    navigateToAllProductsFragment(shopItem)
+                    loadingDialog.hide()
+                }
+                is Resource.Loading -> loadingDialog.show()
+                is Resource.Error -> {
+                    showToast(products.msg!!)
                     loadingDialog.hide()
                 }
             }
@@ -135,9 +154,11 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
             shopContainer.show()
             // submit search when click on search button on keyboard.
             shopSearchEditText.searchListener {
-                val searchText = shopSearchEditText.text.toString()
-                if (isTextNotEmpty(searchText)) {
-                    showToast(searchText)
+                val search = shopSearchEditText.text.toString().trim()
+                if (search.isNotEmpty()) {
+                    searchedText = search
+                    shopViewModel.getProductsHasContainName(searchedText)
+                    shopSearchEditText.text.clear()
                 }
             }
             // add scale animation to bottom navigation bar when scroll with motion layout.
@@ -193,8 +214,8 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
         showBottomNavigationView()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         if (loadingDialog.isShowing)
             loadingDialog.hide()
     }

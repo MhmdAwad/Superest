@@ -3,6 +3,7 @@ package com.mhmdawad.superest.util
 
 const val FIRST_LOGGED_IN_APP = "FIRST_LOGGED_IN_APP"
 const val USERS_COLLECTION = "Users"
+const val CART_COLLECTION = "Cart"
 const val EXPLAINED_PERMISSION = "EXPLAINED"
 const val PERMISSION_ANNOTATION = "PERMISSION"
 const val LOADING_ANNOTATION = "LOADING"

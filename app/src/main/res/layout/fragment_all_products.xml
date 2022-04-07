@@ -12,6 +12,7 @@
         <variable
             name="productClickListener"
             type="com.mhmdawad.superest.presentation.main.adapter.ProductItemsAdapter.ProductListener" />
+        <import type="android.view.View"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -54,12 +55,24 @@
         android:id="@+id/categoryProductsRV"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:paddingTop="@dimen/_8sdp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         products="@{categoryItem.list}"
         showInSimpleStyle="@{true}"
         showInGridView="@{true}"
         productListener="@{productClickListener}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+    <ImageView
+        android:id="@+id/emptyProducts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:loadGif="@{@drawable/food_empty_gif}"
+        android:visibility="@{categoryItem.list.size()>0? View.GONE: View.VISIBLE}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

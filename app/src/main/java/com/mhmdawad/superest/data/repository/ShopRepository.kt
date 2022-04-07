@@ -11,6 +11,7 @@ import com.mhmdawad.superest.model.*
 import com.mhmdawad.superest.util.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -24,16 +25,20 @@ constructor(
     @ApplicationContext private val context: Context
 ) {
 
+    private val errorMessage by lazy { context.getString(R.string.errorMessage) }
+    private val userUid by lazy { firebaseAuth.uid!! }
+    private val cartCollection by lazy {
+        fireStore.collection(USERS_COLLECTION).document(userUid).collection(CART_COLLECTION)
+    }
 
     // check if user has data into firebase firestore or not.
     suspend fun getUserInformation(userInfoLiveData: MutableLiveData<Resource<UserInfoModel>>) {
         try {
-            val userId = firebaseAuth.uid!!
-            val task = fireStore.collection(USERS_COLLECTION).document(userId).get().await()
+            val task = fireStore.collection(USERS_COLLECTION).document(userUid).get().await()
             val userInfoModel = convertMapToUserInfoModel(task.data!!)
             userInfoLiveData.postValue(Resource.Success(userInfoModel))
         } catch (e: Exception) {
-            userInfoLiveData.postValue(Resource.Error(context.getString(R.string.errorMessage)))
+            userInfoLiveData.postValue(Resource.Error(errorMessage))
         }
     }
 
@@ -45,17 +50,17 @@ constructor(
             for (shop in shopList) {
                 shop.list.addAll(getProductsBySavedShopList(shop))
             }
-            val categoryResult = getCategoryList()
+            val categoryResult = getCategoryProductsList()
             if (categoryResult.isNotEmpty())
                 shopList.addAll(categoryResult)
             Resource.Success(shopList)
         } catch (e: Exception) {
-            Resource.Error(msg = context.getString(R.string.errorMessage))
+            Resource.Error(msg = errorMessage)
         }
     }
 
-    // get all categories from firebase.
-    private suspend fun getCategoryList(): List<MainShopItem> {
+    // get all products by categories from firebase.
+    private suspend fun getCategoryProductsList(): List<MainShopItem> {
         return try {
             val result = fireStore.collection(CATEGORY).get().await()
             val categoryList = convertDocumentsToCategoryList(result.documents)
@@ -64,6 +69,17 @@ constructor(
             emptyList()
         }
     }
+
+    // get all categories from firebase.
+    suspend fun getCategoryList(): Resource<List<CategoryItem>> {
+        return try {
+            val result = fireStore.collection(CATEGORY).get().await()
+            Resource.Success(convertDocumentsToCategoryList(result.documents))
+        } catch (e: Exception) {
+            Resource.Error(errorMessage)
+        }
+    }
+
     // get all products that contain to category item id.
     private suspend fun getProductsByCategory(categoryList: List<CategoryItem>): List<MainShopItem> {
         val list = mutableListOf<MainShopItem>()
@@ -98,7 +114,7 @@ constructor(
             val result = fireStore.collection(OFFERS).get().await()
             Resource.Success(convertDocumentsToOfferList(result.documents))
         } catch (e: Exception) {
-            Resource.Error(context.getString(R.string.errorMessage))
+            Resource.Error(errorMessage)
         }
     }
 
@@ -122,6 +138,9 @@ constructor(
     fun getProductFromFavoriteLiveData(id: String): LiveData<ProductModel?> =
         favoriteDao.getSpecificFavoriteProductLiveData(id)
 
+    fun getFavoriteProductsLiveData(): LiveData<List<ProductModel>> =
+        favoriteDao.getAllFavoriteProducts()
+
     /*
           get products from specific category by get category value and get products from
            getProductsByCategory function and get all products where it contain to category id.
@@ -132,7 +151,50 @@ constructor(
             val categoryItem = convertMapToCategoryItem(result.data!!)
             Resource.Success(getProductsByCategory(listOf(categoryItem))[0])
         } catch (e: Exception) {
-            Resource.Error(context.getString(R.string.errorMessage))
+            Resource.Error(errorMessage)
+        }
+    }
+
+    suspend fun getProductsContainName(searchName: String): Resource<List<ProductModel>> {
+        return try {
+            val result =
+                fireStore.collection(PRODUCTS).get().await()
+            val products = convertDocumentToProductList(result.documents)
+            val selectedProducts = mutableListOf<ProductModel>()
+            selectedProducts.addAll(products.filter {
+                it.name.lowercase().contains(searchName.lowercase())
+            })
+            Resource.Success(selectedProducts)
+        } catch (e: Exception) {
+            Resource.Error(errorMessage)
+        }
+
+    }
+
+    suspend fun addProductsToCart(list: List<ProductModel>): Resource<Any> {
+        return try {
+            list.forEach { product ->
+                cartCollection.document(product.id).set(product).await()
+            }
+            favoriteDao.deleteAllProducts()
+            Resource.Success(Any())
+        } catch (e: Exception) {
+            Resource.Error(errorMessage)
+        }
+
+    }
+
+    suspend fun deleteProductFromUserCart(productId: String) {
+        cartCollection.document(productId).delete().await()
+    }
+
+    suspend fun getAllUserProducts(): Resource<List<ProductModel>> {
+        return try {
+            val result = cartCollection.get().await()
+            val products = convertDocumentToProductList(result.documents)
+            Resource.Success(products)
+        } catch (e: Exception) {
+            Resource.Error(errorMessage)
         }
     }
 }

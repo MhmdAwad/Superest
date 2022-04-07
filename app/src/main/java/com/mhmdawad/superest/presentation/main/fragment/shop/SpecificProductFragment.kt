@@ -2,6 +2,7 @@ package com.mhmdawad.superest.presentation.main.fragment.shop
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentSpecificProductBinding
 import com.mhmdawad.superest.util.extention.closeFragment
-import com.mhmdawad.superest.util.extention.loadGif
+import com.mhmdawad.superest.util.extention.loadTimerGif
 import com.mhmdawad.superest.util.extention.show
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,14 +54,11 @@ class SpecificProductFragment : Fragment() {
 
     private fun observeListener() {
         // check if product saved in favorite database and change icon image as following.
-        shopViewModel.favoriteLiveData(productModel.id).observe(viewLifecycleOwner, {product->
-            if(product != null){
-                binding.favoriteProductImageView.loadGif(
-                    R.drawable.favorite_gif_start,
-                    R.drawable.favorite_png
-                )
-            }else{
-                binding.favoriteProductImageView.setImageResource(R.drawable.favorite_gif)
+        shopViewModel.favoriteLiveData(productModel.id).observe(viewLifecycleOwner, { product ->
+            if (product != null) {
+                binding.favoriteProductImageView.loadTimerGif(R.drawable.favorite_gif_start)
+            } else {
+                binding.favoriteProductImageView.setImageResource(R.drawable.favorite_png)
             }
         })
     }

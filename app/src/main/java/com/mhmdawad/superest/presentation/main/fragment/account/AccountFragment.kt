@@ -1,4 +1,4 @@
-package com.mhmdawad.superest.presentation.main.fragment
+package com.mhmdawad.superest.presentation.main.fragment.account
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

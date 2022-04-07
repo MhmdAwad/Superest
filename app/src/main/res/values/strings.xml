@@ -53,4 +53,9 @@
     <string name="progressTextValue">%.0fg</string>
     <string name="progressCaloriesValue">%.0f</string>
     <string name="add_to_basket">add to basket</string>
+    <string name="find_products">Find Products</string>
+    <string name="add_to_cart">Add all to cart</string>
+    <string name="savedToCart">Products have been added to the card successfully.</string>
+    <string name="go_to_checkout">Go to checkout</string>
+    <string name="my_cart">My Cart</string>
 </resources>

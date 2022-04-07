@@ -11,7 +11,6 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
@@ -77,7 +76,10 @@ fun MotionLayout.transitionBottomNavigationBar(transitionChange:(progress: Float
     })
 }
 
-fun ImageView.loadGif(gifImage: Int, pngImage: Int){
+fun ImageView.loadGif(gifImage: Int){
+    Glide.with(this.context).asGif().load(gifImage).into(this)
+}
+fun ImageView.loadTimerGif(gifImage: Int){
     Glide.with(this.context).asGif().load(gifImage).listener(object:RequestListener<GifDrawable>{
         override fun onLoadFailed(
             e: GlideException?,
@@ -97,7 +99,7 @@ fun ImageView.loadGif(gifImage: Int, pngImage: Int){
             resource.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
                 override fun onAnimationEnd(drawable: Drawable) {
                     if(!resource.isRunning)
-                        this@loadGif.setImageResource(pngImage)
+                        this@loadTimerGif.setImageResource(gifImage)
                 }
             })
             return false

@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.util.LOADING_ANNOTATION
 import com.mhmdawad.superest.util.PERMISSION_ANNOTATION
+import com.mhmdawad.superest.util.extention.loadGif
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,7 +38,7 @@ class ActivityDialogModule {
         dialog.setContentView(R.layout.loading_dialog_layout)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val loadingImageView = dialog.findViewById<ImageView>(R.id.loadingImageView)
-        Glide.with(context).asGif().load(R.drawable.carrot_loader).into(loadingImageView)
+        loadingImageView.loadGif(R.drawable.carrot_loader)
         dialog.create()
         return dialog
     }

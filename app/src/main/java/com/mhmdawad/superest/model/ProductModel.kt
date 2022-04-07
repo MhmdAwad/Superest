@@ -23,7 +23,7 @@ data class ProductModel(
     val detail: String,
     val protein: Double,
     val price: Double,
-    val quantity: Double,
+    var quantity: Double,
     val quantityType: String,
     val category: String,
 ): Parcelable
