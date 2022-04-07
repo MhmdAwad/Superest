@@ -24,4 +24,7 @@ interface FavoriteDao {
 
     @Delete
     suspend fun removeProductFromFavorites(productModel: ProductModel)
+
+    @Query("DELETE FROM ProductModel")
+    suspend fun deleteAllProducts()
 }
