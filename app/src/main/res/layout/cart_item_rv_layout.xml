@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="productItem"
+            type="com.mhmdawad.superest.model.ProductModel" />
+
+        <variable
+            name="productListener"
+            type="com.mhmdawad.superest.presentation.main.adapter.CartAdapter.ProductListener" />
+
+        <variable
+            name="adapter"
+            type="com.mhmdawad.superest.presentation.main.adapter.CartAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/cartProductImage"
+            imageUrl="@{productItem.image}"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_margin="@dimen/_8sdp"
+            android:src="@color/green"
+            android:transitionName="@{productItem.image}"
+            app:layout_constraintBottom_toBottomOf="@id/productQuantityContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@+id/cartProductImage"
+            app:layout_constraintTop_toTopOf="@+id/cartProductImage">
+
+            <TextView
+                android:id="@+id/favProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{productItem.name}"
+                android:theme="@style/textTheme" />
+
+            <TextView
+                android:id="@+id/favProductQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/productQuantity(productItem.quantity, productItem.quantityType)}"
+                android:textColor="@color/lightBlack"
+                android:textSize="@dimen/_12sdp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/productQuantityContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <ImageView
+                android:id="@+id/productQuantityMinus"
+                increasePrice="@{false}"
+                quantityEditText="@{productQuantityEditText}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/ic_minus" />
+
+            <EditText
+                android:id="@+id/productQuantity_EditText"
+                android:layout_width="@dimen/_38sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:afterTextChanged="@{(text) -> adapter.onQuantityTextChanged(text, productItem, cartProductPrice)}"
+                android:background="@drawable/card_view_shape"
+                android:gravity="center"
+                android:inputType="numberSigned"
+                android:maxLines="1"
+                android:text="@string/number_one"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/productQuantityPlus"
+                increasePrice="@{true}"
+                quantityEditText="@{productQuantityEditText}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/ic_plus" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/deleteItemFromCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            android:onClick="@{()-> productListener.onProductDelete(productItem)}"
+            android:src="@drawable/ic_baseline_close_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cartProductPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:text="@{@string/price(productItem.price)}"
+            android:theme="@style/bigTextTheme"
+            app:layout_constraintBottom_toBottomOf="@+id/productQuantityContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/productQuantityContainer" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_margin="@dimen/_8sdp"
+            android:background="@color/lightGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productQuantityContainer" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000">
+       <KeyFrameSet>
+       </KeyFrameSet>
+        <OnSwipe motion:touchAnchorId="@+id/searchProduct_RV" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toTopOf="@id/guideline6"
+            android:layout_width="wrap_content"
+            android:id="@+id/textView9"
+            motion:layout_constraintEnd_toStartOf="parent" />
+        <Constraint
+            android:layout_marginEnd="16dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            motion:layout_constraintTop_toBottomOf="@+id/guideline6"
+            android:id="@+id/searchProduct_EditText"
+            motion:layout_constraintStart_toEndOf="@+id/textView9"
+            motion:layout_constraintBottom_toBottomOf="@+id/textView9"
+            android:layout_marginStart="16dp" />
+    </ConstraintSet>
+</MotionScene>

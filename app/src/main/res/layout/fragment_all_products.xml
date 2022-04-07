@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="categoryItem"
+            type="com.mhmdawad.superest.model.MainShopItem" />
+        <variable
+            name="fragment"
+            type="com.mhmdawad.superest.presentation.main.fragment.shop.AllProductsFragment" />
+        <variable
+            name="productClickListener"
+            type="com.mhmdawad.superest.presentation.main.adapter.ProductItemsAdapter.ProductListener" />
+        <import type="android.view.View"/>
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.main.fragment.shop.AllProductsFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".12" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:background="@null"
+        android:padding="@dimen/_8sdp"
+        android:onClick="@{()-> fragment.backPressFragment()}"
+        android:src="@drawable/ic_baseline_arrow_back"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/categoryName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{categoryItem.name}"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:theme="@style/bigTextTheme"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="@+id/backButton" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryProductsRV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="@dimen/_8sdp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        products="@{categoryItem.list}"
+        showInSimpleStyle="@{true}"
+        showInGridView="@{true}"
+        productListener="@{productClickListener}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+    <ImageView
+        android:id="@+id/emptyProducts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:loadGif="@{@drawable/food_empty_gif}"
+        android:visibility="@{categoryItem.list.size()>0? View.GONE: View.VISIBLE}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

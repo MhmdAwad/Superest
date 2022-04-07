@@ -3,15 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
-    tools:context=".ui.fragment.WelcomeFragment">
+    tools:context=".presentation.WelcomeFragment">
 
     <data>
 
         <variable
             name="fragment"
-            type="com.mhmdawad.superest.ui.fragment.WelcomeFragment" />
+            type="com.mhmdawad.superest.presentation.WelcomeFragment" />
     </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,7 +39,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/welcomeMessage"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white"
             android:textSize="@dimen/_30sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,6 +63,7 @@
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginEnd="@dimen/_16sdp"
             android:background="@drawable/button_style"
+            android:foreground="?android:attr/selectableItemBackground"
             android:onClick="@{()-> fragment.openSignupFragment()}"
             android:text="@string/get_started"
             android:textColor="@color/white"

@@ -1,9 +1,61 @@
 <resources>
     <string name="app_name">Superest</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcomeMessage">Welcome \n to our store</string>
     <string name="welcomeSecondMessage">Get your groceries in as fast as one hour</string>
     <string name="get_started">Get started</string>
-
+    <string name="authPageMessage">Get your groceries \nwith superest</string>
+    <string name="orConnectWithGoogle">Or connect with Google</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="enter_your_mobile_number">Enter your mobile number</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="please_add_your_phone_number_to_continue">Please add your phone number to continue</string>
+    <string name="please_add_a_valid_phone_number">Please add a valid phone number</string>
+    <string name="please_check_internet_connection">Please check internet connection</string>
+    <string name="errorMessage">An error occurred, Please try again later</string>
+    <string name="enter_your_6_digit_code">Enter your 6-digit code</string>
+    <string name="code">Code</string>
+    <string name="code_hint">- - - - - -</string>
+    <string name="type_verification_code_first">Please type verification code first.</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="countDown">00:%1$02d</string>
+    <string name="add_your_name_here">Add your name here.</string>
+    <string name="select_your_location">Select your location</string>
+    <string name="submit">submit</string>
+    <string name="confirm_location">confirm location</string>
+    <string name="google_maps_api_key">AIzaSyC6t-QwrVTSmQZeQuj05bvY_AWhIDQ3Mfw</string>
+    <string name="location_permission_attention">Attention! Some features can\'t work normally without location permission</string>
+    <string name="go_to_settings">Go to settings</string>
+    <string name="enableGPS">This application requires GPS to work properly, do you want to enable it?</string>
+    <string name="cannotMakeGPSRequest">You can\'t make map requests</string>
+    <string name="enable">Enable</string>
+    <string name="get_my_location">Locate Me</string>
+    <string name="addUserName">Please add your name first!</string>
+    <string name="addUserImage">Please add an  image to your account!</string>
+    <string name="addUserLocation">Please add your location first!</string>
+    <string name="errorCreateAccount">An error occurred when trying to create account, please check your internet connection and try again.</string>
+    <string name="accountCreatedSuccessfully">Account created successfully.</string>
+    <string name="webClientId">CLIENT ID</string>
+    <string name="welcome">Welcome back,</string>
+    <string name="search_store">Search Store</string>
+    <string name="see_all">See all</string>
+    <string name="shop">Shop</string>
+    <string name="explore">Explore</string>
+    <string name="cart">Cart</string>
+    <string name="favorite">Favorite</string>
+    <string name="account">Account</string>
+    <string name="productQuantity">%.0f%s, Price</string>
+    <string name="price">%.2f$</string>
+    <string name="shareProduct">Hello bro,\n%1$s product is very awesome and have a very cheap price, it just cost %2$.2f$.\n You can buy it now with Superest
+    supermarket app.</string>
+    <string name="number_one">1</string>
+    <string name="product_detail">Product Detail</string>
+    <string name="progressTextValue">%.0fg</string>
+    <string name="progressCaloriesValue">%.0f</string>
+    <string name="add_to_basket">add to basket</string>
+    <string name="find_products">Find Products</string>
+    <string name="add_to_cart">Add all to cart</string>
+    <string name="savedToCart">Products have been added to the card successfully.</string>
+    <string name="go_to_checkout">Go to checkout</string>
+    <string name="my_cart">My Cart</string>
 </resources>

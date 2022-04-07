@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="offerModel"
+            type="com.mhmdawad.superest.model.OffersModel" />
+
+        <variable
+            name="offerClickListener"
+            type="com.mhmdawad.superest.presentation.main.adapter.ImageSliderAdapter.OfferListener" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/sliderImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:onClick="@{()-> offerClickListener.onOfferClicked(offerModel)}"
+            imageUrl="@{offerModel.offerImage}"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+</layout>

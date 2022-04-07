@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="productItem"
+            type="com.mhmdawad.superest.model.ProductModel" />
+
+        <variable
+            name="favListener"
+            type="com.mhmdawad.superest.presentation.main.adapter.FavoriteAdapter.FavoriteProductListener" />
+
+        <variable
+            name="isLastItem"
+            type="Boolean" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="@{()-> favListener.onFavProductClick(productItem,favProductImage)}"
+            android:visibility="@{isLastItem? View.GONE: View.VISIBLE}">
+
+            <ImageView
+                android:id="@+id/favProductImage"
+                imageUrl="@{productItem.image}"
+                android:transitionName="@{productItem.image}"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_margin="@dimen/_8sdp"
+                android:src="@color/green"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/favProductImage"
+                app:layout_constraintEnd_toStartOf="@+id/favProductPrice"
+                app:layout_constraintStart_toEndOf="@+id/favProductImage"
+                app:layout_constraintTop_toTopOf="@+id/favProductImage">
+
+                <TextView
+                    android:id="@+id/favProductName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{productItem.name}"
+                    android:theme="@style/textTheme" />
+
+                <TextView
+                    android:id="@+id/favProductQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/productQuantity(productItem.quantity, productItem.quantityType)}"
+                    android:textColor="@color/lightBlack"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/favProductPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:text="@{@string/price(productItem.price)}"
+                android:theme="@style/bigTextTheme"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                app:layout_constraintEnd_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:src="@drawable/ic_baseline_arrow_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/favProductImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/favProductImage"
+                app:tint="@color/black" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:layout_margin="@dimen/_8sdp"
+                android:background="@color/lightGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favProductImage" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

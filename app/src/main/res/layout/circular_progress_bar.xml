@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="progressValue"
+            type="Integer" />
+        <variable
+            name="nutrition"
+            type="String" />
+        <variable
+            name="progressTitle"
+            type="String" />
+        <variable
+            name="progressColor"
+            type="String" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressCircular"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        app:indicatorSize="80dp"
+        indicatorProgressColor="@{progressColor}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:trackColor="@color/grey"
+        app:trackThickness="@dimen/_5sdp"
+        android:progress="@{progressValue}"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/progressCircular"
+        app:layout_constraintEnd_toEndOf="@id/progressCircular"
+        app:layout_constraintStart_toStartOf="@id/progressCircular"
+        app:layout_constraintTop_toTopOf="@id/progressCircular" >
+    <TextView
+        android:id="@+id/progressText"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@{nutrition}"
+        tools:text="170g"
+        android:textStyle="bold"
+        android:textColor="@color/green"
+        android:textSize="@dimen/_12sdp" />
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@{progressTitle}"
+        tools:text="Protein"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_9sdp"
+        />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
