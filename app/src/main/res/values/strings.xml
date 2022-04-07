@@ -58,4 +58,5 @@
     <string name="savedToCart">Products have been added to the card successfully.</string>
     <string name="go_to_checkout">Go to checkout</string>
     <string name="my_cart">My Cart</string>
+    <string name="productAddToCart">Product add to My Cart successfully.</string>
 </resources>

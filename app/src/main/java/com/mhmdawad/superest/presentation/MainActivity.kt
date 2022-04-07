@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.ActivityMainBinding
 import com.mhmdawad.superest.util.extention.hideBottomNav

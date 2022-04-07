@@ -279,6 +279,7 @@
             android:layout_margin="@dimen/_8sdp"
             android:background="@drawable/button_style"
             android:text="@string/add_to_basket"
+            android:onClick="@{()-> fragment.addProductToCart()}"
             android:theme="@style/buttonTheme"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

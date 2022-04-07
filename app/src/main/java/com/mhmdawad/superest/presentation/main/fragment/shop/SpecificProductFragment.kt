@@ -14,9 +14,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentSpecificProductBinding
+import com.mhmdawad.superest.util.Resource
 import com.mhmdawad.superest.util.extention.closeFragment
 import com.mhmdawad.superest.util.extention.loadTimerGif
 import com.mhmdawad.superest.util.extention.show
+import com.mhmdawad.superest.util.extention.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -61,6 +63,17 @@ class SpecificProductFragment : Fragment() {
                 binding.favoriteProductImageView.setImageResource(R.drawable.favorite_png)
             }
         })
+
+        shopViewModel.cartProductsLiveData.observe(viewLifecycleOwner, {
+            when(it){
+                is Resource.Success->{
+                    showToast(getString(R.string.productAddToCart))
+                }
+                is Resource.Error->{
+                    showToast(it.msg!!)
+                }
+            }
+        })
     }
 
     private fun initViews() {
@@ -79,6 +92,9 @@ class SpecificProductFragment : Fragment() {
         }
     }
 
+    fun addProductToCart(){
+        shopViewModel.addProductToCart(productModel)
+    }
 
     fun saveProductInFavorite() {
         shopViewModel.saveProductInFavorites(productModel)

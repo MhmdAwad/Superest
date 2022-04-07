@@ -171,12 +171,13 @@ constructor(
 
     }
 
-    suspend fun addProductsToCart(list: List<ProductModel>): Resource<Any> {
+    suspend fun addProductsToCart(list: List<ProductModel>, deleteFavoriteProducts: Boolean): Resource<Any> {
         return try {
             list.forEach { product ->
                 cartCollection.document(product.id).set(product).await()
             }
-            favoriteDao.deleteAllProducts()
+            if(deleteFavoriteProducts)
+                favoriteDao.deleteAllProducts()
             Resource.Success(Any())
         } catch (e: Exception) {
             Resource.Error(errorMessage)
