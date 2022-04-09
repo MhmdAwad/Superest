@@ -125,10 +125,3 @@ fun Fragment.getCityNameFromLocation(locationLatLng: LatLng): String{
     val addresses: List<Address> = geocoder.getFromLocation(locationLatLng.latitude, locationLatLng.longitude, 1)
     return addresses[0].getAddressLine(0)
 }
-
-fun Fragment.isTextNotEmpty(text: String): Boolean{
-    if(text.trim().isEmpty()){
-        return false
-    }
-    return true
-}

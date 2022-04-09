@@ -19,6 +19,7 @@ import com.mhmdawad.superest.model.OffersModel
 import com.mhmdawad.superest.model.ProductModel
 import com.mhmdawad.superest.model.UserInfoModel
 import com.mhmdawad.superest.presentation.MainActivity
+import com.mhmdawad.superest.presentation.authentication.UserInfoViewModel
 import com.mhmdawad.superest.presentation.main.adapter.ImageSliderAdapter
 import com.mhmdawad.superest.presentation.main.adapter.ShopProductAdapter
 import com.mhmdawad.superest.presentation.main.adapter.ProductItemsAdapter
@@ -36,6 +37,7 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
     ImageSliderAdapter.OfferListener {
 
     private val shopViewModel by activityViewModels<ShopViewModel>()
+    private val userInfoViewModel by activityViewModels<UserInfoViewModel>()
     private var searchedText = ""
     private val shopAdapter by lazy { ShopProductAdapter(this, this, this) }
 
@@ -62,11 +64,6 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        shopViewModel.getUserInfo()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).showBottomNav()
@@ -75,7 +72,7 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
 
     private fun observeListener() {
         // check if user have data into firebase firestore
-        shopViewModel.userInfoLiveData.observe(viewLifecycleOwner, { userInfo ->
+        userInfoViewModel.userInformationLiveData.observe(viewLifecycleOwner, { userInfo ->
             when (userInfo) {
                 is Resource.Success -> {
                     initViews(userInfo.data)

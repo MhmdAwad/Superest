@@ -20,9 +20,6 @@ constructor(
     private val shopRepository: ShopRepository
 ) : ViewModel() {
 
-    private val _userInfoLiveData = MutableLiveData<Resource<UserInfoModel>>(Resource.Loading())
-    val userInfoLiveData: LiveData<Resource<UserInfoModel>> get() = _userInfoLiveData
-
     private val _shopListLiveData =
         MutableLiveData<Resource<List<MainShopItem>>>(Resource.Loading())
     val shopListLiveData: LiveData<Resource<List<MainShopItem>>> get() = _shopListLiveData
@@ -44,12 +41,6 @@ constructor(
     private var firstLoad = true
 
     fun favoriteLiveData(id: String) = shopRepository.getProductFromFavoriteLiveData(id)
-
-    fun getUserInfo() {
-        viewModelScope.launch(Dispatchers.IO) {
-            shopRepository.getUserInformation(_userInfoLiveData)
-        }
-    }
 
     fun getShopList() {
         if (!firstLoad) return

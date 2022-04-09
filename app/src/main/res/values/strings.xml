@@ -63,10 +63,22 @@
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="log_out">Log Out</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delivery">Delivery</string>
     <string name="payment">Payment</string>
     <string name="total_cost">Total Cost</string>
-    <string name="place_order">Place order</string>
+    <string name="place_order">Place Order</string>
+    <string name="ok">OK</string>
+    <string name="paymentResult">Payment Result:</string>
+    <string name="addPaymentMethod">Please add a payment method to continue!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back_to_home">Back to home</string>
+    <string name="successful_order_title">Your Order has been accepted</string>
+    <string name="successful_order_message">Your items has been placed and is on its way to begin processed.</string>
+    <string name="track_order">Track order</string>
+    <string name="fail_order_title">Oops! Order Failed</string>
+    <string name="fail_order_message">Something went wrong. Please try another payment card.</string>
+    <string name="tryAgain">Try Again</string>
+    <string name="paymentError">An error occurred with payment method.</string>
+    <string name="error">Error:</string>
 </resources>

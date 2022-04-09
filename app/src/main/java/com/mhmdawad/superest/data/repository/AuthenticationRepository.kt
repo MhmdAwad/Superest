@@ -12,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.model.UserInfoModel
+import com.mhmdawad.superest.model.convertMapToUserInfoModel
 import com.mhmdawad.superest.model.toMap
 import com.mhmdawad.superest.util.*
 import com.mhmdawad.superest.util.helper.SharedPreferenceHelper
@@ -91,6 +92,18 @@ constructor(
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(context.getString(R.string.errorMessage))
+        }
+    }
+
+    // check if user has data into firebase firestore or not.
+    suspend fun getUserInformation(userInfoLiveData: MutableLiveData<Resource<UserInfoModel>>) {
+        try {
+            val userUid = firebaseAuth.uid!!
+            val task = firebaseFirestore.collection(USERS_COLLECTION).document(userUid).get().await()
+            val userInfoModel = convertMapToUserInfoModel(task.data!!)
+            userInfoLiveData.postValue(Resource.Success(userInfoModel))
+        } catch (e: Exception) {
+            userInfoLiveData.postValue(Resource.Error(context.getString(R.string.errorMessage)))
         }
     }
 
