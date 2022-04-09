@@ -223,6 +223,9 @@
         <action
             android:id="@+id/action_checkoutFragment_to_orderStatusFragment"
             app:destination="@id/orderStatusFragment" />
+        <argument
+            android:name="productList"
+            app:argType="com.mhmdawad.superest.model.ProductModel[]" />
     </dialog>
     <fragment
         android:id="@+id/orderStatusFragment"

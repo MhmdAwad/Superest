@@ -17,6 +17,7 @@ const val SHOP_LIST = "ShopList"
 const val CATEGORY = "Category"
 const val PRODUCTS = "Products"
 const val ITEMS = "Items"
+const val INCOMPLETE_ORDERS = "IncompleteOrders"
 const val SIMPLE_SHOP_LAYOUT = 667
 const val ADVANCED_SHOP_LAYOUT = 660
 const val OFFERS = "Offers"

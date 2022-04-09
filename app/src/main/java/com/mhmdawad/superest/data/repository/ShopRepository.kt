@@ -2,7 +2,6 @@ package com.mhmdawad.superest.data.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mhmdawad.superest.R
@@ -196,5 +195,35 @@ constructor(
     suspend fun createPaymentIntent(paymentModel: PaymentModel) =
         apiClient.createPaymentIntent(paymentModel)
 
+    suspend fun uploadProductsToOrders(
+        cartProductsList: Array<ProductModel>,
+        userLocation: String
+    ): Resource<OrderModel> {
+        return try {
+            val orderCollection = fireStore.collection(INCOMPLETE_ORDERS)
+            val id = orderCollection.document().id
+            val orderModel = OrderModel(
+                id,
+                userUid,
+                System.currentTimeMillis(),
+                userLocation,
+                OrderEnums.ORDERED,
+                cartProductsList.toList()
+            )
+            orderCollection.document(id).set(orderModel.toMap()).await()
+            removeUserCartProducts()
+            Resource.Success(orderModel)
+        } catch (e: Exception) {
+            println(">>>>>>>>>>???? ${e.message}")
+            Resource.Error(errorMessage)
+        }
+    }
 
+    private suspend fun removeUserCartProducts() {
+        cartCollection.get().await().let {
+            it.forEach { doc ->
+                cartCollection.document(doc.id).delete().await()
+            }
+        }
+    }
 }

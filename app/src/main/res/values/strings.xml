@@ -81,4 +81,5 @@
     <string name="tryAgain">Try Again</string>
     <string name="paymentError">An error occurred with payment method.</string>
     <string name="error">Error:</string>
+    <string name="noProductsCart">No Products in Cart!</string>
 </resources>

@@ -28,6 +28,7 @@ class CartFragment : Fragment(), CartAdapter.ProductListener {
 
     private val cartViewModel by viewModels<CartViewModel>()
     private lateinit var binding: FragmentCartBinding
+    private val cartProductsList = mutableListOf<ProductModel>()
 
     @Inject
     @Named(LOADING_ANNOTATION)
@@ -36,10 +37,6 @@ class CartFragment : Fragment(), CartAdapter.ProductListener {
     @Inject
     lateinit var cartAdapter: CartAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        cartViewModel.getAllCartProducts()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +51,7 @@ class CartFragment : Fragment(), CartAdapter.ProductListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        cartViewModel.getAllCartProducts()
         observeListener()
     }
 
@@ -97,7 +95,16 @@ class CartFragment : Fragment(), CartAdapter.ProductListener {
     }
 
     private fun openCheckOutDialog(totalPrice: Float) {
-        val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment(totalPrice)
+        cartProductsList.clear()
+        cartProductsList.addAll(cartAdapter.getPurchasedProducts())
+        if (cartProductsList.isEmpty()) {
+            showToast(getString(R.string.noProductsCart))
+            return
+        }
+        val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment(
+            totalPrice,
+            cartProductsList.toTypedArray()
+        )
         findNavController().navigate(action)
     }
 

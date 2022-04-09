@@ -48,6 +48,8 @@ class CheckoutFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentCheckoutBinding
     private val args by navArgs<CheckoutFragmentArgs>()
     private val totalCost by lazy { args.totalCost }
+    private val cartProductsList by lazy { args.productList }
+    private var userLocation = ""
     private lateinit var paymentLauncher: PaymentLauncher
     private lateinit var paymentIntentClientSecret: String
 
@@ -55,13 +57,17 @@ class CheckoutFragment : BottomSheetDialogFragment() {
     @Named(DISPLAY_DIALOG)
     lateinit var displayAlert: AlertDialog
 
+    @Inject
+    @Named(LOADING_ANNOTATION)
+    lateinit var loadingDialog: Dialog
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkout, container, false)
-        return  binding.run {
+        return binding.run {
             fragment = this@CheckoutFragment
             loadData = false
             binding.root
@@ -79,8 +85,9 @@ class CheckoutFragment : BottomSheetDialogFragment() {
         userInfoViewModel.userInformationLiveData.observe(viewLifecycleOwner, { userInfo ->
             when (userInfo) {
                 is Resource.Success -> {
+                    userLocation = userInfo.data?.userLocationName!!
                     val checkoutModel =
-                        CheckoutModel(userInfo.data?.userLocationName!!, totalCost, "Payment")
+                        CheckoutModel(userLocation, totalCost, "Payment")
                     binding.checkoutModel = checkoutModel
                 }
                 is Resource.Error -> {
@@ -102,6 +109,20 @@ class CheckoutFragment : BottomSheetDialogFragment() {
                 is Resource.Loading -> {
                     binding.loadData = true
                 }
+            }
+        })
+
+        checkoutViewModel.orderProductsLiveData.observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Success -> {
+                    loadingDialog.hide()
+                    navigateToOrderStatusFragment(true)
+                }
+                is Resource.Error -> {
+                    loadingDialog.hide()
+                    navigateToOrderStatusFragment(false)
+                }
+                is Resource.Loading -> loadingDialog.show()
             }
         })
     }
@@ -151,7 +172,11 @@ class CheckoutFragment : BottomSheetDialogFragment() {
             }
         }
         binding.loadData = false
-        navigateToOrderStatusFragment(isOrderSubmitted)
+        if (isOrderSubmitted) {
+            checkoutViewModel.pushUserOrder(cartProductsList, userLocation)
+        } else {
+            navigateToOrderStatusFragment(isOrderSubmitted)
+        }
     }
 
     private fun navigateToOrderStatusFragment(isOrderSubmitted: Boolean) {
@@ -171,7 +196,6 @@ class CheckoutFragment : BottomSheetDialogFragment() {
                 .createWithPaymentMethodCreateParams(params, paymentIntentClientSecret)
             paymentLauncher.confirm(confirmParams)
             binding.loadData = true
-
         }
     }
 
