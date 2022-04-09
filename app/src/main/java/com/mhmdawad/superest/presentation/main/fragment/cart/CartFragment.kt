@@ -37,16 +37,17 @@ class CartFragment : Fragment(), CartAdapter.ProductListener {
     @Inject
     lateinit var cartAdapter: CartAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false)
-        binding.fragment = this
-        binding.adapter = cartAdapter
-        return binding.root
+        return binding.run {
+            fragment = this@CartFragment
+            adapter = cartAdapter
+            binding.root
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,16 +57,21 @@ class CartFragment : Fragment(), CartAdapter.ProductListener {
     }
 
     private fun observeListener() {
+        // retrieve user cart products to show in recycler view.
         cartViewModel.cartProductsLiveData.observe(viewLifecycleOwner, { cartProducts ->
             when (cartProducts) {
                 is Resource.Success -> {
                     if (cartProducts.data == null || cartProducts.data.isEmpty()) {
-                        binding.emptyProducts.show()
-                        binding.cartContainer.hide()
+                        binding.apply {
+                            emptyProducts.show()
+                            cartContainer.hide()
+                        }
                     } else {
                         cartAdapter.addProducts(cartProducts.data, this)
-                        binding.emptyProducts.hide()
-                        binding.cartContainer.show()
+                        binding.apply {
+                            emptyProducts.hide()
+                            cartContainer.show()
+                        }
                     }
                     loadingDialog.hide()
                 }
@@ -80,20 +86,25 @@ class CartFragment : Fragment(), CartAdapter.ProductListener {
         })
     }
 
-    // add quantity with number one on all products and add old quantity to quantity type
-    // and create track order and submit order and add payment method.
     fun checkOutProducts() {
+        openCheckOutDialog(getTotalPrice().toFloat())
+    }
+
+    private fun getTotalPrice(): Double {
+        // get all total price from all products in user cart to show in checkout dialog.
         var totalPrice = 0.0
         cartAdapter.getPurchasedProducts().forEach {
             totalPrice += it.run { quantity * price }
         }
-        openCheckOutDialog(totalPrice.toFloat())
+        return totalPrice
     }
 
+    // delete specific product from user cart.
     override fun onProductDelete(productModel: ProductModel) {
         cartViewModel.deleteProductFromCart(productModel)
     }
 
+    // pass total price and all products to checkout dialog to complete payment process and upload user order.
     private fun openCheckOutDialog(totalPrice: Float) {
         cartProductsList.clear()
         cartProductsList.addAll(cartAdapter.getPurchasedProducts())

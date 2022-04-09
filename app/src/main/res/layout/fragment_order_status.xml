@@ -6,7 +6,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.mhmdawad.superest.presentation.main.fragment.checkout.OrderStatusFragment" />
+            type="com.mhmdawad.superest.presentation.main.fragment.account.OrderStatusFragment" />
 
         <variable
             name="isOrderSubmitted"
@@ -16,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.main.fragment.checkout.OrderStatusFragment">
+        tools:context=".presentation.main.fragment.account.OrderStatusFragment">
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"

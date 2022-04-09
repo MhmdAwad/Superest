@@ -1,4 +1,4 @@
-package com.mhmdawad.superest.presentation.main.fragment.checkout
+package com.mhmdawad.superest.data.networking
 
 import com.mhmdawad.superest.data.networking.ApiService
 import com.mhmdawad.superest.model.PaymentModel

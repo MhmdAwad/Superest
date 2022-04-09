@@ -229,7 +229,7 @@
     </dialog>
     <fragment
         android:id="@+id/orderStatusFragment"
-        android:name="com.mhmdawad.superest.presentation.main.fragment.checkout.OrderStatusFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.account.OrderStatusFragment"
         android:label="OrderStatusFragment"
         tools:layout="@layout/fragment_order_status">
         <argument

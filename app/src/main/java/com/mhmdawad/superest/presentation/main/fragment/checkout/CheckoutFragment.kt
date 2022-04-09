@@ -82,12 +82,13 @@ class CheckoutFragment : BottomSheetDialogFragment() {
     }
 
     private fun observeListener() {
+        // gt user information from firebase to get user location and save in userLocation object to pass with user order .
         userInfoViewModel.userInformationLiveData.observe(viewLifecycleOwner, { userInfo ->
             when (userInfo) {
                 is Resource.Success -> {
                     userLocation = userInfo.data?.userLocationName!!
                     val checkoutModel =
-                        CheckoutModel(userLocation, totalCost, "Payment")
+                        CheckoutModel(userLocation, totalCost, getString(R.string.payment))
                     binding.checkoutModel = checkoutModel
                 }
                 is Resource.Error -> {
@@ -96,6 +97,7 @@ class CheckoutFragment : BottomSheetDialogFragment() {
             }
         })
 
+        // observe to get payment intent client secret to start payment process.
         checkoutViewModel.paymentIntentClientSecretLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
@@ -111,7 +113,7 @@ class CheckoutFragment : BottomSheetDialogFragment() {
                 }
             }
         })
-
+        // observe if payment process successfully after order uploaded and the money sent successfully.
         checkoutViewModel.orderProductsLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
@@ -127,6 +129,7 @@ class CheckoutFragment : BottomSheetDialogFragment() {
         })
     }
 
+    // create payment configuration to create a thread to start payment process.
     private fun initPaymentLauncher() {
         val paymentConfiguration =
             PaymentConfiguration.getInstance(requireContext().applicationContext)
@@ -138,13 +141,14 @@ class CheckoutFragment : BottomSheetDialogFragment() {
         )
     }
 
+    // check if visa card have enough money to start the process.
     private fun startCheckout() {
         val amount = (totalCost * 100).toInt().toString()
         PaymentModel(amount).let {
             checkoutViewModel.createPaymentIntent(it)
         }
     }
-
+    // animate when sliding payment method in ui.
     fun selectPaymentMethod(paymentSlider: ImageView, cardInputWidget: CardMultilineWidget) {
         if (cardInputWidget.isShown) {
             paymentSlider.animate().rotationBy(-90f).start()
@@ -158,7 +162,7 @@ class CheckoutFragment : BottomSheetDialogFragment() {
             }.start()
         }
     }
-
+     // add payment listener to check if payment process is completed successfully or not .
     private fun onPaymentResult(paymentResult: PaymentResult) {
         val isOrderSubmitted = when (paymentResult) {
             is PaymentResult.Completed -> {
@@ -186,11 +190,12 @@ class CheckoutFragment : BottomSheetDialogFragment() {
     }
 
     fun orderNow(cardInputWidget: CardMultilineWidget) {
+        // check if payment card widget is hidden and not validate to show a message to user to complete payment process.
         if (!cardInputWidget.isShown && !cardInputWidget.validateCardNumber()) {
             showToast(getString(R.string.addPaymentMethod))
             return
         }
-
+        // start payment process with the previous cost by the products selected on cart fragment.
         cardInputWidget.paymentMethodCreateParams?.let { params ->
             val confirmParams = ConfirmPaymentIntentParams
                 .createWithPaymentMethodCreateParams(params, paymentIntentClientSecret)

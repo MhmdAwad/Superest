@@ -7,11 +7,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.data.database.FavoriteDao
 import com.mhmdawad.superest.model.*
-import com.mhmdawad.superest.presentation.main.fragment.checkout.ApiClient
+import com.mhmdawad.superest.data.networking.ApiClient
 import com.mhmdawad.superest.util.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -145,6 +144,7 @@ constructor(
         }
     }
 
+    // search for products by names contain search value into search bar from firebase.
     suspend fun getProductsContainName(searchName: String): Resource<List<ProductModel>> {
         return try {
             val result =
@@ -161,6 +161,7 @@ constructor(
 
     }
 
+    // save products to user cart to buy it anytime.
     suspend fun addProductsToCart(
         list: List<ProductModel>,
         deleteFavoriteProducts: Boolean
@@ -177,11 +178,12 @@ constructor(
         }
 
     }
-
+    // delete specific product from user cart.
     suspend fun deleteProductFromUserCart(productId: String) {
         cartCollection.document(productId).delete().await()
     }
 
+    // get all products from user cart to show into cart fragment.
     suspend fun getAllUserProducts(): Resource<List<ProductModel>> {
         return try {
             val result = cartCollection.get().await()
@@ -191,10 +193,13 @@ constructor(
             Resource.Error(errorMessage)
         }
     }
-
+    // create payment request to start payment process.
     suspend fun createPaymentIntent(paymentModel: PaymentModel) =
         apiClient.createPaymentIntent(paymentModel)
 
+    /* after submit the order successfully here we'll add all cart products to incomplete orders to show to admin panel
+       and delete it from user cart.
+    */
     suspend fun uploadProductsToOrders(
         cartProductsList: Array<ProductModel>,
         userLocation: String
@@ -214,11 +219,10 @@ constructor(
             removeUserCartProducts()
             Resource.Success(orderModel)
         } catch (e: Exception) {
-            println(">>>>>>>>>>???? ${e.message}")
             Resource.Error(errorMessage)
         }
     }
-
+    // delete all products from user cart .
     private suspend fun removeUserCartProducts() {
         cartCollection.get().await().let {
             it.forEach { doc ->

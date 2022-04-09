@@ -1,4 +1,4 @@
-package com.mhmdawad.superest.presentation.main.fragment.checkout
+package com.mhmdawad.superest.presentation.main.fragment.account
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentOrderStatusBinding
 import com.mhmdawad.superest.util.extention.closeFragment
-import com.mhmdawad.superest.util.extention.showToast
 
 class OrderStatusFragment : Fragment() {
 
