@@ -17,7 +17,7 @@ import javax.inject.Inject
 class UserInfoViewModel
 @Inject
     constructor(
-    private val shopRepository: ShopRepository
+    private val authenticationRepository: AuthenticationRepository
     ): ViewModel() {
 
     private val _userInformation = MutableLiveData<Resource<UserInfoModel>>()
@@ -27,9 +27,15 @@ class UserInfoViewModel
         getUserInformation()
     }
 
+    private val _userLocationLiveData = MutableLiveData<String?>(null)
+    val userLocationLiveData: LiveData<String?> = _userLocationLiveData
+    fun setUserLocation(location: String) {
+        _userLocationLiveData.value = location
+    }
+
     private fun getUserInformation(){
         viewModelScope.launch(Dispatchers.IO) {
-            shopRepository.getUserInformation(_userInformation)
+            authenticationRepository.getUserInformation(_userInformation)
         }
     }
 }
