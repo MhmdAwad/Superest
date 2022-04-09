@@ -40,6 +40,7 @@ class CartFragment : Fragment(), CartAdapter.ProductListener {
         super.onCreate(savedInstanceState)
         cartViewModel.getAllCartProducts()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,23 +58,23 @@ class CartFragment : Fragment(), CartAdapter.ProductListener {
     }
 
     private fun observeListener() {
-        cartViewModel.cartProductsLiveData.observe(viewLifecycleOwner, {cartProducts->
-            when(cartProducts){
-                is Resource.Success ->{
-                    if(cartProducts.data == null || cartProducts.data.isEmpty()){
+        cartViewModel.cartProductsLiveData.observe(viewLifecycleOwner, { cartProducts ->
+            when (cartProducts) {
+                is Resource.Success -> {
+                    if (cartProducts.data == null || cartProducts.data.isEmpty()) {
                         binding.emptyProducts.show()
                         binding.cartContainer.hide()
-                    }else {
+                    } else {
                         cartAdapter.addProducts(cartProducts.data, this)
                         binding.emptyProducts.hide()
                         binding.cartContainer.show()
                     }
                     loadingDialog.hide()
                 }
-                is Resource.Loading ->{
+                is Resource.Loading -> {
                     loadingDialog.show()
                 }
-                is Resource.Error->{
+                is Resource.Error -> {
                     loadingDialog.hide()
                     showToast(cartProducts.msg!!)
                 }
@@ -83,10 +84,10 @@ class CartFragment : Fragment(), CartAdapter.ProductListener {
 
     // add quantity with number one on all products and add old quantity to quantity type
     // and create track order and submit order and add payment method.
-    fun checkOutProducts(){
+    fun checkOutProducts() {
         var totalPrice = 0.0
         cartAdapter.getPurchasedProducts().forEach {
-            totalPrice += it.quantity * it.price
+            totalPrice += it.run { quantity * price }
         }
         openCheckOutDialog(totalPrice.toFloat())
     }
@@ -95,7 +96,7 @@ class CartFragment : Fragment(), CartAdapter.ProductListener {
         cartViewModel.deleteProductFromCart(productModel)
     }
 
-    private fun openCheckOutDialog(totalPrice: Float){
+    private fun openCheckOutDialog(totalPrice: Float) {
         val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment(totalPrice)
         findNavController().navigate(action)
     }

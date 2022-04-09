@@ -6,6 +6,7 @@ const val USERS_COLLECTION = "Users"
 const val CART_COLLECTION = "Cart"
 const val EXPLAINED_PERMISSION = "EXPLAINED"
 const val PERMISSION_ANNOTATION = "PERMISSION"
+const val DISPLAY_DIALOG = "ALERT_DIALOG"
 const val LOADING_ANNOTATION = "LOADING"
 const val BASE_LATITUDE = 26.0
 const val BASE_LONGITUDE = 32.0
@@ -20,6 +21,7 @@ const val SIMPLE_SHOP_LAYOUT = 667
 const val ADVANCED_SHOP_LAYOUT = 660
 const val OFFERS = "Offers"
 const val FAVORITE_DATABASE = "FavoriteDatabase"
+const val BACKEND_URL = "https://floating-springs-34147.herokuapp.com/"
 private val colorList= mutableListOf<String>()
 fun pickColor():String {
     if(colorList.isEmpty()) {

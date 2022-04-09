@@ -8,6 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.data.database.FavoriteDao
 import com.mhmdawad.superest.model.*
+import com.mhmdawad.superest.presentation.main.fragment.checkout.ApiClient
 import com.mhmdawad.superest.util.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
@@ -22,6 +23,7 @@ constructor(
     private val fireStore: FirebaseFirestore,
     private val firebaseAuth: FirebaseAuth,
     private val favoriteDao: FavoriteDao,
+    private val apiClient: ApiClient,
     @ApplicationContext private val context: Context
 ) {
 
@@ -29,17 +31,6 @@ constructor(
     private val userUid by lazy { firebaseAuth.uid!! }
     private val cartCollection by lazy {
         fireStore.collection(USERS_COLLECTION).document(userUid).collection(CART_COLLECTION)
-    }
-
-    // check if user has data into firebase firestore or not.
-    suspend fun getUserInformation(userInfoLiveData: MutableLiveData<Resource<UserInfoModel>>) {
-        try {
-            val task = fireStore.collection(USERS_COLLECTION).document(userUid).get().await()
-            val userInfoModel = convertMapToUserInfoModel(task.data!!)
-            userInfoLiveData.postValue(Resource.Success(userInfoModel))
-        } catch (e: Exception) {
-            userInfoLiveData.postValue(Resource.Error(errorMessage))
-        }
     }
 
     // get all products main shop from firebase.
@@ -171,12 +162,15 @@ constructor(
 
     }
 
-    suspend fun addProductsToCart(list: List<ProductModel>, deleteFavoriteProducts: Boolean): Resource<Any> {
+    suspend fun addProductsToCart(
+        list: List<ProductModel>,
+        deleteFavoriteProducts: Boolean
+    ): Resource<Any> {
         return try {
             list.forEach { product ->
                 cartCollection.document(product.id).set(product).await()
             }
-            if(deleteFavoriteProducts)
+            if (deleteFavoriteProducts)
                 favoriteDao.deleteAllProducts()
             Resource.Success(Any())
         } catch (e: Exception) {
@@ -198,4 +192,9 @@ constructor(
             Resource.Error(errorMessage)
         }
     }
+
+    suspend fun createPaymentIntent(paymentModel: PaymentModel) =
+        apiClient.createPaymentIntent(paymentModel)
+
+
 }

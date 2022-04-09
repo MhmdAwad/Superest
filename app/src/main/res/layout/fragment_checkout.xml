@@ -4,20 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="checkoutModel"
             type="com.mhmdawad.superest.model.CheckoutModel" />
 
         <variable
             name="fragment"
-            type="com.mhmdawad.superest.presentation.main.fragment.cart.CheckoutFragment" />
+            type="com.mhmdawad.superest.presentation.main.fragment.checkout.CheckoutFragment" />
+
+        <variable
+            name="loadData"
+            type="Boolean" />
+
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".presentation.main.fragment.cart.CheckoutFragment">
+        tools:context=".presentation.main.fragment.checkout.CheckoutFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -87,6 +92,7 @@
                     app:tint="@color/black" />
 
                 <TextView
+                    android:id="@+id/userLocationForOrder"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_8sdp"
@@ -123,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:onClick="@{()-> fragment.selectPaymentMethod()}"
+                android:onClick="@{()-> fragment.selectPaymentMethod(paymentSlider, cardInputWidget)}"
                 app:layout_constraintTop_toBottomOf="@id/view1">
 
                 <TextView
@@ -134,12 +140,11 @@
                     android:text="@string/payment"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView10"
+                    android:id="@+id/paymentSlider"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_8sdp"
@@ -155,12 +160,21 @@
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:src="@drawable/ic_payment_card"
+                    android:src="@drawable/ic_payment_method"
                     android:textSize="@dimen/_12sdp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView10"
-                    app:layout_constraintTop_toTopOf="@+id/imageView10" />
+                    app:layout_constraintBottom_toBottomOf="@+id/paymentSlider"
+                    app:layout_constraintEnd_toStartOf="@+id/paymentSlider"
+                    app:layout_constraintTop_toTopOf="@+id/paymentSlider" />
+
+                <com.stripe.android.view.CardMultilineWidget
+                    android:id="@+id/cardInputWidget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/textView13" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <View
                 android:id="@+id/view2"
@@ -191,17 +205,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:src="@drawable/ic_baseline_arrow_forward"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView14"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView14"
-                    app:tint="@color/black" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -211,9 +214,9 @@
                     android:text="@{checkoutModel!=null? @string/price(checkoutModel.totalCost):``}"
                     android:textStyle="bold"
                     android:theme="@style/textTheme"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView11"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView11"
-                    app:layout_constraintTop_toTopOf="@+id/imageView11" />
+                    app:layout_constraintBottom_toBottomOf="@+id/textView14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView14" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -227,18 +230,36 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/totalPrice" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_margin="@dimen/_16sdp"
                 android:background="@drawable/button_style"
-                android:onClick="@{()-> fragment.orderNow()}"
-                android:text="@string/place_order"
                 android:theme="@style/buttonTheme"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view3" />
+                app:layout_constraintTop_toBottomOf="@+id/view3">
+
+                <TextView
+                    android:id="@+id/orderNow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:visibility="@{loadData? View.GONE: View.VISIBLE}"
+                    android:onClick="@{()-> fragment.orderNow(cardInputWidget)}"
+                    android:text="@string/place_order"
+                    android:textSize="@dimen/_16sdp" />
+
+                <ProgressBar
+                    android:id="@+id/orderProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{loadData? View.VISIBLE: View.GONE}"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/white" />
+            </FrameLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
