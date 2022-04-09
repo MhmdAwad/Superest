@@ -65,7 +65,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:onClick="@{()-> fragment.changeDeliveryAddress()}"
                 app:layout_constraintTop_toBottomOf="@id/view">
 
                 <TextView
@@ -80,30 +79,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:src="@drawable/ic_baseline_arrow_forward"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView12"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView12"
-                    app:tint="@color/black" />
 
                 <TextView
                     android:id="@+id/userLocationForOrder"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_8sdp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@{checkoutModel!=null? checkoutModel.userAddress:``}"
                     android:textSize="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline9"
-                    app:layout_constraintTop_toTopOf="@+id/imageView9" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline9"

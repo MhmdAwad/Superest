@@ -49,7 +49,6 @@ class CheckoutFragment : BottomSheetDialogFragment() {
     private val args by navArgs<CheckoutFragmentArgs>()
     private val totalCost by lazy { args.totalCost }
     private lateinit var paymentLauncher: PaymentLauncher
-    private var orderUserLocation = ""
     private lateinit var paymentIntentClientSecret: String
 
     @Inject
@@ -62,10 +61,11 @@ class CheckoutFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkout, container, false)
-        binding.fragment = this
-        binding.loadData = false
-        isCancelable = false
-        return binding.root
+        return  binding.run {
+            fragment = this@CheckoutFragment
+            loadData = false
+            binding.root
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,17 +85,6 @@ class CheckoutFragment : BottomSheetDialogFragment() {
                 }
                 is Resource.Error -> {
                     showToast(userInfo.msg!!)
-                }
-            }
-        })
-
-        userInfoViewModel.userLocationLiveData.observe(viewLifecycleOwner, {
-            if (it != null) {
-                binding.apply {
-                    it.let { newLocation ->
-                        userLocationForOrder.text = newLocation
-                        orderUserLocation = newLocation
-                    }
                 }
             }
         })
@@ -163,17 +152,11 @@ class CheckoutFragment : BottomSheetDialogFragment() {
         }
         binding.loadData = false
         navigateToOrderStatusFragment(isOrderSubmitted)
-//        showAlertDialog(getString(R.string.paymentResult), message)
     }
 
     private fun navigateToOrderStatusFragment(isOrderSubmitted: Boolean) {
         val action =
             CheckoutFragmentDirections.actionCheckoutFragmentToOrderStatusFragment(isOrderSubmitted)
-        findNavController().navigate(action)
-    }
-
-    fun changeDeliveryAddress() {
-        val action = CheckoutFragmentDirections.actionCheckoutFragmentToLocateUserLocationFragment()
         findNavController().navigate(action)
     }
 
