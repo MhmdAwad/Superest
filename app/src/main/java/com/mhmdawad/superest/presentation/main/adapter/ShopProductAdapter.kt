@@ -85,7 +85,7 @@ class ShopProductAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(shopItem: MainShopItem) = with(binding) {
-            if ((adapterPosition % 3) != 0)
+            if ((bindingAdapterPosition % 3) != 0)
                 shopItem.showInSimpleStyle = true
             setVariable(BR.shopItem, shopItem)
             setVariable(BR.listener, listener)
