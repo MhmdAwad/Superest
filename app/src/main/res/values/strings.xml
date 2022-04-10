@@ -59,7 +59,6 @@
     <string name="productAddToCart">Product add to My Cart successfully.</string>
     <string name="my_orders">My Orders</string>
     <string name="delivery_address">Delivery Address</string>
-    <string name="payment_method">Payment Method</string>
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="log_out">Log Out</string>
@@ -68,10 +67,7 @@
     <string name="total_cost">Total Cost</string>
     <string name="place_order">Place Order</string>
     <string name="ok">OK</string>
-    <string name="paymentResult">Payment Result:</string>
     <string name="addPaymentMethod">Please add a payment method to continue!</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="back_to_home">Back to home</string>
     <string name="successful_order_title">Your Order has been accepted</string>
     <string name="successful_order_message">Your items has been placed and is on its way to begin processed.</string>
@@ -82,4 +78,17 @@
     <string name="paymentError">An error occurred with payment method.</string>
     <string name="error">Error:</string>
     <string name="noProductsCart">No Products in Cart!</string>
+    <string name="tracking_order">Tracking Order:</string>
+    <string name="order_placed">Order Placed</string>
+    <string name="order_placed_message">We have received your order</string>
+    <string name="order_confirmed">Order Confirmed</string>
+    <string name="order_confirmed_message">Your order has been confirmed</string>
+    <string name="order_shipped">Order Shipped</string>
+    <string name="order_shipped_message">Your order is on its way</string>
+    <string name="order_delivered">Order Delivered</string>
+    <string name="order_delivered_message">Your order is now in your hands</string>
+    <string name="accountSettings">Account Settings</string>
+    <string name="logOutMessage">You have logged out successfully</string>
+    <string name="locationChanged">Your location changed successfully!</string>
+    <string name="myLocation">My Location:</string>
 </resources>

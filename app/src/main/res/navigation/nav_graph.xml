@@ -172,7 +172,24 @@
         android:id="@+id/accountFragment"
         android:name="com.mhmdawad.superest.presentation.main.fragment.account.AccountFragment"
         android:label="fragment_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_authenticationFragment"
+            app:destination="@id/authenticationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_accountFragment_to_locateUserLocationFragment"
+            app:destination="@id/locateUserLocationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.mhmdawad.superest.presentation.main.fragment.explore.ExploreFragment"
@@ -233,6 +250,9 @@
         android:label="OrderStatusFragment"
         tools:layout="@layout/fragment_order_status">
         <argument
+            android:name="orderModel"
+            app:argType="com.mhmdawad.superest.model.OrderModel" />
+        <argument
             android:name="isOrderSubmitted"
             app:argType="boolean" />
         <action
@@ -254,7 +274,11 @@
     </fragment>
     <fragment
         android:id="@+id/trackOrdersFragment"
-        android:name="com.mhmdawad.superest.presentation.main.fragment.track.TrackOrdersFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.account.TrackOrdersFragment"
         android:label="TrackOrdersFragment"
-        tools:layout="@layout/fragment_track_orders"/>
+        tools:layout="@layout/fragment_track_orders">
+        <argument
+            android:name="orderModel"
+            app:argType="com.mhmdawad.superest.model.OrderModel" />
+    </fragment>
 </navigation>

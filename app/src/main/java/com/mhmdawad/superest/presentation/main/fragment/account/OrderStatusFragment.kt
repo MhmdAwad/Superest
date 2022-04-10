@@ -17,6 +17,7 @@ class OrderStatusFragment : Fragment() {
     private lateinit var binding: FragmentOrderStatusBinding
     private val args by navArgs<OrderStatusFragmentArgs>()
     private val mIsOrderSubmitted by lazy { args.isOrderSubmitted }
+    private val orderModel by lazy { args.orderModel }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,7 +40,7 @@ class OrderStatusFragment : Fragment() {
     }
 
     private fun navigateToTrackOrderFragment() {
-        val action = OrderStatusFragmentDirections.actionOrderStatusFragmentToTrackOrdersFragment()
+        val action = OrderStatusFragmentDirections.actionOrderStatusFragmentToTrackOrdersFragment(orderModel)
         findNavController().navigate(action)
     }
 

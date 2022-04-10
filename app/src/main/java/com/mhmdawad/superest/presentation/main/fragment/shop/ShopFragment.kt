@@ -14,10 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentShopBinding
-import com.mhmdawad.superest.model.MainShopItem
-import com.mhmdawad.superest.model.OffersModel
-import com.mhmdawad.superest.model.ProductModel
-import com.mhmdawad.superest.model.UserInfoModel
+import com.mhmdawad.superest.model.*
 import com.mhmdawad.superest.presentation.MainActivity
 import com.mhmdawad.superest.presentation.authentication.UserInfoViewModel
 import com.mhmdawad.superest.presentation.main.adapter.ImageSliderAdapter

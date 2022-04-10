@@ -1,10 +1,13 @@
 package com.mhmdawad.superest.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 enum class OrderEnums {
 
-    ORDERED, SHIPPED, DELIVERED
+    PLACED, CONFIRMED, SHIPPED, DELIVERED
 }
-
+@Parcelize
 data class OrderModel(
     val orderId: String,
     val userUid: String,
@@ -12,7 +15,7 @@ data class OrderModel(
     val orderLocation: String,
     val orderStatus: OrderEnums,
     val productsList: List<ProductModel>
-)
+): Parcelable
 
 fun OrderModel.toMap(): Map<String, Any>{
     val map = mutableMapOf<String, Any>()

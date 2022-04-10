@@ -19,7 +19,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentCheckoutBinding
 import com.mhmdawad.superest.model.CheckoutModel
+import com.mhmdawad.superest.model.OrderModel
 import com.mhmdawad.superest.model.PaymentModel
+import com.mhmdawad.superest.model.ProductModel
 import com.mhmdawad.superest.presentation.authentication.UserInfoViewModel
 import com.mhmdawad.superest.util.DISPLAY_DIALOG
 import com.mhmdawad.superest.util.LOADING_ANNOTATION
@@ -43,12 +45,13 @@ import javax.inject.Named
 class CheckoutFragment : BottomSheetDialogFragment() {
 
     private val userInfoViewModel by activityViewModels<UserInfoViewModel>()
-    private val checkoutViewModel by viewModels<CheckoutViewModel>()
+    private val checkoutViewModel by activityViewModels<CheckoutViewModel>()
 
     private lateinit var binding: FragmentCheckoutBinding
     private val args by navArgs<CheckoutFragmentArgs>()
     private val totalCost by lazy { args.totalCost }
     private val cartProductsList by lazy { args.productList }
+    private lateinit var orderModel: OrderModel
     private var userLocation = ""
     private lateinit var paymentLauncher: PaymentLauncher
     private lateinit var paymentIntentClientSecret: String
@@ -117,6 +120,7 @@ class CheckoutFragment : BottomSheetDialogFragment() {
         checkoutViewModel.orderProductsLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
+                    orderModel = it.data!!
                     loadingDialog.hide()
                     navigateToOrderStatusFragment(true)
                 }
@@ -148,6 +152,7 @@ class CheckoutFragment : BottomSheetDialogFragment() {
             checkoutViewModel.createPaymentIntent(it)
         }
     }
+
     // animate when sliding payment method in ui.
     fun selectPaymentMethod(paymentSlider: ImageView, cardInputWidget: CardMultilineWidget) {
         if (cardInputWidget.isShown) {
@@ -162,18 +167,13 @@ class CheckoutFragment : BottomSheetDialogFragment() {
             }.start()
         }
     }
-     // add payment listener to check if payment process is completed successfully or not .
+
+    // add payment listener to check if payment process is completed successfully or not .
     private fun onPaymentResult(paymentResult: PaymentResult) {
         val isOrderSubmitted = when (paymentResult) {
-            is PaymentResult.Completed -> {
-                true
-            }
-            is PaymentResult.Canceled -> {
-                false
-            }
-            is PaymentResult.Failed -> {
-                false
-            }
+            is PaymentResult.Completed -> true
+            else -> false
+
         }
         binding.loadData = false
         if (isOrderSubmitted) {
@@ -185,7 +185,7 @@ class CheckoutFragment : BottomSheetDialogFragment() {
 
     private fun navigateToOrderStatusFragment(isOrderSubmitted: Boolean) {
         val action =
-            CheckoutFragmentDirections.actionCheckoutFragmentToOrderStatusFragment(isOrderSubmitted)
+            CheckoutFragmentDirections.actionCheckoutFragmentToOrderStatusFragment(orderModel, isOrderSubmitted)
         findNavController().navigate(action)
     }
 

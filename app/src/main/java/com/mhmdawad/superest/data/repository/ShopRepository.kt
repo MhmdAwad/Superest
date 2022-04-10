@@ -212,7 +212,7 @@ constructor(
                 userUid,
                 System.currentTimeMillis(),
                 userLocation,
-                OrderEnums.ORDERED,
+                OrderEnums.PLACED,
                 cartProductsList.toList()
             )
             orderCollection.document(id).set(orderModel.toMap()).await()
