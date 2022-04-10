@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,9 +14,7 @@
             type="com.mhmdawad.superest.model.UserInfoModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.main.fragment.account.AccountFragment">
@@ -50,16 +50,6 @@
             app:layout_constraintStart_toEndOf="@+id/userProfileImage"
             app:layout_constraintTop_toTopOf="@+id/userProfileImage" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:padding="@dimen/_8sdp"
-            android:src="@drawable/ic_baseline_edit_24"
-            app:layout_constraintBottom_toBottomOf="@+id/textView10"
-            app:layout_constraintStart_toEndOf="@+id/textView10"
-            app:layout_constraintTop_toTopOf="@+id/textView10" />
-
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
@@ -70,224 +60,238 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userProfileImage" />
 
-        <LinearLayout
-            android:id="@+id/orderContainer"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:gravity="center_vertical"
-            android:onClick="@{()-> fragment.openOrdersFragment()}"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/view2"
-            tools:layout_editor_absoluteX="10dp">
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
+            app:layout_constraintTop_toBottomOf="@+id/view2">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_orders_icon" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8sdp"
-                android:layout_weight="9"
-                android:text="@string/my_orders"
-                android:theme="@style/textTheme" />
+                <LinearLayout
+                    android:id="@+id/orderContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{()-> fragment.openOrdersFragment()}"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="10dp">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_arrow_forward"
-                app:tint="@color/black" />
-        </LinearLayout>
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_orders_icon" />
 
-        <View
-            android:id="@+id/orderLine"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/_8sdp"
-            android:background="@color/grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/orderContainer" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:layout_weight="9"
+                        android:text="@string/my_orders"
+                        android:theme="@style/textTheme" />
 
-        <LinearLayout
-            android:id="@+id/deliveryContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            android:gravity="center_vertical"
-            android:onClick="@{()-> fragment.openDeliveryAddressFragment()}"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/orderLine"
-            tools:layout_editor_absoluteX="10dp">
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_baseline_arrow_forward"
+                        app:tint="@color/black" />
+                </LinearLayout>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_delivery_address" />
+                <View
+                    android:id="@+id/orderLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:background="@color/grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/orderContainer" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8sdp"
-                android:layout_weight="9"
-                android:text="@string/delivery_address"
-                android:theme="@style/textTheme" />
+                <LinearLayout
+                    android:id="@+id/deliveryContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{()-> fragment.openDeliveryAddressFragment()}"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/orderLine"
+                    tools:layout_editor_absoluteX="10dp">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_arrow_forward"
-                app:tint="@color/black" />
-        </LinearLayout>
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_delivery_address" />
 
-        <View
-            android:id="@+id/deliveryLine"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/_8sdp"
-            android:background="@color/grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/deliveryContainer" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:layout_weight="9"
+                        android:text="@string/delivery_address"
+                        android:theme="@style/textTheme" />
 
-        <LinearLayout
-            android:id="@+id/paymentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            android:gravity="center_vertical"
-            android:onClick="@{()-> fragment.openPaymentMethodFragment()}"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/deliveryLine"
-            tools:layout_editor_absoluteX="10dp">
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_baseline_arrow_forward"
+                        app:tint="@color/black" />
+                </LinearLayout>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_payment_icon" />
+                <View
+                    android:id="@+id/deliveryLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:background="@color/grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/deliveryContainer" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8sdp"
-                android:layout_weight="9"
-                android:text="@string/payment_method"
-                android:theme="@style/textTheme" />
+                <LinearLayout
+                    android:id="@+id/settingsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{()-> fragment.openPaymentMethodFragment()}"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/deliveryLine"
+                    tools:layout_editor_absoluteX="10dp">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_arrow_forward"
-                app:tint="@color/black" />
-        </LinearLayout>
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_baseline_settings_24" />
 
-        <View
-            android:id="@+id/paymentLine"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/_8sdp"
-            android:background="@color/grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/paymentContainer" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:layout_weight="9"
+                        android:text="@string/accountSettings"
+                        android:theme="@style/textTheme" />
 
-        <LinearLayout
-            android:id="@+id/helpContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            android:gravity="center_vertical"
-            android:onClick="@{()-> fragment.openHelpFragment()}"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/paymentLine"
-            tools:layout_editor_absoluteX="10dp">
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_baseline_arrow_forward"
+                        app:tint="@color/black" />
+                </LinearLayout>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_help_icon" />
+                <View
+                    android:id="@+id/paymentLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:background="@color/grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/settingsContainer" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8sdp"
-                android:layout_weight="9"
-                android:text="@string/help"
-                android:theme="@style/textTheme" />
+                <LinearLayout
+                    android:id="@+id/helpContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{()-> fragment.openHelpFragment()}"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/paymentLine"
+                    tools:layout_editor_absoluteX="10dp">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_arrow_forward"
-                app:tint="@color/black" />
-        </LinearLayout>
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_help_icon" />
 
-        <View
-            android:id="@+id/helpLine"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/_8sdp"
-            android:background="@color/grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/helpContainer" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:layout_weight="9"
+                        android:text="@string/help"
+                        android:theme="@style/textTheme" />
 
-        <LinearLayout
-            android:id="@+id/aboutContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            android:gravity="center_vertical"
-            android:onClick="@{()-> fragment.openAboutFragment()}"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/helpLine"
-            tools:layout_editor_absoluteX="10dp">
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_baseline_arrow_forward"
+                        app:tint="@color/black" />
+                </LinearLayout>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_about_icon" />
+                <View
+                    android:id="@+id/helpLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:background="@color/grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/helpContainer" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8sdp"
-                android:layout_weight="9"
-                android:text="@string/about"
-                android:theme="@style/textTheme" />
+                <LinearLayout
+                    android:id="@+id/aboutContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{()-> fragment.openAboutFragment()}"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/helpLine"
+                    tools:layout_editor_absoluteX="10dp">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_arrow_forward"
-                app:tint="@color/black" />
-        </LinearLayout>
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_about_icon" />
 
-        <View
-            android:id="@+id/aboutLine"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/_8sdp"
-            android:background="@color/grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/aboutContainer" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:layout_weight="9"
+                        android:text="@string/about"
+                        android:theme="@style/textTheme" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_baseline_arrow_forward"
+                        app:tint="@color/black" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/aboutLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:background="@color/grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/aboutContainer" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout6"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:layout_margin="@dimen/_16sdp"
@@ -297,7 +301,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/aboutLine"
             app:layout_constraintVertical_bias="1.0">
 
             <ImageView

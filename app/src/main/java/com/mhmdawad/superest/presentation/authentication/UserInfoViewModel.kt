@@ -23,12 +23,13 @@ class UserInfoViewModel
     private val _userInformation = MutableLiveData<Resource<UserInfoModel>>()
     val userInformationLiveData : LiveData<Resource<UserInfoModel>> = _userInformation
 
+    private val _userLocationLiveData = MutableLiveData<String?>(null)
+    val userLocationLiveData: LiveData<String?> = _userLocationLiveData
+
     init {
         getUserInformation()
     }
 
-    private val _userLocationLiveData = MutableLiveData<String?>(null)
-    val userLocationLiveData: LiveData<String?> = _userLocationLiveData
     fun setUserLocation(location: String) {
         _userLocationLiveData.value = location
     }
@@ -36,6 +37,14 @@ class UserInfoViewModel
     private fun getUserInformation(){
         viewModelScope.launch(Dispatchers.IO) {
             authenticationRepository.getUserInformation(_userInformation)
+        }
+    }
+
+    fun changUserLocation(location: String?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = authenticationRepository.changeUserLocation(location!!)
+            if(result)
+                getUserInformation()
         }
     }
 }

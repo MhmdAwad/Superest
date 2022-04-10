@@ -32,6 +32,7 @@ constructor(
     private val firebaseFirestore: FirebaseFirestore,
     @ApplicationContext private val context: Context,
 ) {
+    private val userUid by lazy { firebaseAuth.uid!! }
 
     fun checkIfFirstAppOpened(): Boolean = sharedPreferenceHelper.checkIfFirstAppOpened()
 
@@ -98,13 +99,22 @@ constructor(
     // check if user has data into firebase firestore or not.
     suspend fun getUserInformation(userInfoLiveData: MutableLiveData<Resource<UserInfoModel>>) {
         try {
-            val userUid = firebaseAuth.uid!!
-            val task = firebaseFirestore.collection(USERS_COLLECTION).document(userUid).get().await()
+            val task =
+                firebaseFirestore.collection(USERS_COLLECTION).document(userUid).get().await()
             val userInfoModel = convertMapToUserInfoModel(task.data!!)
             userInfoLiveData.postValue(Resource.Success(userInfoModel))
         } catch (e: Exception) {
             userInfoLiveData.postValue(Resource.Error(context.getString(R.string.errorMessage)))
         }
+    }
+
+    suspend fun changeUserLocation(location: String): Boolean {
+        return try {
+            firebaseFirestore.collection(USERS_COLLECTION).document(userUid).update(
+                mapOf("userLocationName" to location)
+            ).await()
+            true
+        }catch (e: Exception){false}
     }
 
 }
