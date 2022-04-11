@@ -34,6 +34,9 @@ constructor(
 
     private val _userInfoLiveData = MutableLiveData<Resource<String>>()
     val userInfoLiveData: LiveData<Resource<String>> get() = _userInfoLiveData
+    fun setUserInformationValue() {
+        _userInfoLiveData.value = Resource.Idle()
+    }
 
     fun checkIfFirstAppOpened(): Boolean = authenticationRepository.checkIfFirstAppOpened()
 
@@ -59,6 +62,7 @@ constructor(
         }
 
     }
+
 
 
 }

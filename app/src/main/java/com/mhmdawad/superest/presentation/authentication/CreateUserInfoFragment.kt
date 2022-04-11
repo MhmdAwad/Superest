@@ -93,6 +93,7 @@ class CreateUserInfoFragment : Fragment() {
                 is Resource.Success -> {
                     loadingDialog.hide()
                     showToast(info.data!!)
+                    authViewModel.setUserInformationValue()
                     closeFragment()
                 }
                 is Resource.Error -> {
