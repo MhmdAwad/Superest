@@ -2,16 +2,15 @@ package com.mhmdawad.superest.data.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.data.database.FavoriteDao
 import com.mhmdawad.superest.model.*
+import com.mhmdawad.superest.data.networking.ApiClient
 import com.mhmdawad.superest.util.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -22,6 +21,7 @@ constructor(
     private val fireStore: FirebaseFirestore,
     private val firebaseAuth: FirebaseAuth,
     private val favoriteDao: FavoriteDao,
+    private val apiClient: ApiClient,
     @ApplicationContext private val context: Context
 ) {
 
@@ -29,17 +29,6 @@ constructor(
     private val userUid by lazy { firebaseAuth.uid!! }
     private val cartCollection by lazy {
         fireStore.collection(USERS_COLLECTION).document(userUid).collection(CART_COLLECTION)
-    }
-
-    // check if user has data into firebase firestore or not.
-    suspend fun getUserInformation(userInfoLiveData: MutableLiveData<Resource<UserInfoModel>>) {
-        try {
-            val task = fireStore.collection(USERS_COLLECTION).document(userUid).get().await()
-            val userInfoModel = convertMapToUserInfoModel(task.data!!)
-            userInfoLiveData.postValue(Resource.Success(userInfoModel))
-        } catch (e: Exception) {
-            userInfoLiveData.postValue(Resource.Error(errorMessage))
-        }
     }
 
     // get all products main shop from firebase.
@@ -155,6 +144,7 @@ constructor(
         }
     }
 
+    // search for products by names contain search value into search bar from firebase.
     suspend fun getProductsContainName(searchName: String): Resource<List<ProductModel>> {
         return try {
             val result =
@@ -171,23 +161,29 @@ constructor(
 
     }
 
-    suspend fun addProductsToCart(list: List<ProductModel>): Resource<Any> {
+    // save products to user cart to buy it anytime.
+    suspend fun addProductsToCart(
+        list: List<ProductModel>,
+        deleteFavoriteProducts: Boolean
+    ): Resource<Any> {
         return try {
             list.forEach { product ->
                 cartCollection.document(product.id).set(product).await()
             }
-            favoriteDao.deleteAllProducts()
+            if (deleteFavoriteProducts)
+                favoriteDao.deleteAllProducts()
             Resource.Success(Any())
         } catch (e: Exception) {
             Resource.Error(errorMessage)
         }
 
     }
-
+    // delete specific product from user cart.
     suspend fun deleteProductFromUserCart(productId: String) {
         cartCollection.document(productId).delete().await()
     }
 
+    // get all products from user cart to show into cart fragment.
     suspend fun getAllUserProducts(): Resource<List<ProductModel>> {
         return try {
             val result = cartCollection.get().await()
@@ -195,6 +191,43 @@ constructor(
             Resource.Success(products)
         } catch (e: Exception) {
             Resource.Error(errorMessage)
+        }
+    }
+    // create payment request to start payment process.
+    suspend fun createPaymentIntent(paymentModel: PaymentModel) =
+        apiClient.createPaymentIntent(paymentModel)
+
+    /* after submit the order successfully here we'll add all cart products to incomplete orders to show to admin panel
+       and delete it from user cart.
+    */
+    suspend fun uploadProductsToOrders(
+        cartProductsList: Array<ProductModel>,
+        userLocation: String
+    ): Resource<OrderModel> {
+        return try {
+            val orderCollection = fireStore.collection(INCOMPLETE_ORDERS)
+            val id = orderCollection.document().id
+            val orderModel = OrderModel(
+                id,
+                userUid,
+                System.currentTimeMillis(),
+                userLocation,
+                OrderEnums.PLACED,
+                cartProductsList.toList()
+            )
+            orderCollection.document(id).set(orderModel.toMap()).await()
+            removeUserCartProducts()
+            Resource.Success(orderModel)
+        } catch (e: Exception) {
+            Resource.Error(errorMessage)
+        }
+    }
+    // delete all products from user cart .
+    private suspend fun removeUserCartProducts() {
+        cartCollection.get().await().let {
+            it.forEach { doc ->
+                cartCollection.document(doc.id).delete().await()
+            }
         }
     }
 }

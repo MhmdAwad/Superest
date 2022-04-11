@@ -20,9 +20,6 @@ constructor(
     private val shopRepository: ShopRepository
 ) : ViewModel() {
 
-    private val _userInfoLiveData = MutableLiveData<Resource<UserInfoModel>>(Resource.Loading())
-    val userInfoLiveData: LiveData<Resource<UserInfoModel>> get() = _userInfoLiveData
-
     private val _shopListLiveData =
         MutableLiveData<Resource<List<MainShopItem>>>(Resource.Loading())
     val shopListLiveData: LiveData<Resource<List<MainShopItem>>> get() = _shopListLiveData
@@ -38,15 +35,12 @@ constructor(
     private val _searchedProductsLiveData = MutableLiveData<Resource<List<ProductModel>>>()
     val searchedProductsLiveData: LiveData<Resource<List<ProductModel>>> = _searchedProductsLiveData
 
+    private val _cartProductsLiveData = MutableLiveData<Resource<Any>>()
+    val cartProductsLiveData: LiveData<Resource<Any>> = _cartProductsLiveData
+
     private var firstLoad = true
 
     fun favoriteLiveData(id: String) = shopRepository.getProductFromFavoriteLiveData(id)
-
-    fun getUserInfo() {
-        viewModelScope.launch(Dispatchers.IO) {
-            shopRepository.getUserInformation(_userInfoLiveData)
-        }
-    }
 
     fun getShopList() {
         if (!firstLoad) return
@@ -70,7 +64,7 @@ constructor(
                 shopRepository.getSpecificCategoryProducts(categoryId)
             )
             delay(500)
-            _categoryLiveData.value = Resource.Idle()
+            _categoryLiveData.postValue(Resource.Idle())
         }
     }
 
@@ -80,6 +74,14 @@ constructor(
             _searchedProductsLiveData.postValue(shopRepository.getProductsContainName(searchName))
             delay(500)
             _searchedProductsLiveData.postValue(Resource.Idle())
+        }
+    }
+
+    fun addProductToCart(productModel: ProductModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _cartProductsLiveData.postValue(
+                shopRepository.addProductsToCart(listOf(productModel), false)
+            )
         }
     }
 }

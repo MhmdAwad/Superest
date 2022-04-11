@@ -56,7 +56,7 @@ constructor() : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
     ) {
         val quantity = text.toString()
         if (quantity.isNotEmpty()) {
-            val quantityNumber = quantity.toDouble()
+            val quantityNumber = quantity.toDouble().toInt()
             if (quantityNumber > 0) {
                 val product = purchasedProductsList.single { it.id == productModel.id }
                 product.quantity = quantityNumber

@@ -48,7 +48,8 @@ fun setProducts(
 
 @BindingAdapter("imageUrl")
 fun loadImage(imageView: ImageView, link: String) {
-    imageView.loadImage(link)
+    if(link.isNotEmpty())
+        imageView.loadImage(link)
 }
 
 @BindingAdapter("initSliderImage", "offerListener")

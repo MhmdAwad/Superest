@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Superest" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
@@ -16,7 +16,17 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+    </style>
 
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_dialog_shape</item>
     </style>
 
     <style name="textTheme">
@@ -37,6 +47,5 @@
     <style name="SplashTheme" parent="Theme.Superest">
         <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
-
 
 </resources>

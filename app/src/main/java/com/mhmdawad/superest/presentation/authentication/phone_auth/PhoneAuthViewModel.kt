@@ -34,12 +34,6 @@ constructor(
     private val _userInfoLiveData = MutableLiveData<Resource<Unit?>>()
     val userInfoLiveData: LiveData<Resource<Unit?>> get() = _userInfoLiveData
 
-    private val _userLocationLiveData = MutableLiveData<String?>(null)
-    val userLocationLiveData: LiveData<String?> = _userLocationLiveData
-    fun setUserLocation(location: String) {
-        _userLocationLiveData.value = location
-    }
-
     fun checkIfFirstAppOpened(): Boolean = authenticationRepository.checkIfFirstAppOpened()
 
     fun checkIfUserLoggedIn(): Boolean = authenticationRepository.checkIfUserLoggedIn()

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "56494895032-cbc4cfae4pmjbtet3kf3m7cr3l3r0utt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mhmdawad.superest",
+            "certificate_hash": "67f50ab5d67c6548b02a5d09c61702e8da76b55d"
+          }
+        },
+        {
           "client_id": "56494895032-fkl9il0cea0mp7bj359l4pn9dptolkrn.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -65,7 +65,7 @@
                     android:id="@+id/favProductQuantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{@string/productQuantity(productItem.quantity, productItem.quantityType)}"
+                    android:text="@{@string/productQuantity(productItem.quantityType)}"
                     android:textColor="@color/lightBlack"
                     android:textSize="@dimen/_12sdp" />
             </LinearLayout>

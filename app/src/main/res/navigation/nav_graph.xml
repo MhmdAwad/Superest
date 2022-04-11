@@ -128,7 +128,7 @@
     </fragment>
     <fragment
         android:id="@+id/locateUserLocationFragment"
-        android:name="com.mhmdawad.superest.presentation.authentication.phone_auth.LocateUserLocationFragment"
+        android:name="com.mhmdawad.superest.presentation.authentication.LocateUserLocationFragment"
         android:label="fragment_locate_user_location"
         tools:layout="@layout/fragment_locate_user_location" />
     <fragment
@@ -149,7 +149,12 @@
         android:name="com.mhmdawad.superest.presentation.main.fragment.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart"
-        />
+        >
+        <action
+            android:id="@+id/action_cartFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment"
+            />
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.mhmdawad.superest.presentation.main.fragment.favorite.FavoriteFragment"
@@ -167,7 +172,24 @@
         android:id="@+id/accountFragment"
         android:name="com.mhmdawad.superest.presentation.main.fragment.account.AccountFragment"
         android:label="fragment_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_authenticationFragment"
+            app:destination="@id/authenticationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_accountFragment_to_locateUserLocationFragment"
+            app:destination="@id/locateUserLocationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.mhmdawad.superest.presentation.main.fragment.explore.ExploreFragment"
@@ -205,5 +227,58 @@
         <argument
             android:name="productModel"
             app:argType="com.mhmdawad.superest.model.ProductModel" />
+    </fragment>
+    <dialog
+        android:id="@+id/checkoutFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.checkout.CheckoutFragment"
+        android:label="CheckoutFragment"
+        tools:layout="@layout/fragment_checkout">
+        <argument
+            android:name="totalCost"
+            app:argType="float" />
+
+        <action
+            android:id="@+id/action_checkoutFragment_to_orderStatusFragment"
+            app:destination="@id/orderStatusFragment" />
+        <argument
+            android:name="productList"
+            app:argType="com.mhmdawad.superest.model.ProductModel[]" />
+    </dialog>
+    <fragment
+        android:id="@+id/orderStatusFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.account.OrderStatusFragment"
+        android:label="OrderStatusFragment"
+        tools:layout="@layout/fragment_order_status">
+        <argument
+            android:name="orderModel"
+            app:argType="com.mhmdawad.superest.model.OrderModel" />
+        <argument
+            android:name="isOrderSubmitted"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_orderStatusFragment_to_shopFragment"
+            app:destination="@id/shopFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_orderStatusFragment_to_trackOrdersFragment"
+            app:destination="@id/trackOrdersFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/trackOrdersFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.account.TrackOrdersFragment"
+        android:label="TrackOrdersFragment"
+        tools:layout="@layout/fragment_track_orders">
+        <argument
+            android:name="orderModel"
+            app:argType="com.mhmdawad.superest.model.OrderModel" />
     </fragment>
 </navigation>

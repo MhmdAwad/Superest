@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Superest</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcomeMessage">Welcome \n to our store</string>
     <string name="welcomeSecondMessage">Get your groceries in as fast as one hour</string>
     <string name="get_started">Get started</string>
@@ -44,11 +43,10 @@
     <string name="cart">Cart</string>
     <string name="favorite">Favorite</string>
     <string name="account">Account</string>
-    <string name="productQuantity">%.0f%s, Price</string>
+    <string name="productQuantity">%s, Price</string>
     <string name="price">%.2f$</string>
     <string name="shareProduct">Hello bro,\n%1$s product is very awesome and have a very cheap price, it just cost %2$.2f$.\n You can buy it now with Superest
     supermarket app.</string>
-    <string name="number_one">1</string>
     <string name="product_detail">Product Detail</string>
     <string name="progressTextValue">%.0fg</string>
     <string name="progressCaloriesValue">%.0f</string>
@@ -58,4 +56,39 @@
     <string name="savedToCart">Products have been added to the card successfully.</string>
     <string name="go_to_checkout">Go to checkout</string>
     <string name="my_cart">My Cart</string>
+    <string name="productAddToCart">Product add to My Cart successfully.</string>
+    <string name="my_orders">My Orders</string>
+    <string name="delivery_address">Delivery Address</string>
+    <string name="help">Help</string>
+    <string name="about">About</string>
+    <string name="log_out">Log Out</string>
+    <string name="delivery">Delivery</string>
+    <string name="payment">Payment</string>
+    <string name="total_cost">Total Cost</string>
+    <string name="place_order">Place Order</string>
+    <string name="ok">OK</string>
+    <string name="addPaymentMethod">Please add a payment method to continue!</string>
+    <string name="back_to_home">Back to home</string>
+    <string name="successful_order_title">Your Order has been accepted</string>
+    <string name="successful_order_message">Your items has been placed and is on its way to begin processed.</string>
+    <string name="track_order">Track order</string>
+    <string name="fail_order_title">Oops! Order Failed</string>
+    <string name="fail_order_message">Something went wrong. Please try another payment card.</string>
+    <string name="tryAgain">Try Again</string>
+    <string name="paymentError">An error occurred with payment method.</string>
+    <string name="error">Error:</string>
+    <string name="noProductsCart">No Products in Cart!</string>
+    <string name="tracking_order">Tracking Order:</string>
+    <string name="order_placed">Order Placed</string>
+    <string name="order_placed_message">We have received your order</string>
+    <string name="order_confirmed">Order Confirmed</string>
+    <string name="order_confirmed_message">Your order has been confirmed</string>
+    <string name="order_shipped">Order Shipped</string>
+    <string name="order_shipped_message">Your order is on its way</string>
+    <string name="order_delivered">Order Delivered</string>
+    <string name="order_delivered_message">Your order is now in your hands</string>
+    <string name="accountSettings">Account Settings</string>
+    <string name="logOutMessage">You have logged out successfully</string>
+    <string name="locationChanged">Your location changed successfully!</string>
+    <string name="myLocation">My Location:</string>
 </resources>

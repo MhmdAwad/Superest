@@ -36,7 +36,7 @@ constructor(
         _cartProductsLiveData.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO) {
             _cartProductsLiveData.postValue(
-                shopRepository.addProductsToCart(favList)
+                shopRepository.addProductsToCart(favList, true)
             )
         }
     }

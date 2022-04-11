@@ -33,6 +33,7 @@ class CreateUserInfoFragment : Fragment() {
     private lateinit var binding: FragmentCreateUserInfoBinding
 
     private val authViewModel by activityViewModels<PhoneAuthViewModel>()
+    private val userInfoViewModel by activityViewModels<UserInfoViewModel>()
 
     private var mImageUri: Uri? = null
 
@@ -67,7 +68,7 @@ class CreateUserInfoFragment : Fragment() {
     }
 
     private fun observeListener() {
-        authViewModel.userLocationLiveData.observe(viewLifecycleOwner, {
+        userInfoViewModel.userLocationLiveData.observe(viewLifecycleOwner, {
             if (it != null) {
                 binding.apply {
                     selectLocationEditText.setText(it)

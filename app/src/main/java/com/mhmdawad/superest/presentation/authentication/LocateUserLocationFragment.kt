@@ -1,4 +1,4 @@
-package com.mhmdawad.superest.presentation.authentication.phone_auth
+package com.mhmdawad.superest.presentation.authentication
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -23,6 +23,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentLocateUserLocationBinding
+import com.mhmdawad.superest.presentation.authentication.phone_auth.PhoneAuthViewModel
 import com.mhmdawad.superest.util.*
 import com.mhmdawad.superest.util.extention.*
 import com.mhmdawad.superest.util.helper.GoogleMapMarkerHelper
@@ -38,7 +39,7 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
     private lateinit var mapView: MapView
     private lateinit var binding: FragmentLocateUserLocationBinding
     private var mLocationPermissionGranted: Boolean = false
-    private val authViewModel by activityViewModels<PhoneAuthViewModel>()
+    private val userInfoViewModel by activityViewModels<UserInfoViewModel>()
     private var mGoogleMap: GoogleMap? = null
     private val googleMapHelper by lazy { GoogleMapMarkerHelper() }
     private var locationLatLng = LatLng(BASE_LATITUDE, BASE_LONGITUDE)
@@ -66,7 +67,7 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
     }
 
     fun confirmLocation() {
-        authViewModel.setUserLocation(getCityNameFromLocation(locationLatLng))
+        userInfoViewModel.setUserLocation(getCityNameFromLocation(locationLatLng))
         backPressFragment()
     }
 
@@ -109,11 +110,12 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
         }
     }
 
+
     // handle user permission interaction
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
-        ) { result: MutableMap<String, Boolean> ->
+        ) { result: Map<String, Boolean> ->
             val deniedList: List<String> = result.filter {
                 !it.value
             }.map {
