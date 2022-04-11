@@ -8,7 +8,7 @@
 
         <variable
             name="fragment"
-            type="com.mhmdawad.superest.presentation.main.fragment.account.TrackOrdersFragment" />
+            type="com.mhmdawad.superest.presentation.main.fragment.account.order.TrackOrdersFragment" />
 
         <variable
             name="order"

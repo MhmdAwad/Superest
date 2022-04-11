@@ -88,12 +88,14 @@
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_payment.xml" value="0.25" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_phone_number_authentication.xml" value="0.22916666666666666" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_shop.xml" value="0.1" />
+        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_specific_order.xml" value="0.1" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_specific_product.xml" value="0.22" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_track_orders.xml" value="0.22" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/fragment_welcome.xml" value="0.1966824644549763" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/loading_dialog_layout.xml" value="0.223731884057971" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/main_header_rv_item.xml" value="0.67" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/order_item_rv_layout.xml" value="0.1911231884057971" />
+        <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/order_products_items_rv.xml" value="0.1911231884057971" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/product_items_grid_rv_layout.xml" value="0.23731884057971014" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/product_items_rv_layout.xml" value="0.25" />
         <entry key="..\:/WorkSpace/CVProjects/Superest/app/src/main/res/layout/product_type_rv_layout.xml" value="0.24230072463768115" />

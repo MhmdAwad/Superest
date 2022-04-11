@@ -1,4 +1,4 @@
-package com.mhmdawad.superest.presentation.main.fragment.account
+package com.mhmdawad.superest.presentation.main.fragment.account.order
 
 import android.app.Dialog
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentAllOrdersBinding
 import com.mhmdawad.superest.model.OrderModel
@@ -91,6 +92,11 @@ class AllOrdersFragment : Fragment(), AllOrdersAdapter.OrderListener {
     fun backPress() = closeFragment()
 
     override fun onOrderClicked(orderModel: OrderModel) {
-        // TODO: open products in order with details.
+        navigateToSpecificOrderFragment(orderModel)
+    }
+
+    private fun navigateToSpecificOrderFragment(orderModel: OrderModel) {
+        val action = AllOrdersFragmentDirections.actionAllOrdersFragmentToSpecificOrderFragment(orderModel)
+        findNavController().navigate(action)
     }
 }

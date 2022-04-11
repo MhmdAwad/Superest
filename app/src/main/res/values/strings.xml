@@ -98,4 +98,9 @@
     <string name="order_status">Order Status: </string>
     <string name="order_products">Order Products: </string>
     <string name="orderProductsWithCost">%s products - %.2f$</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="product_name">Name:</string>
+    <string name="product_quantity">Quantity:</string>
+    <string name="product_total_price">Total Price:</string>
 </resources>

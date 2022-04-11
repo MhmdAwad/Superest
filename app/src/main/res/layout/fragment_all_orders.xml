@@ -5,13 +5,13 @@
     <data>
         <variable
             name="fragment"
-            type="com.mhmdawad.superest.presentation.main.fragment.account.AllOrdersFragment" />
+            type="com.mhmdawad.superest.presentation.main.fragment.account.order.AllOrdersFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.main.fragment.account.AllOrdersFragment">
+        tools:context=".presentation.main.fragment.account.order.AllOrdersFragment">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
