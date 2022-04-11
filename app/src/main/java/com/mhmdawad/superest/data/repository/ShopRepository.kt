@@ -211,7 +211,8 @@ constructor(
     */
     suspend fun uploadProductsToOrders(
         cartProductsList: Array<ProductModel>,
-        userLocation: String
+        userLocation: String,
+        totalCost: Float
     ): Resource<OrderModel> {
         return try {
             val orderCollection = fireStore.collection(INCOMPLETE_ORDERS)
@@ -222,6 +223,7 @@ constructor(
                 System.currentTimeMillis(),
                 userLocation,
                 OrderEnums.PLACED,
+                totalCost,
                 cartProductsList.toList()
             )
             orderCollection.document(id).set(orderModel.toMap()).await()
@@ -238,6 +240,17 @@ constructor(
             it.forEach { doc ->
                 cartCollection.document(doc.id).delete().await()
             }
+        }
+    }
+
+    suspend fun getUserOrders(): Resource<List<OrderModel>> {
+        return try {
+            val result = fireStore.collection(INCOMPLETE_ORDERS).whereEqualTo("userUid", userUid).get().await()
+            val orders = convertDocumentsToOrderList(result.documents)
+            Resource.Success(orders)
+        }catch (e: Exception){
+            println(">>>>>>>>>>>>>> ${e.message}")
+            Resource.Error(errorMessage)
         }
     }
 }

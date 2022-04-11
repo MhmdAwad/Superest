@@ -177,7 +177,7 @@ class CheckoutFragment : BottomSheetDialogFragment() {
         }
         binding.loadData = false
         if (isOrderSubmitted) {
-            checkoutViewModel.pushUserOrder(cartProductsList, userLocation)
+            checkoutViewModel.pushUserOrder(cartProductsList, userLocation, totalCost)
         } else {
             navigateToOrderStatusFragment(isOrderSubmitted)
         }

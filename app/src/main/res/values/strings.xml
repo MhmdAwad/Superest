@@ -92,4 +92,10 @@
     <string name="locationChanged">Your location changed successfully!</string>
     <string name="myLocation">My Location:</string>
     <string name="productQuantityError">\"Please add valid quantity!\"</string>
+    <string name="order_num">Order Num: </string>
+    <string name="order_date">Order Date: </string>
+    <string name="order_location">Order Location: </string>
+    <string name="order_status">Order Status: </string>
+    <string name="order_products">Order Products: </string>
+    <string name="orderProductsWithCost">%s products - %.2f$</string>
 </resources>

@@ -2,11 +2,11 @@ package com.mhmdawad.superest.util
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.text.format.DateFormat
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.CircularProgressIndicator
@@ -15,9 +15,13 @@ import com.mhmdawad.superest.model.OffersModel
 import com.mhmdawad.superest.model.ProductModel
 import com.mhmdawad.superest.presentation.main.adapter.ImageSliderAdapter
 import com.mhmdawad.superest.presentation.main.adapter.ProductItemsAdapter
-import com.mhmdawad.superest.util.extention.*
-import java.util.*
+import com.mhmdawad.superest.util.extention.hide
+import com.mhmdawad.superest.util.extention.loadGif
+import com.mhmdawad.superest.util.extention.loadImage
+import com.mhmdawad.superest.util.extention.show
 import com.smarteist.autoimageslider.SliderView
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @BindingAdapter("randomBackground")
@@ -90,5 +94,13 @@ fun changeProductQuantityValue(
             quantity--
         }
         quantityEditText.setText(quantity.toString())
+    }
+}
+
+@BindingAdapter("formatDate")
+fun formatMilliSecondsDate(textView: TextView, milliseconds: Long){
+    val df = SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault())
+    df.format(Date(milliseconds)).let {
+        textView.text = it
     }
 }

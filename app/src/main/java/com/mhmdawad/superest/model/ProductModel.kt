@@ -45,6 +45,13 @@ fun convertMapToProductModel(map: Map<String, Any>): ProductModel {
         map["category"].toString(),
     )
 }
+fun convertArrayMapToProductList(map: ArrayList<Map<String, Any>>): List<ProductModel> {
+    val list = mutableListOf<ProductModel>()
+    map.forEach {
+        list.add(convertMapToProductModel(it))
+    }
+    return list
+}
 
 fun convertDocumentToProductList(document: List<DocumentSnapshot>): MutableList<ProductModel> {
     val list = mutableListOf<ProductModel>()

@@ -88,7 +88,8 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
     }
 
     fun openOrdersFragment() {
-
+        val action = AccountFragmentDirections.actionAccountFragmentToAllOrdersFragment()
+        findNavController().navigate(action)
     }
 
     fun openPaymentMethodFragment() {
