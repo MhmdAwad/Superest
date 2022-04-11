@@ -103,4 +103,5 @@
     <string name="product_name">Name:</string>
     <string name="product_quantity">Quantity:</string>
     <string name="product_total_price">Total Price:</string>
+    <string name="accountUpdatedSuccessfully">Account Updated Successfully</string>
 </resources>

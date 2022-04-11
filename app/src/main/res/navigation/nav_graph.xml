@@ -125,6 +125,11 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="userInfoModel"
+            app:argType="com.mhmdawad.superest.model.UserInfoModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/locateUserLocationFragment"
@@ -192,6 +197,13 @@
         <action
             android:id="@+id/action_accountFragment_to_allOrdersFragment"
             app:destination="@id/allOrdersFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_accountFragment_to_createUserInfoFragment"
+            app:destination="@id/createUserInfoFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

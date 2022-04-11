@@ -13,8 +13,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentCreateUserInfoBinding
+import com.mhmdawad.superest.model.UserInfoModel
 import com.mhmdawad.superest.presentation.MainActivity
 import com.mhmdawad.superest.presentation.authentication.phone_auth.PhoneAuthViewModel
 import com.mhmdawad.superest.util.LOADING_ANNOTATION
@@ -37,6 +39,9 @@ class CreateUserInfoFragment : Fragment() {
 
     private var mImageUri: Uri? = null
 
+    private val args by navArgs<CreateUserInfoFragmentArgs>()
+    private val userInfoModel by lazy { args.userInfoModel }
+
     @Inject
     @Named(LOADING_ANNOTATION)
     lateinit var loadingDialog: Dialog
@@ -45,6 +50,7 @@ class CreateUserInfoFragment : Fragment() {
         super.onCreate(savedInstanceState)
         (activity as MainActivity).hideBottomNav()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,8 +59,12 @@ class CreateUserInfoFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_create_user_info, container, false
         )
-        binding.fragment = this
-        return binding.root
+        return binding.run {
+            fragment = this@CreateUserInfoFragment
+            userInfo = userInfoModel
+            root
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,7 +92,7 @@ class CreateUserInfoFragment : Fragment() {
             when (info) {
                 is Resource.Success -> {
                     loadingDialog.hide()
-                    showToast(getString(R.string.accountCreatedSuccessfully))
+                    showToast(info.data!!)
                     closeFragment()
                 }
                 is Resource.Error -> {
@@ -101,7 +111,7 @@ class CreateUserInfoFragment : Fragment() {
             showToast(getString(R.string.addUserName))
             return@with
         }
-        if (mImageUri == null) {
+        if (mImageUri == null && userInfoModel == null) {
             showToast(getString(R.string.addUserImage))
             return@with
         }
@@ -109,7 +119,11 @@ class CreateUserInfoFragment : Fragment() {
             showToast(getString(R.string.addUserLocation))
             return@with
         }
-        authViewModel.uploadUserInformation(userName, mImageUri!!, userLocation)
+        authViewModel.uploadUserInformation(
+            userName,
+            mImageUri,
+            userLocation)
+
     }
 
     fun selectUserLocation() {

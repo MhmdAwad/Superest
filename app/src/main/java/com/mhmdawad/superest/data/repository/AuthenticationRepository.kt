@@ -33,6 +33,7 @@ constructor(
     @ApplicationContext private val context: Context,
 ) {
     private val userUid by lazy { firebaseAuth.uid!! }
+    val firebaseUserCollection by lazy { firebaseFirestore.collection(USERS_COLLECTION) }
 
     fun checkIfFirstAppOpened(): Boolean = sharedPreferenceHelper.checkIfFirstAppOpened()
 
@@ -64,17 +65,24 @@ constructor(
 
     suspend fun uploadUserInformation(
         userName: String,
-        imageUri: Uri,
+        imageUri: Uri?,
         userLocation: String
-    ): Resource<Unit?> {
+    ): Resource<String> {
         return try {
-            val uploadedImagePath = uploadUserImage(imageUri)
-            val firebaseUserCollection = firebaseFirestore.collection(USERS_COLLECTION)
-            val userDocumentId = firebaseAuth.uid!!
-            val userInfoModel =
-                UserInfoModel(userDocumentId, userName, uploadedImagePath, userLocation)
-            firebaseUserCollection.document(userDocumentId).set(userInfoModel.toMap()).await()
-            Resource.Success(null)
+            var accountStatusMessage = context.getString(R.string.accountCreatedSuccessfully)
+            if (imageUri != null) {
+                val uploadedImagePath = uploadUserImage(imageUri)
+                val userInfoModel =
+                    UserInfoModel(userUid, userName, uploadedImagePath, userLocation)
+                firebaseUserCollection.document(userUid).set(userInfoModel.toMap()).await()
+            } else {
+                val userInfoModel =
+                    UserInfoModel(userUid, userName, "", userLocation)
+                firebaseUserCollection.document(userUid).update(userInfoModel.toMapWithoutImage())
+                    .await()
+                accountStatusMessage = context.getString(R.string.accountUpdatedSuccessfully)
+            }
+            Resource.Success(accountStatusMessage)
         } catch (e: Exception) {
             Resource.Error(context.getString(R.string.errorCreateAccount))
         }
@@ -97,15 +105,16 @@ constructor(
     }
 
     // check if user has data into firebase firestore or not.
-    suspend fun getUserInformation(userInfoLiveData: MutableLiveData<Resource<UserInfoModel>>) {
-        try {
-            val task =
-                firebaseFirestore.collection(USERS_COLLECTION).document(userUid).get().await()
-            val userInfoModel = convertMapToUserInfoModel(task.data!!)
-            userInfoLiveData.postValue(Resource.Success(userInfoModel))
-        } catch (e: Exception) {
-            userInfoLiveData.postValue(Resource.Error(context.getString(R.string.errorMessage)))
-        }
+    fun getUserInformation(userInfoLiveData: MutableLiveData<Resource<UserInfoModel>>) {
+        firebaseFirestore.collection(USERS_COLLECTION).document(userUid)
+            .addSnapshotListener { value, _ ->
+                if (value == null) {
+                    userInfoLiveData.postValue(Resource.Error(context.getString(R.string.errorMessage)))
+                } else {
+                    val userInfoModel = convertMapToUserInfoModel(value.data!!)
+                    userInfoLiveData.postValue(Resource.Success(userInfoModel))
+                }
+            }
     }
 
     suspend fun changeUserLocation(location: String): Boolean {
@@ -114,7 +123,9 @@ constructor(
                 mapOf("userLocationName" to location)
             ).await()
             true
-        }catch (e: Exception){false}
+        } catch (e: Exception) {
+            false
+        }
     }
 
 }

@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
                     android:gravity="center_vertical"
-                    android:onClick="@{()-> fragment.openPaymentMethodFragment()}"
+                    android:onClick="@{()-> fragment.openAccountSettings()}"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@+id/deliveryLine"
                     tools:layout_editor_absoluteX="10dp">
