@@ -278,7 +278,7 @@
             android:layout_height="@dimen/_45sdp"
             android:layout_margin="@dimen/_8sdp"
             android:background="@drawable/button_style"
-            android:text="@string/add_to_basket"
+            android:text="@string/add_to_cart"
             android:onClick="@{()-> fragment.addProductToCart()}"
             android:theme="@style/buttonTheme"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -81,7 +81,7 @@
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:background="@drawable/button_style"
                 android:onClick="@{()-> fragment.addAllToCart()}"
-                android:text="@string/add_to_cart"
+                android:text="@string/add_all_to_cart"
                 android:theme="@style/buttonTheme"
                 app:layout_constraintBottom_toBottomOf="@+id/favoriteRV"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -167,7 +167,14 @@ constructor(
         deleteFavoriteProducts: Boolean
     ): Resource<Any> {
         return try {
+            val cartProductsList = getAllUserProducts().data
             list.forEach { product ->
+                // check if same item saved to cart before and if it saved before here we will get last quantity saved of item and
+                // added to new product quantity.
+                if (cartProductsList != null && cartProductsList.any { it.id == product.id }) {
+                    val selectedProduct = cartProductsList.last { it.id == product.id }
+                    product.quantity += selectedProduct.quantity
+                }
                 cartCollection.document(product.id).set(product).await()
             }
             if (deleteFavoriteProducts)
@@ -178,6 +185,7 @@ constructor(
         }
 
     }
+
     // delete specific product from user cart.
     suspend fun deleteProductFromUserCart(productId: String) {
         cartCollection.document(productId).delete().await()
@@ -193,6 +201,7 @@ constructor(
             Resource.Error(errorMessage)
         }
     }
+
     // create payment request to start payment process.
     suspend fun createPaymentIntent(paymentModel: PaymentModel) =
         apiClient.createPaymentIntent(paymentModel)
@@ -222,6 +231,7 @@ constructor(
             Resource.Error(errorMessage)
         }
     }
+
     // delete all products from user cart .
     private suspend fun removeUserCartProducts() {
         cartCollection.get().await().let {

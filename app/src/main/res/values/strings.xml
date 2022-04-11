@@ -50,9 +50,9 @@
     <string name="product_detail">Product Detail</string>
     <string name="progressTextValue">%.0fg</string>
     <string name="progressCaloriesValue">%.0f</string>
-    <string name="add_to_basket">add to basket</string>
+    <string name="add_to_cart">add to cart</string>
     <string name="find_products">Find Products</string>
-    <string name="add_to_cart">Add all to cart</string>
+    <string name="add_all_to_cart">Add all to cart</string>
     <string name="savedToCart">Products have been added to the card successfully.</string>
     <string name="go_to_checkout">Go to checkout</string>
     <string name="my_cart">My Cart</string>
@@ -91,4 +91,5 @@
     <string name="logOutMessage">You have logged out successfully</string>
     <string name="locationChanged">Your location changed successfully!</string>
     <string name="myLocation">My Location:</string>
+    <string name="productQuantityError">\"Please add valid quantity!\"</string>
 </resources>
