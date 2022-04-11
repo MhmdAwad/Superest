@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.transition.TransitionInflater
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentSpecificProductBinding
+import com.mhmdawad.superest.model.ProductModel
 import com.mhmdawad.superest.util.Resource
 import com.mhmdawad.superest.util.extention.closeFragment
 import com.mhmdawad.superest.util.extention.loadTimerGif
@@ -98,18 +98,21 @@ class SpecificProductFragment : Fragment() {
 
     fun addProductToCart() {
         // change product quantity with what user last saved.
-        if (checkIfQuantityValid())
-            shopViewModel.addProductToCart(productModel)
+        val productTemp = createTempProductWithNewQuantity()
+        if (productTemp != null)
+            shopViewModel.addProductToCart(productTemp)
     }
 
-    private fun checkIfQuantityValid(): Boolean {
+    private fun createTempProductWithNewQuantity(): ProductModel? {
         val quantity = binding.productQuantityEditText.text.toString().trim()
         return if (TextUtils.isDigitsOnly(quantity)) {
-            productModel.quantity = productQuantity
-            true
+            productModel.copy().let { temp ->
+                temp.quantity = productQuantity
+                temp
+            }
         } else {
             binding.productQuantityEditText.setError(getString(R.string.productQuantityError), null)
-            false
+            null
         }
     }
 
