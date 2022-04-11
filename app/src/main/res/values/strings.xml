@@ -104,4 +104,6 @@
     <string name="product_quantity">Quantity:</string>
     <string name="product_total_price">Total Price:</string>
     <string name="accountUpdatedSuccessfully">Account Updated Successfully</string>
+    <string name="backOnline">Back Online</string>
+    <string name="connectionLost">Connection Lost!</string>
 </resources>
