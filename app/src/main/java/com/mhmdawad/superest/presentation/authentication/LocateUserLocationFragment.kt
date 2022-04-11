@@ -14,7 +14,6 @@ import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.google.android.gms.auth.api.phone.SmsCodeAutofillClient.PermissionState.DENIED
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -23,7 +22,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentLocateUserLocationBinding
-import com.mhmdawad.superest.presentation.authentication.phone_auth.PhoneAuthViewModel
 import com.mhmdawad.superest.util.*
 import com.mhmdawad.superest.util.extention.*
 import com.mhmdawad.superest.util.helper.GoogleMapMarkerHelper
@@ -67,7 +65,8 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
     }
 
     fun confirmLocation() {
-        userInfoViewModel.setUserLocation(getCityNameFromLocation(locationLatLng))
+        if (checkLocationPermissions())
+            userInfoViewModel.setUserLocation(getCityNameFromLocation(locationLatLng))
         backPressFragment()
     }
 
@@ -78,17 +77,22 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
     private fun initGoogleMaps(savedInstanceState: Bundle?) {
         mapView = binding.userLocationMap
         mapView.onCreate(savedInstanceState)
+        resumeMapView()
     }
 
     override fun onResume() {
         super.onResume()
+        if (checkLocationPermissions() && !mLocationPermissionGranted) {
+            mLocationPermissionGranted = true
+            mapView.getMapAsync(this)
+            permissionDialog.hide()
+        }
         mapView.onResume()
-        resumeMapView()
     }
 
     private fun resumeMapView() {
-        if (checkMapServices()) {
-            getLocationPermission()
+        if (checkMapServices() && !checkLocationPermissions()) {
+            requestLocationPermission()
         }
     }
 
@@ -100,50 +104,24 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
         return false
     }
 
-    private fun getLocationPermission() {
+    private fun requestLocationPermission() {
         // Request location permission, so that we can get the location of the device.
-        if (checkLocationPermissions()) {
-            mLocationPermissionGranted = true
-            mapView.getMapAsync(this)
-        } else {
-            requestPermissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
-        }
+        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 
 
     // handle user permission interaction
     private val requestPermissionLauncher =
         registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { result: Map<String, Boolean> ->
-            val deniedList: List<String> = result.filter {
-                !it.value
-            }.map {
-                it.key
-            }
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
 
-            when {
-                deniedList.isNotEmpty() -> {
-                    val map = deniedList.groupBy { permission ->
-                        if (shouldShowRequestPermissionRationale(permission)) DENIED else EXPLAINED_PERMISSION
-                    }
-
-                    map[DENIED]?.let {
-                        // request denied , request again
-                        getLocationPermission()
-                    }
-                    map[EXPLAINED_PERMISSION]?.let {
-                        // user not allowed permission so we will explain why we need this permission.
-                        permissionDialog.show()
-                    }
-
-                }
-                else -> {
-                    //All request are permitted
-                    mLocationPermissionGranted = true
-                    if (permissionDialog.isShowing)
-                        permissionDialog.hide()
-                }
+            if (!isGranted) {
+                permissionDialog.show()
+            } else {
+                mLocationPermissionGranted = true
+                if (permissionDialog.isShowing)
+                    permissionDialog.hide()
             }
         }
 
@@ -163,19 +141,19 @@ class LocateUserLocationFragment : Fragment(R.layout.fragment_locate_user_locati
             mGoogleMap = map
             map.setOnCameraIdleListener(this)
             map.setOnCameraMoveListener(this)
-            moveToDeviceLocation()
+//            moveToDeviceLocation()
             binding.getDeviceLocation.showWithAnimate(R.anim.slide_down)
             return
         }
-        getLocationPermission()
+        requestLocationPermission()
     }
 
 
     @SuppressLint("MissingPermission")
     fun moveToDeviceLocation() {
         /*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
+          Get the best and most recent location of the device, which may be null in rare
+          cases when a location is not available.
          */
         try {
             val locationResult = fusedLocationProviderClient.lastLocation
