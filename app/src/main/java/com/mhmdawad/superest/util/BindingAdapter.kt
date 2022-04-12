@@ -52,6 +52,7 @@ fun setProducts(
 
 @BindingAdapter("imageUrl")
 fun loadImage(imageView: ImageView, link: String) {
+    imageView.loadGif(R.drawable.spinner)
     if(link.isNotEmpty())
         imageView.loadImage(link)
 }
