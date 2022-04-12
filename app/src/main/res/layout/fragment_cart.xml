@@ -50,7 +50,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            app:layoutDescription="@xml/fragment_cart_xml_framelayout_scene"
             android:id="@+id/cartContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -86,7 +87,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/cartRV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
         <ImageView
             android:id="@+id/emptyProducts"
@@ -99,6 +100,6 @@
             app:layout_constraintTop_toBottomOf="@+id/view"
             app:loadGif="@{@drawable/food_empty_gif}" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
