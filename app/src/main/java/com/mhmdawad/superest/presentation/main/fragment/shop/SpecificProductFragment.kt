@@ -71,6 +71,7 @@ class SpecificProductFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     showToast(getString(R.string.productAddToCart))
+                    shopViewModel.setCartProductValue()
                 }
                 is Resource.Error -> {
                     showToast(it.msg!!)
