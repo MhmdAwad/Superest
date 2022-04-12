@@ -37,8 +37,6 @@ class ShopProductAdapter(
         if (list == null || list == offersList) return
         offersList.clear()
         offersList.addAll(list)
-//        if(shopList.isNotEmpty())
-//            notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {

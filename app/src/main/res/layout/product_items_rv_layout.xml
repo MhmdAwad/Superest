@@ -94,6 +94,7 @@
                     android:layout_marginBottom="@dimen/_8sdp"
                     app:cardBackgroundColor="@color/green"
                     app:cardCornerRadius="@dimen/_10sdp"
+                    android:onClick="@{()-> productListener.addProductToCart(product)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/productType_TextView">

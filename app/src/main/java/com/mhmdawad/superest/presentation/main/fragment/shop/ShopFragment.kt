@@ -137,6 +137,15 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
                 }
             }
         })
+        shopViewModel.cartProductsLiveData.observe(viewLifecycleOwner, {
+            when(it){
+                is Resource.Success->{
+                    showToast(getString(R.string.productAddToCart))
+                    shopViewModel.setCartProductValue()
+                }
+                is Resource.Error-> showToast(it.msg!!)
+            }
+        })
     }
 
     private fun initViews(data: UserInfoModel?) {
@@ -196,6 +205,10 @@ class ShopFragment : Fragment(), ShopProductAdapter.MainProductListener,
             ShopFragmentDirections.actionShopFragmentToSpecificProductFragment(productModel)
         findNavController().navigate(action, extras)
 
+    }
+
+    override fun addProductToCart(productModel: ProductModel) {
+        shopViewModel.addProductToCart(productModel.copy())
     }
 
     // get offer data when click on specific offer from recycler view header .
