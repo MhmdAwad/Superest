@@ -112,7 +112,7 @@ constructor(
     fun getUserInformation(userInfoLiveData: MutableLiveData<Resource<UserInfoModel>>) {
         firebaseFirestore.collection(USERS_COLLECTION).document(userUid)
             .addSnapshotListener { value, _ ->
-                if (value == null) {
+                if (value == null || value.data == null) {
                     userInfoLiveData.postValue(Resource.Error(context.getString(R.string.errorMessage)))
                 } else {
                     val userInfoModel = convertMapToUserInfoModel(value.data!!)
