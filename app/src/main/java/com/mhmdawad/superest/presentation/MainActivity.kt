@@ -74,4 +74,9 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        firstCheckInternetConnection = true
+    }
+
 }
