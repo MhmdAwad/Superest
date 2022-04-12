@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     private lateinit var binding: ActivityMainBinding
     private val connectionLiveData by lazy { ConnectionLiveData(this) }
-    private var firstCheckInternetConnection = true
+    private var defaultInternetAvailable = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Superest)
@@ -40,19 +40,20 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     private fun observeNetworkConnection() {
         connectionLiveData.observe(this, {isInternetAvailable->
-            if(isInternetAvailable && !firstCheckInternetConnection){
+            if(isInternetAvailable && !defaultInternetAvailable){
                 Snackbar.make(binding.parentLayout, getString(R.string.backOnline), Snackbar.LENGTH_SHORT)
                     .setBackgroundTint(getColor(R.color.green))
                     .show()
+                defaultInternetAvailable = true
             }else if(!isInternetAvailable){
                 Snackbar.make(binding.parentLayout, getString(R.string.connectionLost), Snackbar.LENGTH_SHORT)
                     .setBackgroundTint(getColor(R.color.red))
                     .show()
+                defaultInternetAvailable = false
             }
-            firstCheckInternetConnection = false
+
         })
     }
-
 
     private fun initBottomNavigationView() {
         val navHostFragment =
@@ -72,11 +73,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             R.id.exploreFragment, R.id.accountFragment, R.id.checkoutFragment -> showBottomNav()
             else -> hideBottomNav()
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        firstCheckInternetConnection = true
     }
 
 }
