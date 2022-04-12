@@ -32,9 +32,13 @@ constructor(
     private val firebaseFirestore: FirebaseFirestore,
     @ApplicationContext private val context: Context,
 ) {
-    private val userUid by lazy { firebaseAuth.uid!! }
-    val firebaseUserCollection by lazy { firebaseFirestore.collection(USERS_COLLECTION) }
 
+    private val userUid by lazy { firebaseAuth.uid!! }
+    private val firebaseUserCollection by lazy { firebaseFirestore.collection(USERS_COLLECTION) }
+
+    init {
+        firebaseAuth.firebaseAuthSettings.setAppVerificationDisabledForTesting(true)
+    }
     fun checkIfFirstAppOpened(): Boolean = sharedPreferenceHelper.checkIfFirstAppOpened()
 
     fun checkIfUserLoggedIn(): Boolean {
