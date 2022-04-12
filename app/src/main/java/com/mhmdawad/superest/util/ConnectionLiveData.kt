@@ -26,7 +26,9 @@ val TAG = "C-Manager"
  * Inspired by:
  * https://github.com/AlexSheva-mason/Rick-Morty-Database/blob/master/app/src/main/java/com/shevaalex/android/rickmortydatabase/utils/networking/ConnectionLiveData.kt
  */
-class ConnectionLiveData(context: Context) : LiveData<Boolean>() {
+class ConnectionLiveData(
+    context: Context
+) : LiveData<Boolean>() {
 
 
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
@@ -64,8 +66,8 @@ class ConnectionLiveData(context: Context) : LiveData<Boolean>() {
                 // check if this network actually has internet
                 CoroutineScope(Dispatchers.IO).launch {
                     val hasInternet = checkIfNetworkHasInternet(network.socketFactory)
-                    if(hasInternet){
-                        withContext(Dispatchers.Main){
+                    if (hasInternet) {
+                        withContext(Dispatchers.Main) {
                             Log.d(TAG, "onAvailable: adding network. ${network}")
                             validNetworks.add(network)
                             checkValidNetworks()
