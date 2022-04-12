@@ -117,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:text="@{@string/price(productItem.price)}"
+            android:text="@{@string/price(productItem.price * productItem.quantity)}"
             android:theme="@style/bigTextTheme"
             app:layout_constraintBottom_toBottomOf="@+id/productQuantityContainer"
             app:layout_constraintEnd_toEndOf="parent"

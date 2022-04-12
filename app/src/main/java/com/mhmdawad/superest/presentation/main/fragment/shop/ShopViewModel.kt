@@ -37,6 +37,9 @@ constructor(
 
     private val _cartProductsLiveData = MutableLiveData<Resource<Any>>()
     val cartProductsLiveData: LiveData<Resource<Any>> = _cartProductsLiveData
+    fun setCartProductValue(){
+        _cartProductsLiveData.value = Resource.Idle()
+    }
 
     private var firstLoad = true
 

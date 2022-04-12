@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentSpecificProductBinding
+import com.mhmdawad.superest.model.ProductModel
 import com.mhmdawad.superest.util.Resource
 import com.mhmdawad.superest.util.extention.closeFragment
 import com.mhmdawad.superest.util.extention.loadTimerGif
@@ -28,6 +29,8 @@ class SpecificProductFragment : Fragment() {
     private val productModel by lazy { args.productModel }
     private lateinit var binding: FragmentSpecificProductBinding
     private val shopViewModel by activityViewModels<ShopViewModel>()
+    private var productQuantity = 1
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,11 +68,12 @@ class SpecificProductFragment : Fragment() {
         })
 
         shopViewModel.cartProductsLiveData.observe(viewLifecycleOwner, {
-            when(it){
-                is Resource.Success->{
+            when (it) {
+                is Resource.Success -> {
                     showToast(getString(R.string.productAddToCart))
+                    shopViewModel.setCartProductValue()
                 }
-                is Resource.Error->{
+                is Resource.Error -> {
                     showToast(it.msg!!)
                 }
             }
@@ -81,19 +85,36 @@ class SpecificProductFragment : Fragment() {
             // change total price by quantity value in edit text.
             productQuantityEditText.addTextChangedListener {
                 val quantity = productQuantityEditText.text.toString().trim()
-                if (quantity.isNotEmpty()) {
-                    val quantityNumber = quantity.toDouble().toInt()
-                    if (quantityNumber > 0)
+                if (quantity.isNotEmpty() && TextUtils.isDigitsOnly(quantity)) {
+                    productQuantity = quantity.toDouble().toInt()
+                    if (productQuantity > 0) {
                         productPriceTextView.text =
-                            getString(R.string.price, (productModel.price * quantityNumber))
+                            getString(R.string.price, (productModel.price * productQuantity))
+                    }
                 }
             }
             specificProductImage.transitionName = productModel.image
         }
     }
 
-    fun addProductToCart(){
-        shopViewModel.addProductToCart(productModel)
+    fun addProductToCart() {
+        // change product quantity with what user last saved.
+        val productTemp = createTempProductWithNewQuantity()
+        if (productTemp != null)
+            shopViewModel.addProductToCart(productTemp)
+    }
+
+    private fun createTempProductWithNewQuantity(): ProductModel? {
+        val quantity = binding.productQuantityEditText.text.toString().trim()
+        return if (TextUtils.isDigitsOnly(quantity)) {
+            productModel.copy().let { temp ->
+                temp.quantity = productQuantity
+                temp
+            }
+        } else {
+            binding.productQuantityEditText.setError(getString(R.string.productQuantityError), null)
+            null
+        }
     }
 
     fun saveProductInFavorite() {

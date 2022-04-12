@@ -36,11 +36,11 @@ constructor(
         }
     }
 
-    fun pushUserOrder(cartProductsList: Array<ProductModel>, userLocation: String) {
+    fun pushUserOrder(cartProductsList: Array<ProductModel>, userLocation: String, totalCost: Float) {
         _orderProductsLiveData.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO) {
             _orderProductsLiveData.postValue(
-                shopRepository.uploadProductsToOrders(cartProductsList, userLocation)
+                shopRepository.uploadProductsToOrders(cartProductsList, userLocation, totalCost)
             )
         }
     }

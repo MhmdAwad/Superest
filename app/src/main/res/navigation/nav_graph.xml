@@ -125,6 +125,11 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="userInfoModel"
+            app:argType="com.mhmdawad.superest.model.UserInfoModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/locateUserLocationFragment"
@@ -189,6 +194,20 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_accountFragment_to_allOrdersFragment"
+            app:destination="@id/allOrdersFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_accountFragment_to_createUserInfoFragment"
+            app:destination="@id/createUserInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/exploreFragment"
@@ -246,7 +265,7 @@
     </dialog>
     <fragment
         android:id="@+id/orderStatusFragment"
-        android:name="com.mhmdawad.superest.presentation.main.fragment.account.OrderStatusFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.account.order.OrderStatusFragment"
         android:label="OrderStatusFragment"
         tools:layout="@layout/fragment_order_status">
         <argument
@@ -274,11 +293,40 @@
     </fragment>
     <fragment
         android:id="@+id/trackOrdersFragment"
-        android:name="com.mhmdawad.superest.presentation.main.fragment.account.TrackOrdersFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.account.order.TrackOrdersFragment"
         android:label="TrackOrdersFragment"
         tools:layout="@layout/fragment_track_orders">
         <argument
             android:name="orderModel"
             app:argType="com.mhmdawad.superest.model.OrderModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/allOrdersFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.account.order.AllOrdersFragment"
+        android:label="AllOrdersFragment"
+        tools:layout="@layout/fragment_all_orders">
+        <action
+            android:id="@+id/action_allOrdersFragment_to_specificOrderFragment"
+            app:destination="@id/specificOrderFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/specificOrderFragment"
+        android:name="com.mhmdawad.superest.presentation.main.fragment.account.order.SpecificOrderFragment"
+        android:label="SpecificOrderFragment"
+        tools:layout="@layout/fragment_specific_order">
+        <argument
+            android:name="order"
+            app:argType="com.mhmdawad.superest.model.OrderModel" />
+        <action
+            android:id="@+id/action_specificOrderFragment_to_trackOrdersFragment"
+            app:destination="@id/trackOrdersFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 </navigation>

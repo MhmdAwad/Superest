@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.PhoneAuthCredential
 import com.mhmdawad.superest.data.repository.AuthenticationRepository
+import com.mhmdawad.superest.model.UserInfoModel
 import com.mhmdawad.superest.util.Resource
 import com.mhmdawad.superest.util.state.MainAuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,8 +32,11 @@ constructor(
     private val _signInStatusLiveData = MutableLiveData<Resource<Unit?>>()
     val signInStatusLiveData: LiveData<Resource<Unit?>> get() = _signInStatusLiveData
 
-    private val _userInfoLiveData = MutableLiveData<Resource<Unit?>>()
-    val userInfoLiveData: LiveData<Resource<Unit?>> get() = _userInfoLiveData
+    private val _userInfoLiveData = MutableLiveData<Resource<String>>()
+    val userInfoLiveData: LiveData<Resource<String>> get() = _userInfoLiveData
+    fun setUserInformationValue() {
+        _userInfoLiveData.value = Resource.Idle()
+    }
 
     fun checkIfFirstAppOpened(): Boolean = authenticationRepository.checkIfFirstAppOpened()
 
@@ -51,13 +55,14 @@ constructor(
 
     fun phoneAuthCallBack() = authenticationRepository.phoneAuthCallBack(_phoneAuthLiveData)
 
-    fun uploadUserInformation(userName: String, imageUri: Uri, userLocation: String) {
+    fun uploadUserInformation(userName: String, imageUri: Uri?, userLocation: String) {
         _userInfoLiveData.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO) {
             _userInfoLiveData.postValue(authenticationRepository.uploadUserInformation(userName, imageUri, userLocation))
         }
 
     }
+
 
 
 }

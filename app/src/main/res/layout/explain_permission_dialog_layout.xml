@@ -19,6 +19,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_8sdp"
+                app:tint="@color/green"
                 android:src="@drawable/ic_baseline_close_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +40,7 @@
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_110sdp"
+                android:layout_height="@dimen/_90sdp"
                 android:layout_margin="@dimen/_8sdp"
                 android:src="@drawable/location"
                 app:layout_constraintEnd_toEndOf="parent"

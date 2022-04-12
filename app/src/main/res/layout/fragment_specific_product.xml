@@ -233,6 +233,7 @@
                 android:layout_weight="1"
                 app:nutrition="@{@string/progressCaloriesValue(product.calories)}"
                 app:progressColor="@{`#53B175`}"
+                app:showProgress="@{true}"
                 app:progressTitle="@{`Cal`}"
                 app:progressValue="@{Integer.valueOf((int) product.calories)}" />
 
@@ -245,7 +246,8 @@
                 app:nutrition="@{@string/progressTextValue(product.fat)}"
                 app:progressColor="@{`#f5d363`}"
                 app:progressTitle="@{`Fat`}"
-                app:progressValue="@{Integer.valueOf((int) product.calories)}" />
+                app:progressValue="@{Integer.valueOf((int) product.calories)}"
+                app:showProgress="@{false}"/>
 
             <include
                 android:id="@+id/proteinContainer"
@@ -253,6 +255,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:showProgress="@{false}"
                 app:nutrition="@{@string/progressTextValue(product.protein)}"
                 app:progressColor="@{`#fc8886`}"
                 app:progressTitle="@{`Protein`}"
@@ -264,6 +267,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:showProgress="@{false}"
                 app:nutrition="@{@string/progressTextValue(product.carb)}"
                 app:progressColor="@{`#d2bfc1`}"
                 app:progressTitle="@{`Carb`}"
@@ -278,7 +282,7 @@
             android:layout_height="@dimen/_45sdp"
             android:layout_margin="@dimen/_8sdp"
             android:background="@drawable/button_style"
-            android:text="@string/add_to_basket"
+            android:text="@string/add_to_cart"
             android:onClick="@{()-> fragment.addProductToCart()}"
             android:theme="@style/buttonTheme"
             app:layout_constraintBottom_toBottomOf="parent"

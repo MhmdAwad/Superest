@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="android.view.View"/>
         <variable
             name="progressValue"
             type="Integer" />
@@ -13,6 +14,9 @@
         <variable
             name="progressColor"
             type="String" />
+        <variable
+            name="showProgress"
+            type="Boolean" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,6 +34,7 @@
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
         app:indicatorSize="80dp"
+        android:visibility="@{showProgress? View.VISIBLE: View.INVISIBLE}"
         indicatorProgressColor="@{progressColor}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

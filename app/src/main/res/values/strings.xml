@@ -50,13 +50,13 @@
     <string name="product_detail">Product Detail</string>
     <string name="progressTextValue">%.0fg</string>
     <string name="progressCaloriesValue">%.0f</string>
-    <string name="add_to_basket">add to basket</string>
+    <string name="add_to_cart">add to cart</string>
     <string name="find_products">Find Products</string>
-    <string name="add_to_cart">Add all to cart</string>
+    <string name="add_all_to_cart">Add all to cart</string>
     <string name="savedToCart">Products have been added to the card successfully.</string>
     <string name="go_to_checkout">Go to checkout</string>
     <string name="my_cart">My Cart</string>
-    <string name="productAddToCart">Product add to My Cart successfully.</string>
+    <string name="productAddToCart">Product added to My Cart successfully.</string>
     <string name="my_orders">My Orders</string>
     <string name="delivery_address">Delivery Address</string>
     <string name="help">Help</string>
@@ -91,4 +91,19 @@
     <string name="logOutMessage">You have logged out successfully</string>
     <string name="locationChanged">Your location changed successfully!</string>
     <string name="myLocation">My Location:</string>
+    <string name="productQuantityError">\"Please add valid quantity!\"</string>
+    <string name="order_num">Order Num: </string>
+    <string name="order_date">Order Date: </string>
+    <string name="order_location">Order Location: </string>
+    <string name="order_status">Order Status: </string>
+    <string name="order_products">Order Products: </string>
+    <string name="orderProductsWithCost">%s products - %.2f$</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="product_name">Name:</string>
+    <string name="product_quantity">Quantity:</string>
+    <string name="product_total_price">Total Price:</string>
+    <string name="accountUpdatedSuccessfully">Account Updated Successfully</string>
+    <string name="backOnline">Back Online</string>
+    <string name="connectionLost">Connection Lost!</string>
 </resources>

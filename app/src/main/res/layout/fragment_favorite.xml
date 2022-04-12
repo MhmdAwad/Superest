@@ -50,7 +50,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            app:layoutDescription="@xml/fragment_favorite_xml_framelayout_scene"
             android:id="@+id/favoriteContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -81,12 +82,12 @@
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:background="@drawable/button_style"
                 android:onClick="@{()-> fragment.addAllToCart()}"
-                android:text="@string/add_to_cart"
+                android:text="@string/add_all_to_cart"
                 android:theme="@style/buttonTheme"
                 app:layout_constraintBottom_toBottomOf="@+id/favoriteRV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
         <ImageView
             android:id="@+id/emptyProducts"

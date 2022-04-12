@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentAccountBinding
+import com.mhmdawad.superest.model.UserInfoModel
 import com.mhmdawad.superest.presentation.authentication.UserInfoViewModel
 import com.mhmdawad.superest.util.DISPLAY_DIALOG
 import com.mhmdawad.superest.util.LOADING_ANNOTATION
@@ -40,6 +41,8 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
     @Named(DISPLAY_DIALOG)
     lateinit var displayAlert: AlertDialog
 
+    private var userInfoModel: UserInfoModel? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,7 +62,8 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         userInfoViewModel.userInformationLiveData.observe(viewLifecycleOwner, { userInfo ->
             when (userInfo) {
                 is Resource.Success -> {
-                    binding.userInfo = userInfo.data
+                    userInfoModel = userInfo.data
+                    binding.userInfo = userInfoModel
                     loadingDialog.hide()
                 }
                 is Resource.Error -> {
@@ -88,11 +92,13 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
     }
 
     fun openOrdersFragment() {
-
+        val action = AccountFragmentDirections.actionAccountFragmentToAllOrdersFragment()
+        findNavController().navigate(action)
     }
 
-    fun openPaymentMethodFragment() {
-
+    fun openAccountSettings() {
+        val action = AccountFragmentDirections.actionAccountFragmentToCreateUserInfoFragment(userInfoModel)
+        findNavController().navigate(action)
     }
 
     fun openDeliveryAddressFragment() {

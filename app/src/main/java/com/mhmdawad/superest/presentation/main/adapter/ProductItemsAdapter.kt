@@ -70,5 +70,6 @@ class ProductItemsAdapter(
 
     interface ProductListener{
         fun onProductClick(productModel: ProductModel, transitionImageView: ImageView)
+        fun addProductToCart(productModel: ProductModel)
     }
 }
