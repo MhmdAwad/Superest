@@ -78,7 +78,7 @@ class CreateUserInfoFragment : Fragment() {
     }
 
     private fun observeListener() {
-        userInfoViewModel.userLocationLiveData.observe(viewLifecycleOwner, {
+        userInfoViewModel.userLocationLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 binding.apply {
                     selectLocationEditText.setText(it)
@@ -87,8 +87,8 @@ class CreateUserInfoFragment : Fragment() {
                     )
                 }
             }
-        })
-        authViewModel.userInfoLiveData.observe(viewLifecycleOwner, { info ->
+        }
+        authViewModel.userInfoLiveData.observe(viewLifecycleOwner) { info ->
             when (info) {
                 is Resource.Success -> {
                     loadingDialog.hide()
@@ -96,13 +96,15 @@ class CreateUserInfoFragment : Fragment() {
                     authViewModel.setUserInformationValue()
                     closeFragment()
                 }
+
                 is Resource.Error -> {
                     loadingDialog.hide()
                     showToast(info.msg!!)
                 }
+
                 is Resource.Loading -> loadingDialog.show()
             }
-        })
+        }
     }
 
     fun submitUserInfo() = with(binding) {

@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "56494895032-097g12kojfo35drbjkov6cpt89ri6go2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mhmdawad.superest",
+            "certificate_hash": "680ae85658d30a9751b90d0d8bde77ea7d690a82"
+          }
+        },
+        {
           "client_id": "56494895032-cbc4cfae4pmjbtet3kf3m7cr3l3r0utt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.mhmdawad.superest",
             "certificate_hash": "67f50ab5d67c6548b02a5d09c61702e8da76b55d"
+          }
+        },
+        {
+          "client_id": "56494895032-vuhqac6cuv08rks5bjjavlq8eaa36r37.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mhmdawad.superest",
+            "certificate_hash": "0a5aa4218d4b293e2a393671a31da614714b5923"
           }
         },
         {

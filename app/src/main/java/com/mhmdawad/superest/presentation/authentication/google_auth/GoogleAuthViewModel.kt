@@ -1,5 +1,6 @@
 package com.mhmdawad.superest.presentation.authentication.google_auth
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -36,6 +37,7 @@ constructor(
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             firebaseAuthWithGoogle(credential)
         } catch (e: ApiException) {
+            Log.e("TAG", "handleGoogleAuthRequest: ${e}", )
             _googleAuthLiveData.value = Resource.Error(errorMsg)
         }
     }

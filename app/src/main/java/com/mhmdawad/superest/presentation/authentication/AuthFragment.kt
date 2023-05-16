@@ -15,6 +15,7 @@ class AuthFragment : Fragment() {
 
     private lateinit var binding: FragmentAuthenticationBinding
 
+    private var selectedCodeCountry = -1L
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,8 +28,18 @@ class AuthFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if(selectedCodeCountry >= 0){
+            binding.countryCodePicker.setCountryForPhoneCode(selectedCodeCountry.toInt())
+        }
+    }
+
     fun navigateToPhoneAuthFragment() {
-        val action = AuthFragmentDirections.actionAuthFragmentToPhoneNumberAuthFragment()
+        selectedCodeCountry = binding.countryCodePicker.selectedCountryCodeAsInt.toLong()
+        val action = AuthFragmentDirections.actionAuthFragmentToPhoneNumberAuthFragment(
+            selectedCodeCountry
+        )
         findNavController().navigate(action)
     }
 

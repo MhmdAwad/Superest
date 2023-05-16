@@ -39,18 +39,26 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     }
 
     private fun observeNetworkConnection() {
-        connectionLiveData.observe(this, {isInternetAvailable->
-            if(isInternetAvailable && !firstCheckInternetConnection){
-                Snackbar.make(binding.parentLayout, getString(R.string.backOnline), Snackbar.LENGTH_SHORT)
+        connectionLiveData.observe(this) { isInternetAvailable ->
+            if (isInternetAvailable && !firstCheckInternetConnection) {
+                Snackbar.make(
+                    binding.parentLayout,
+                    getString(R.string.backOnline),
+                    Snackbar.LENGTH_SHORT
+                )
                     .setBackgroundTint(getColor(R.color.green))
                     .show()
-            }else if(!isInternetAvailable){
-                Snackbar.make(binding.parentLayout, getString(R.string.connectionLost), Snackbar.LENGTH_SHORT)
+            } else if (!isInternetAvailable) {
+                Snackbar.make(
+                    binding.parentLayout,
+                    getString(R.string.connectionLost),
+                    Snackbar.LENGTH_SHORT
+                )
                     .setBackgroundTint(getColor(R.color.red))
                     .show()
             }
             firstCheckInternetConnection = false
-        })
+        }
     }
 
 
@@ -70,6 +78,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         when (destination.id) {
             R.id.shopFragment, R.id.cartFragment, R.id.favoriteFragment,
             R.id.exploreFragment, R.id.accountFragment, R.id.checkoutFragment -> showBottomNav()
+
             else -> hideBottomNav()
         }
     }

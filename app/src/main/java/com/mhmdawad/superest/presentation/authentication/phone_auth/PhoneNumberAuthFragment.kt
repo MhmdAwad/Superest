@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthOptions
@@ -39,7 +41,7 @@ class PhoneNumberAuthFragment : Fragment() {
     @Named(LOADING_ANNOTATION)
     lateinit var loadingDialog: Dialog
 
-    private val authViewModel by activityViewModels<PhoneAuthViewModel>()
+    private val authViewModel by viewModels<PhoneAuthViewModel>()
 
     private var verificationId: String? = null
     private var verificationToken: PhoneAuthProvider.ForceResendingToken? = null
@@ -47,6 +49,11 @@ class PhoneNumberAuthFragment : Fragment() {
     private var verificationTimeOut: Long = 0
 
     private var validPhoneNumber: String = ""
+
+    private val selectedCountryCode by lazy {
+        navArgs<PhoneNumberAuthFragmentArgs>().value.code.toInt()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,12 +68,15 @@ class PhoneNumberAuthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.backButton.setOnClickListener { closeFragment() }
+        binding.apply {
+            countryCodePicker.setCountryForPhoneCode(selectedCountryCode)
+            backButton.setOnClickListener { closeFragment() }
+        }
         observeListener()
     }
 
     private fun observeListener() {
-        authViewModel.phoneMainAuthLiveData.observe(viewLifecycleOwner, {
+        authViewModel.phoneMainAuthLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 /* some cases the phone number can be instantly verified without needing to send or enter a verification code
                     so here we will login with credential and we observe when login to open MainFragment if user has already an account
@@ -96,6 +106,7 @@ class PhoneNumberAuthFragment : Fragment() {
                         is FirebaseAuthInvalidCredentialsException -> {
                             showToast(getString(R.string.please_check_internet_connection))
                         }
+
                         else -> {
                             showToast(getString(R.string.errorMessage))
                         }
@@ -106,9 +117,9 @@ class PhoneNumberAuthFragment : Fragment() {
                 // hide loading dialog when app wait reaction from user.
                 is MainAuthState.Idle -> loadingDialog.hide()
             }
-        })
+        }
 
-        authViewModel.signInStatusLiveData.observe(viewLifecycleOwner, {
+        authViewModel.signInStatusLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 // When had an error with automatically login app will push an error message.
                 is Resource.Error -> {
@@ -122,9 +133,10 @@ class PhoneNumberAuthFragment : Fragment() {
                     loadingDialog.hide()
                     navigateToMainFragment()
                 }
-                is Resource.Loading-> loadingDialog.show()
+
+                is Resource.Loading -> loadingDialog.show()
             }
-        })
+        }
 
     }
 
@@ -141,9 +153,11 @@ class PhoneNumberAuthFragment : Fragment() {
             phoneNumber.isEmpty() -> {
                 showToast(getString(R.string.please_add_your_phone_number_to_continue))
             }
+
             phoneNumber.toInt() < 4 -> {
                 showToast(getString(R.string.please_add_a_valid_phone_number))
             }
+
             else -> {
                 /* Check this is the first verification sent from this mobile and not a second one by check if firebase timeout
                    has finished . */
@@ -181,8 +195,9 @@ class PhoneNumberAuthFragment : Fragment() {
         val verificationModel =
             PhoneVerificationModel(verificationId, verificationToken, validPhoneNumber)
         val action =
-            PhoneNumberAuthFragmentDirections.
-            actionPhoneNumberAuthFragmentToCheckCodeAuthFragment(verificationModel)
+            PhoneNumberAuthFragmentDirections.actionPhoneNumberAuthFragmentToCheckCodeAuthFragment(
+                verificationModel
+            )
         findNavController().navigate(action)
     }
 

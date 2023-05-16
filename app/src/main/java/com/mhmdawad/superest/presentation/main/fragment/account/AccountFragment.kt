@@ -59,28 +59,30 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
     }
 
     private fun observeListener() {
-        userInfoViewModel.userInformationLiveData.observe(viewLifecycleOwner, { userInfo ->
+        userInfoViewModel.userInformationLiveData.observe(viewLifecycleOwner) { userInfo ->
             when (userInfo) {
                 is Resource.Success -> {
                     userInfoModel = userInfo.data
                     binding.userInfo = userInfoModel
                     loadingDialog.hide()
                 }
+
                 is Resource.Error -> {
                     loadingDialog.hide()
                     showToast(userInfo.msg!!)
                 }
+
                 is Resource.Loading -> loadingDialog.show()
             }
-        })
+        }
 
-        userInfoViewModel.userLocationLiveData.observe(viewLifecycleOwner, {newLocation->
-           if(newLocation != null){
-               userInfoViewModel.changUserLocation(newLocation)
-               showAlertDialog(getString(R.string.myLocation), getString(R.string.locationChanged))
-           }
+        userInfoViewModel.userLocationLiveData.observe(viewLifecycleOwner) { newLocation ->
+            if (newLocation != null) {
+                userInfoViewModel.changUserLocation(newLocation)
+                showAlertDialog(getString(R.string.myLocation), getString(R.string.locationChanged))
+            }
 
-        })
+        }
     }
 
     private fun showAlertDialog(title: String, message: String) {

@@ -90,7 +90,6 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/_8sdp"
                 android:paddingEnd="@dimen/_48sdp"
-                android:text="@{userInfo!=null? userInfo.userLocationName: ``}"
                 android:textSize="@dimen/_12sdp" />
 
             <ImageView

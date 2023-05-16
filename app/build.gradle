@@ -10,7 +10,15 @@ plugins {
 
 android {
     compileSdk 31
+    signingConfigs {
+        config {
+            storeFile file('../superest.jks')
+            storePassword '123123'
+            keyPassword '123123'
+            keyAlias 'key0'
+        }
 
+    }
     defaultConfig {
         applicationId "com.mhmdawad.superest"
         minSdk 23
@@ -25,6 +33,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 

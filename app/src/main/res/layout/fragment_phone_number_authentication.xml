@@ -79,7 +79,7 @@
 
             <com.hbb20.CountryCodePicker
                 android:id="@+id/countryCodePicker"
-                android:layout_width="@dimen/_80sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:ccp_autoDetectCountry="true"
                 app:ccp_showNameCode="false"

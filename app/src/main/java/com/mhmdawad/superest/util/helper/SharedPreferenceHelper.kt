@@ -2,6 +2,10 @@ package com.mhmdawad.superest.util.helper
 
 import android.content.SharedPreferences
 import com.mhmdawad.superest.util.FIRST_LOGGED_IN_APP
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SharedPreferenceHelper

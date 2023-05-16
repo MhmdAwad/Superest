@@ -12,6 +12,7 @@ import com.mhmdawad.superest.R
 import com.mhmdawad.superest.databinding.FragmentWelcomeBinding
 import com.mhmdawad.superest.presentation.authentication.phone_auth.PhoneAuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 
 
 @AndroidEntryPoint
@@ -28,6 +29,25 @@ class WelcomeFragment : Fragment() {
             a function that check if user logged in with firebase authentication if he has logged in
             will open MainFragment if not will open Authentication Fragment.
          */
+        CoroutineScope(Dispatchers.IO).apply {
+            launch(Dispatchers.Main){
+                println("?@@@@ ${Thread.currentThread().name}")
+            }
+            launch {
+                println("?@@@@2 ${Thread.currentThread().name}")
+                withContext(Dispatchers.Main){
+                    println("@@@@@ HELLO WITH CONTEXT")
+                    delay(5000)
+                }
+                println("@@@@@ HELLO 1 ${Thread.currentThread().name}")
+                launch(Dispatchers.Main.immediate) {
+                    println("@@@@@ HELLO LAUNCH")
+                    delay(5000)
+                }
+                println("@@@@@ HELLO 2 ${Thread.currentThread().name}")
+
+            }
+        }
         val isFirstLogIn = authViewModel.checkIfFirstAppOpened()
         if(!isFirstLogIn){
             checkIfUserLoggedIn()
